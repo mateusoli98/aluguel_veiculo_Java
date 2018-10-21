@@ -1,11 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.Cliente;
+import modelDAO.ClienteDAO;
+
 public class JFLogin extends javax.swing.JFrame {
+
+    Cliente cliente = new Cliente();
+    ClienteDAO clienteDAO = new ClienteDAO();
+    ResultSet rs = null;
+    String usuario, senha;
 
     public JFLogin() {
         initComponents();
@@ -17,7 +24,7 @@ public class JFLogin extends javax.swing.JFrame {
 
         btnCadastrar = new javax.swing.JButton();
         btnEntrar = new javax.swing.JButton();
-        txtUsuario1 = new javax.swing.JTextField();
+        txtUsuario = new javax.swing.JTextField();
         txtSenha = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -32,6 +39,11 @@ public class JFLogin extends javax.swing.JFrame {
         });
 
         btnEntrar.setText("Entrar");
+        btnEntrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEntrarActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Senha");
 
@@ -54,7 +66,7 @@ public class JFLogin extends javax.swing.JFrame {
                             .addComponent(jLabel1)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtUsuario1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel2))))
                 .addContainerGap(51, Short.MAX_VALUE))
         );
@@ -64,7 +76,7 @@ public class JFLogin extends javax.swing.JFrame {
                 .addContainerGap(46, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtUsuario1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addGap(2, 2, 2)
@@ -85,6 +97,32 @@ public class JFLogin extends javax.swing.JFrame {
         frmCadastro.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
+    private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
+        try {
+            usuario = txtUsuario.getText();
+            senha = txtSenha.getText();
+            if ((rs = clienteDAO.buscaLoginCliente(usuario, senha)).next()) {
+                pegaValorBD(rs, senha);
+                JFMenu frmMenu = new JFMenu(cliente);
+                frmMenu.setVisible(true);
+                frmMenu.setLocationRelativeTo(null);
+                dispose();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(JFLogin.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(JFLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnEntrarActionPerformed
+
+    void pegaValorBD(ResultSet rs, String senha) throws SQLException {
+        cliente.setNome(rs.getString("nome"));
+        cliente.setEmail(rs.getString("email"));
+        cliente.setTelefone(rs.getString("telefone"));
+        cliente.setCelular(rs.getString("celular"));
+        cliente.setUsuario(rs.getString("usuario"));
+        cliente.setNome(senha);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;
@@ -92,6 +130,6 @@ public class JFLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPasswordField txtSenha;
-    private javax.swing.JTextField txtUsuario1;
+    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

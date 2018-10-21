@@ -2,6 +2,7 @@ package modelDAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import model.Cliente;
 
@@ -24,6 +25,15 @@ public class ClienteDAO {
         ps.executeUpdate();
         conn.close();
         ps.close();
+        query = "";
+    }
+
+    public ResultSet buscaLoginCliente(String usuario, String senha) throws SQLException, ClassNotFoundException {
+        conn = ConexaoDAO.abreConexao();
+        query = "SELECT * FROM cliente WHERE usuario = '"+ usuario + "' and senha = md5('" + senha + "')";
+        ps = conn.prepareStatement(query);
+        ResultSet rs = ps.executeQuery(query);
+        return rs;
     }
 
 }
