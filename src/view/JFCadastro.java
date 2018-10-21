@@ -1,7 +1,16 @@
-
 package view;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import model.Cliente;
+import modelDAO.ClienteDAO;
+
 public class JFCadastro extends javax.swing.JFrame {
+
+    Cliente cliente = new Cliente();
+    ClienteDAO clienteDAO = new ClienteDAO();
 
     public JFCadastro() {
         initComponents();
@@ -108,11 +117,27 @@ public class JFCadastro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        // TODO add your handling code here:
+        setaObjeto();
+        try {
+            clienteDAO.cadastraCliente(cliente);
+            JOptionPane.showMessageDialog(null, "Cadastro concluido com sucesso!");
+            dispose();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
+    void setaObjeto() {
+        cliente.setNome(txtNome.getText());
+        cliente.setEmail(txtEmail.getText());
+        cliente.setTelefone(txtTelefone.getText());
+        cliente.setCelular(txtCelular.getText());
+        cliente.setUsuario(txtUsuario.getText());
+        cliente.setSenha(txtSenha.getText());
+    }
 
- 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;
