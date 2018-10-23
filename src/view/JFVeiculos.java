@@ -13,9 +13,10 @@ public class JFVeiculos extends javax.swing.JFrame {
 
     public JFVeiculos() {
         initComponents();
-        DefaultTableModel modelCliente = (DefaultTableModel) tableVeiculos.getModel();
-        tableVeiculos.setRowSorter(new TableRowSorter(modelCliente));
+        DefaultTableModel modelVeiculo = (DefaultTableModel) tableVeiculos.getModel();
+        tableVeiculos.setRowSorter(new TableRowSorter(modelVeiculo));
         carregaDadosTable();
+        
     }
 
     void carregaDadosTable() {
@@ -38,6 +39,7 @@ public class JFVeiculos extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tableVeiculos = new javax.swing.JTable();
+        txtDataInicio = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -59,21 +61,30 @@ public class JFVeiculos extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tableVeiculos);
 
+        txtDataInicio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(187, 187, 187)
+                        .addComponent(txtDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
+                .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(218, Short.MAX_VALUE))
+                .addGap(74, 74, 74)
+                .addComponent(txtDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(135, Short.MAX_VALUE))
         );
 
         pack();
@@ -83,5 +94,6 @@ public class JFVeiculos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableVeiculos;
+    private javax.swing.JFormattedTextField txtDataInicio;
     // End of variables declaration//GEN-END:variables
 }
