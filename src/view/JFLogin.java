@@ -116,14 +116,6 @@ public class JFLogin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnEntrarActionPerformed
 
-//    void pegaValorBD(ResultSet rs, String senha) throws SQLException {
-//        cliente.setNome(rs.getString("nome"));
-//        cliente.setEmail(rs.getString("email"));
-//        cliente.setTelefone(rs.getString("telefone"));
-//        cliente.setCelular(rs.getString("celular"));
-//        cliente.setUsuario(rs.getString("usuario"));
-//        cliente.setNome(senha);
-//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;

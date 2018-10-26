@@ -35,6 +35,7 @@ public class ClienteDAO {
         ResultSet rs = ps.executeQuery(query);
         return rs;
     }
+    
     public void infoCliente(ResultSet rs){
         Cliente cliente =  new Cliente();
         try {
@@ -46,7 +47,6 @@ public class ClienteDAO {
         
         ConexaoDAO.setCliente(cliente);
         } catch (SQLException e) {
-        }
-        
+        }   
     }
 }
