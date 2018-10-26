@@ -12,13 +12,14 @@ public class VeiculoDAO {
     PreparedStatement ps;
     ResultSet rs;
     Connection conn;
+    String query = "";
 
     public ArrayList<Veiculo> exibeVeiculos() {
         ArrayList<Veiculo> listVeiculos = new ArrayList<>();
         try {
             conn = ConexaoDAO.abreConexao();
-            String buscaCliente = "SELECT * FROM veiculo";
-            ps = conn.prepareStatement(buscaCliente);
+            query = "SELECT * FROM veiculo";
+            ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -30,6 +31,7 @@ public class VeiculoDAO {
                 objVeiculo.setAno(rs.getInt("ano"));
                 listVeiculos.add(objVeiculo);
                 objVeiculo = null;
+                query = "";
             }
             conn.close();
             ps.close();
@@ -42,4 +44,39 @@ public class VeiculoDAO {
         }
         return listVeiculos;
     }
+    
+    public ArrayList<Veiculo> exibeTipoVeiculos(String tipo) {
+        ArrayList<Veiculo> listVeiculos = new ArrayList<>();
+        try {
+            conn = ConexaoDAO.abreConexao();
+            query = "SELECT * FROM veiculo WHERE tipo = '"+tipo+"' AND alugado = 0";
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Veiculo objVeiculo = new Veiculo();
+                objVeiculo.setNome(rs.getString("nome"));
+                objVeiculo.setCombustivel(rs.getString("combustivel"));
+                objVeiculo.setModelo(rs.getString("modelo"));
+                objVeiculo.setMarca(rs.getString("marca"));
+                objVeiculo.setAno(rs.getInt("ano"));
+                listVeiculos.add(objVeiculo);
+                objVeiculo = null;
+                query = "";
+            }
+            conn.close();
+            ps.close();
+            rs.close();
+
+        } catch (SQLException erroSQL) {
+            erroSQL.printStackTrace();
+        } catch (Exception erro) {
+            erro.printStackTrace();
+        }
+        return listVeiculos;
+    }
+    
+    
+    
+    
 }
