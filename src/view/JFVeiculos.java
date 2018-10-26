@@ -10,7 +10,7 @@ public class JFVeiculos extends javax.swing.JFrame {
 
     Veiculo objVeiculo = new Veiculo();
     VeiculoDAO objVeiculoDAO = new VeiculoDAO();
-    String operacao = "", tipoVeiculo = "";
+    String operacao = "", tipoVeiculo = "", nomeVeiculo;
     DefaultTableModel dtmDefault = new DefaultTableModel();
 
     public JFVeiculos() {
@@ -33,11 +33,6 @@ public class JFVeiculos extends javax.swing.JFrame {
         }
     }
 
-    void inicializaModel() {
-        dtmDefault = (DefaultTableModel) tableVeiculos.getModel();
-        dtmDefault.setNumRows(0);
-    }
-
     void dadosTableTipoVeiculo(String tipo) {
         inicializaModel();
         for (Veiculo objVeiculo : objVeiculoDAO.exibeTipoVeiculos(tipo)) {
@@ -50,6 +45,23 @@ public class JFVeiculos extends javax.swing.JFrame {
         }
     }
 
+    void dadosTabelNomeVeiculo(String nome) {
+        inicializaModel();
+        for (Veiculo objVeiculo : objVeiculoDAO.exibeVeiculoNome(nome)) {
+            dtmDefault.addRow(new Object[]{
+                objVeiculo.getNome(),
+                objVeiculo.getModelo(),
+                objVeiculo.getMarca(),
+                objVeiculo.getCombustivel(),
+                objVeiculo.getAno(),});
+        }
+    }
+
+    void inicializaModel() {
+        dtmDefault = (DefaultTableModel) tableVeiculos.getModel();
+        dtmDefault.setNumRows(0);
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -58,6 +70,8 @@ public class JFVeiculos extends javax.swing.JFrame {
         tableVeiculos = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         cmbTipoVeiculo = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        txtNomeVeiculo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -88,6 +102,14 @@ public class JFVeiculos extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setText("Nome Veiculo");
+
+        txtNomeVeiculo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNomeVeiculoKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -98,7 +120,11 @@ public class JFVeiculos extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmbTipoVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cmbTipoVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNomeVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
@@ -108,7 +134,9 @@ public class JFVeiculos extends javax.swing.JFrame {
                 .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(cmbTipoVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbTipoVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtNomeVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(182, Short.MAX_VALUE))
@@ -125,16 +153,28 @@ public class JFVeiculos extends javax.swing.JFrame {
         if (tipoVeiculo.equals("Moto")) {
             dadosTableTipoVeiculo(tipoVeiculo);
         }
-          if (tipoVeiculo.equals("**Selecione**")) {
+        if (tipoVeiculo.equals("**Selecione**")) {
             carregaDadosTable();
         }
     }//GEN-LAST:event_cmbTipoVeiculoActionPerformed
+
+    private void txtNomeVeiculoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeVeiculoKeyReleased
+        nomeVeiculo = txtNomeVeiculo.getText();
+        if (!nomeVeiculo.equals("")) {
+            dadosTabelNomeVeiculo(nomeVeiculo);
+        } else {
+            carregaDadosTable();
+        }
+
+    }//GEN-LAST:event_txtNomeVeiculoKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cmbTipoVeiculo;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableVeiculos;
+    private javax.swing.JTextField txtNomeVeiculo;
     // End of variables declaration//GEN-END:variables
 }

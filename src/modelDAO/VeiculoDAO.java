@@ -76,6 +76,36 @@ public class VeiculoDAO {
         return listVeiculos;
     }
     
+      public ArrayList<Veiculo> exibeVeiculoNome(String nome) {
+        ArrayList<Veiculo> listVeiculos = new ArrayList<>();
+        try {
+            conn = ConexaoDAO.abreConexao();
+            query = "SELECT * FROM veiculo WHERE nome LIKE '%"+nome+"' AND alugado = 0";
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Veiculo objVeiculo = new Veiculo();
+                objVeiculo.setNome(rs.getString("nome"));
+                objVeiculo.setCombustivel(rs.getString("combustivel"));
+                objVeiculo.setModelo(rs.getString("modelo"));
+                objVeiculo.setMarca(rs.getString("marca"));
+                objVeiculo.setAno(rs.getInt("ano"));
+                listVeiculos.add(objVeiculo);
+                objVeiculo = null;
+                query = "";
+            }
+            conn.close();
+            ps.close();
+            rs.close();
+
+        } catch (SQLException erroSQL) {
+            erroSQL.printStackTrace();
+        } catch (Exception erro) {
+            erro.printStackTrace();
+        }
+        return listVeiculos;
+    }
     
     
     
