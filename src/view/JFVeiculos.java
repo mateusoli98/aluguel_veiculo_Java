@@ -18,7 +18,8 @@ public class JFVeiculos extends javax.swing.JFrame {
         dtmDefault = (DefaultTableModel) tableVeiculos.getModel();
         tableVeiculos.setRowSorter(new TableRowSorter(dtmDefault));
         carregaDadosTable();
-        desabilitaCampos();
+        desabilitaCamposCotacao();
+        desabilitaCamposContratacao();
 
     }
 
@@ -58,24 +59,32 @@ public class JFVeiculos extends javax.swing.JFrame {
         }
     }
 
-    void habilitaCampos() {
-        lblValorAluguel.setVisible(true);
+    void habilitaCamposCotacao() {
         txtDataInicio.setVisible(true);
         txtDataFim.setVisible(true);
-        btnConfirmar.setVisible(true);
-        btnCancelar.setVisible(true);
         lblDataFim.setVisible(true);
         lblDataInicio.setVisible(true);
+        btnCalcular.setVisible(true);
     }
 
-    void desabilitaCampos() {
-        lblValorAluguel.setVisible(false);
+    void desabilitaCamposCotacao() {
         txtDataInicio.setVisible(false);
         txtDataFim.setVisible(false);
-        btnConfirmar.setVisible(false);
-        btnCancelar.setVisible(false);
         lblDataFim.setVisible(false);
         lblDataInicio.setVisible(false);
+        btnCalcular.setVisible(false);
+    }
+
+    void habilitaCamposContratacao() {
+        lblValorAluguel.setVisible(true);
+        btnConfirmar.setVisible(true);
+        btnCancelar.setVisible(true);
+    }
+
+    void desabilitaCamposContratacao() {
+        lblValorAluguel.setVisible(false);
+        btnConfirmar.setVisible(false);
+        btnCancelar.setVisible(false);
     }
 
     void inicializaModel() {
@@ -100,6 +109,7 @@ public class JFVeiculos extends javax.swing.JFrame {
         btnConfirmar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         lblValorAluguel = new javax.swing.JLabel();
+        btnCalcular = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -172,6 +182,13 @@ public class JFVeiculos extends javax.swing.JFrame {
         lblValorAluguel.setForeground(new java.awt.Color(0, 153, 0));
         lblValorAluguel.setText("12.00");
 
+        btnCalcular.setText("Calcular");
+        btnCalcular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCalcularActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -192,23 +209,29 @@ public class JFVeiculos extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(204, 204, 204)
-                        .addComponent(lblDataInicio)
-                        .addGap(96, 96, 96)
-                        .addComponent(lblDataFim))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(173, 173, 173)
-                        .addComponent(txtDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(51, 51, 51)
-                        .addComponent(txtDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(212, 212, 212)
+                        .addGap(202, 202, 202)
                         .addComponent(btnConfirmar)
-                        .addGap(29, 29, 29)
+                        .addGap(30, 30, 30)
                         .addComponent(btnCancelar))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(173, 173, 173)
+                            .addComponent(txtDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(204, 204, 204)
+                            .addComponent(lblDataInicio)
+                            .addGap(69, 69, 69)
+                            .addComponent(lblDataFim)
+                            .addGap(27, 27, 27)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(262, 262, 262)
-                        .addComponent(lblValorAluguel)))
+                        .addGap(255, 255, 255)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblValorAluguel)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addComponent(btnCalcular)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -222,24 +245,23 @@ public class JFVeiculos extends javax.swing.JFrame {
                     .addComponent(txtNomeVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(lblDataFim))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblDataInicio)))
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblDataInicio)
+                    .addComponent(lblDataFim))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14)
+                .addComponent(btnCalcular)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblValorAluguel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConfirmar)
                     .addComponent(btnCancelar))
-                .addGap(42, 42, 42))
+                .addGap(24, 24, 24))
         );
 
         pack();
@@ -277,15 +299,20 @@ public class JFVeiculos extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDataFimKeyReleased
 
     private void tableVeiculosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableVeiculosMouseClicked
-        habilitaCampos();
+        habilitaCamposCotacao();
     }//GEN-LAST:event_tableVeiculosMouseClicked
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        desabilitaCampos();
+        desabilitaCamposContratacao();
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
+        habilitaCamposContratacao();
+    }//GEN-LAST:event_btnCalcularActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCalcular;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnConfirmar;
     private javax.swing.JComboBox<String> cmbTipoVeiculo;
