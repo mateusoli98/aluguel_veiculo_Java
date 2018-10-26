@@ -18,6 +18,7 @@ public class JFVeiculos extends javax.swing.JFrame {
         dtmDefault = (DefaultTableModel) tableVeiculos.getModel();
         tableVeiculos.setRowSorter(new TableRowSorter(dtmDefault));
         carregaDadosTable();
+        desabilitaCampos();
 
     }
 
@@ -57,6 +58,26 @@ public class JFVeiculos extends javax.swing.JFrame {
         }
     }
 
+    void habilitaCampos() {
+        lblValorAluguel.setVisible(true);
+        txtDataInicio.setVisible(true);
+        txtDataFim.setVisible(true);
+        btnConfirmar.setVisible(true);
+        btnCancelar.setVisible(true);
+        lblDataFim.setVisible(true);
+        lblDataInicio.setVisible(true);
+    }
+
+    void desabilitaCampos() {
+        lblValorAluguel.setVisible(false);
+        txtDataInicio.setVisible(false);
+        txtDataFim.setVisible(false);
+        btnConfirmar.setVisible(false);
+        btnCancelar.setVisible(false);
+        lblDataFim.setVisible(false);
+        lblDataInicio.setVisible(false);
+    }
+
     void inicializaModel() {
         dtmDefault = (DefaultTableModel) tableVeiculos.getModel();
         dtmDefault.setNumRows(0);
@@ -72,6 +93,13 @@ public class JFVeiculos extends javax.swing.JFrame {
         cmbTipoVeiculo = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         txtNomeVeiculo = new javax.swing.JTextField();
+        txtDataInicio = new javax.swing.JTextField();
+        txtDataFim = new javax.swing.JTextField();
+        lblDataInicio = new javax.swing.JLabel();
+        lblDataFim = new javax.swing.JLabel();
+        btnConfirmar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        lblValorAluguel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -89,6 +117,11 @@ public class JFVeiculos extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tableVeiculos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableVeiculosMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tableVeiculos);
@@ -110,6 +143,35 @@ public class JFVeiculos extends javax.swing.JFrame {
             }
         });
 
+        txtDataInicio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtDataInicioKeyReleased(evt);
+            }
+        });
+
+        txtDataFim.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtDataFimKeyReleased(evt);
+            }
+        });
+
+        lblDataInicio.setText("Data Inicio");
+
+        lblDataFim.setText("Data Terminio");
+
+        btnConfirmar.setText("Confirmar");
+
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
+        lblValorAluguel.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        lblValorAluguel.setForeground(new java.awt.Color(0, 153, 0));
+        lblValorAluguel.setText("12.00");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -127,6 +189,27 @@ public class JFVeiculos extends javax.swing.JFrame {
                         .addComponent(txtNomeVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(33, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(204, 204, 204)
+                        .addComponent(lblDataInicio)
+                        .addGap(96, 96, 96)
+                        .addComponent(lblDataFim))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(173, 173, 173)
+                        .addComponent(txtDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(51, 51, 51)
+                        .addComponent(txtDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(212, 212, 212)
+                        .addComponent(btnConfirmar)
+                        .addGap(29, 29, 29)
+                        .addComponent(btnCancelar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(262, 262, 262)
+                        .addComponent(lblValorAluguel)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,7 +222,24 @@ public class JFVeiculos extends javax.swing.JFrame {
                     .addComponent(txtNomeVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(182, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(lblDataFim))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblDataInicio)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblValorAluguel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnConfirmar)
+                    .addComponent(btnCancelar))
+                .addGap(42, 42, 42))
         );
 
         pack();
@@ -168,13 +268,36 @@ public class JFVeiculos extends javax.swing.JFrame {
 
     }//GEN-LAST:event_txtNomeVeiculoKeyReleased
 
+    private void txtDataInicioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDataInicioKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDataInicioKeyReleased
+
+    private void txtDataFimKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDataFimKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDataFimKeyReleased
+
+    private void tableVeiculosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableVeiculosMouseClicked
+        habilitaCampos();
+    }//GEN-LAST:event_tableVeiculosMouseClicked
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        desabilitaCampos();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnConfirmar;
     private javax.swing.JComboBox<String> cmbTipoVeiculo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblDataFim;
+    private javax.swing.JLabel lblDataInicio;
+    private javax.swing.JLabel lblValorAluguel;
     private javax.swing.JTable tableVeiculos;
+    private javax.swing.JTextField txtDataFim;
+    private javax.swing.JTextField txtDataInicio;
     private javax.swing.JTextField txtNomeVeiculo;
     // End of variables declaration//GEN-END:variables
 }
