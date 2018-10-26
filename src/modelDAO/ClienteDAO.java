@@ -35,5 +35,18 @@ public class ClienteDAO {
         ResultSet rs = ps.executeQuery(query);
         return rs;
     }
-
+    public void infoCliente(ResultSet rs){
+        Cliente cliente =  new Cliente();
+        try {
+        cliente.setNome(rs.getString("nome"));
+        cliente.setEmail(rs.getString("email"));
+        cliente.setTelefone(rs.getString("telefone"));
+        cliente.setCelular(rs.getString("celular"));
+        cliente.setUsuario(rs.getString("usuario"));
+        
+        ConexaoDAO.setCliente(cliente);
+        } catch (SQLException e) {
+        }
+        
+    }
 }

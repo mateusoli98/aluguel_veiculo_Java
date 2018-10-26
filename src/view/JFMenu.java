@@ -2,18 +2,21 @@ package view;
 
 import static java.lang.System.exit;
 import model.Cliente;
+import modelDAO.ConexaoDAO;
 
 public class JFMenu extends javax.swing.JFrame {
 
-    public JFMenu(Cliente cliente) {
+    public JFMenu() {
 
         initComponents();
+        lblNome.setText(ConexaoDAO.getCliente().getNome());
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lblNome = new javax.swing.JLabel();
         menuMain = new javax.swing.JMenuBar();
         menAlugar = new javax.swing.JMenu();
         itemVeiculos = new javax.swing.JMenuItem();
@@ -22,6 +25,8 @@ public class JFMenu extends javax.swing.JFrame {
         itemSairPrograma = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        lblNome.setText("jLabel1");
 
         menAlugar.setText("Alugar");
 
@@ -61,11 +66,17 @@ public class JFMenu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 579, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(78, 78, 78)
+                .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(323, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 480, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(112, 112, 112)
+                .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(293, Short.MAX_VALUE))
         );
 
         pack();
@@ -94,6 +105,7 @@ public class JFMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemSairConta;
     private javax.swing.JMenuItem itemSairPrograma;
     private javax.swing.JMenuItem itemVeiculos;
+    private javax.swing.JLabel lblNome;
     private javax.swing.JMenu menAlugar;
     private javax.swing.JMenuBar menuMain;
     private javax.swing.JMenu menuSair;

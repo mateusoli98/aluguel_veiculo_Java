@@ -102,8 +102,9 @@ public class JFLogin extends javax.swing.JFrame {
             usuario = txtUsuario.getText();
             senha = txtSenha.getText();
             if ((rs = clienteDAO.buscaLoginCliente(usuario, senha)).next()) {
-                pegaValorBD(rs, senha);
-                JFMenu frmMenu = new JFMenu(cliente);
+               // pegaValorBD(rs, senha);
+               clienteDAO.infoCliente(rs);
+                JFMenu frmMenu = new JFMenu();
                 frmMenu.setVisible(true);
                 frmMenu.setLocationRelativeTo(null);
                 dispose();
@@ -115,14 +116,14 @@ public class JFLogin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnEntrarActionPerformed
 
-    void pegaValorBD(ResultSet rs, String senha) throws SQLException {
-        cliente.setNome(rs.getString("nome"));
-        cliente.setEmail(rs.getString("email"));
-        cliente.setTelefone(rs.getString("telefone"));
-        cliente.setCelular(rs.getString("celular"));
-        cliente.setUsuario(rs.getString("usuario"));
-        cliente.setNome(senha);
-    }
+//    void pegaValorBD(ResultSet rs, String senha) throws SQLException {
+//        cliente.setNome(rs.getString("nome"));
+//        cliente.setEmail(rs.getString("email"));
+//        cliente.setTelefone(rs.getString("telefone"));
+//        cliente.setCelular(rs.getString("celular"));
+//        cliente.setUsuario(rs.getString("usuario"));
+//        cliente.setNome(senha);
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;
