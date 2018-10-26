@@ -44,12 +44,45 @@ public class VeiculoDAO {
         }
         return listVeiculos;
     }
-    
+
+    public int quantidadeDiasAluguel(String dtInicio, String dtFim) {
+        int qntDias;
+        try {
+//            conn = ConexaoDAO.abreConexao();
+//            SELECT dtTermino - dtInicio FROM locacao WHERE codCliente = 2
+            
+//            query = "SELECT * FROM veiculo WHERE tipo = '" + tipo + "' AND alugado = 0";
+//            ps = conn.prepareStatement(query);
+//            rs = ps.executeQuery();
+//
+//            while (rs.next()) {
+//                Veiculo objVeiculo = new Veiculo();
+//                objVeiculo.setNome(rs.getString("nome"));
+//                objVeiculo.setCombustivel(rs.getString("combustivel"));
+//                objVeiculo.setModelo(rs.getString("modelo"));
+//                objVeiculo.setMarca(rs.getString("marca"));
+//                objVeiculo.setAno(rs.getInt("ano"));
+//
+//                objVeiculo = null;
+//                query = "";
+//            }
+            conn.close();
+            ps.close();
+            rs.close();
+
+        } catch (SQLException erroSQL) {
+            erroSQL.printStackTrace();
+        } catch (Exception erro) {
+            erro.printStackTrace();
+        }
+        return 0;
+    }
+
     public ArrayList<Veiculo> exibeTipoVeiculos(String tipo) {
         ArrayList<Veiculo> listVeiculos = new ArrayList<>();
         try {
             conn = ConexaoDAO.abreConexao();
-            query = "SELECT * FROM veiculo WHERE tipo = '"+tipo+"' AND alugado = 0";
+            query = "SELECT * FROM veiculo WHERE tipo = '" + tipo + "' AND alugado = 0";
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
 
@@ -75,12 +108,12 @@ public class VeiculoDAO {
         }
         return listVeiculos;
     }
-    
-      public ArrayList<Veiculo> exibeVeiculoNome(String nome) {
+
+    public ArrayList<Veiculo> exibeVeiculoNome(String nome) {
         ArrayList<Veiculo> listVeiculos = new ArrayList<>();
         try {
             conn = ConexaoDAO.abreConexao();
-            query = "SELECT * FROM veiculo WHERE nome LIKE '%"+nome+"' AND alugado = 0";
+            query = "SELECT * FROM veiculo WHERE nome LIKE '%" + nome + "' AND alugado = 0";
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
 
@@ -106,7 +139,5 @@ public class VeiculoDAO {
         }
         return listVeiculos;
     }
-    
-    
-    
+
 }

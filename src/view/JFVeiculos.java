@@ -12,6 +12,7 @@ public class JFVeiculos extends javax.swing.JFrame {
     VeiculoDAO objVeiculoDAO = new VeiculoDAO();
     String operacao = "", tipoVeiculo = "", nomeVeiculo;
     DefaultTableModel dtmDefault = new DefaultTableModel();
+    double totalAluguel;
 
     public JFVeiculos() {
         initComponents();
@@ -308,6 +309,11 @@ public class JFVeiculos extends javax.swing.JFrame {
 
     private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
         habilitaCamposContratacao();
+        String t1, t2;
+        t1 = txtDataFim.getText();
+
+        JOptionPane.showMessageDialog(null, t1.substring(0, 10));
+
     }//GEN-LAST:event_btnCalcularActionPerformed
 
 
