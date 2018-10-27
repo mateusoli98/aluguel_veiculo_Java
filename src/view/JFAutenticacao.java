@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Cliente;
-import DAO.ClienteDAO;
+import model.DAO.ClienteDAO;
 
 public class JFAutenticacao extends javax.swing.JFrame {
 

@@ -1,7 +1,7 @@
 package view;
 
 import static java.lang.System.exit;
-import DAO.ConexaoDAO;
+import model.DAO.ConexaoDAO;
 
 public class JFMenu extends javax.swing.JFrame {
 

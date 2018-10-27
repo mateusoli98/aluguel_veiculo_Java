@@ -4,7 +4,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import model.Veiculo;
-import DAO.VeiculoDAO;
+import model.DAO.VeiculoDAO;
 
 public class JFCadastroVeiculo extends javax.swing.JFrame {
 

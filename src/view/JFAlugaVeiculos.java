@@ -8,8 +8,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import model.Locacao;
 import model.Veiculo;
-import DAO.ConexaoDAO;
-import DAO.VeiculoDAO;
+import model.DAO.ConexaoDAO;
+import model.DAO.VeiculoDAO;
 
 public class JFAlugaVeiculos extends javax.swing.JFrame {
 

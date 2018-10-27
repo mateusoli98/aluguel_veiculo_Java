@@ -1,8 +1,8 @@
 
 package view;
 
-import DAO.ClienteDAO;
-import DAO.ConexaoDAO;
+import model.DAO.ClienteDAO;
+import model.DAO.ConexaoDAO;
 import javax.swing.JOptionPane;
 
 

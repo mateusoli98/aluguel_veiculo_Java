@@ -1,4 +1,4 @@
-package DAO;
+package model.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -113,6 +113,34 @@ public class VeiculoDAO {
         return listVeiculos;
     }
 
+    public ArrayList<Veiculo> exibeVeiculoContratado() throws ClassNotFoundException {
+        ArrayList<Veiculo> veiculoContratado = new ArrayList<>();
+        try {
+            conn = ConexaoDAO.abreConexao();
+            query = "SELECT * FROM veiculo WHERE nome LIKE '%' AND alugado = 0";
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Veiculo objVeiculo = new Veiculo();
+                objVeiculo.setCodigo(rs.getInt("codigo"));
+                objVeiculo.setNome(rs.getString("nome"));
+                objVeiculo.setCombustivel(rs.getString("combustivel"));
+                objVeiculo.setModelo(rs.getString("modelo"));
+                objVeiculo.setMarca(rs.getString("marca"));
+                objVeiculo.setAno(rs.getInt("ano"));
+                veiculoContratado.add(objVeiculo);
+                query = "";
+            }
+            conn.close();
+            ps.close();
+            rs.close();
+        } catch (SQLException erroSQL) {
+        } 
+
+        return veiculoContratado;
+    }
+
     public boolean cadastro(Veiculo v) {
         try {
             conn = ConexaoDAO.abreConexao();
@@ -222,11 +250,11 @@ public class VeiculoDAO {
         }
         return retorno;
     }
-    
+
     public boolean mudaStatusVeiculo(int alugado, Locacao loc) {
         try {
             conn = ConexaoDAO.abreConexao();
-            query = "UPDATE veiculo SET alugado = '" +alugado+ "' WHERE codigo = " + loc.getCodVeiculo() + ";";
+            query = "UPDATE veiculo SET alugado = '" + alugado + "' WHERE codigo = " + loc.getCodVeiculo() + ";";
             ps = conn.prepareStatement(query);
             ps.executeUpdate();
             return retorno = true;

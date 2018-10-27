@@ -1,8 +1,8 @@
 package view;
 
-import DAO.ConexaoDAO;
-import DAO.LocacaoDAO;
-import DAO.VeiculoDAO;
+import model.DAO.ConexaoDAO;
+import model.DAO.LocacaoDAO;
+import model.DAO.VeiculoDAO;
 import controller.ControleLocacao;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -84,8 +84,8 @@ public class JFLocacoes extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(200, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(81, Short.MAX_VALUE))
         );
 
         pack();

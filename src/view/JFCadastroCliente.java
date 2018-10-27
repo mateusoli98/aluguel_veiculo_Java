@@ -4,8 +4,8 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 import model.Cliente;
-import DAO.ClienteDAO;
-import DAO.ConexaoDAO;
+import model.DAO.ClienteDAO;
+import model.DAO.ConexaoDAO;
 
 
 public class JFCadastroCliente extends javax.swing.JFrame {
