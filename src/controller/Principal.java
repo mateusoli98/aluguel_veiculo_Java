@@ -1,22 +1,21 @@
 package controller;
 
 import view.JFLogin;
-import view.JFVeiculos;
+import view.JFMenu;
 
 public class Principal {
 
     public static void main(String[] args) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                JFMenu frmMenu = new JFMenu();
+                frmMenu.setVisible(true);
+                frmMenu.setLocationRelativeTo(null);
 //                JFLogin frmLogin = new JFLogin();
-//               frmLogin.setVisible(true);
-//               frmLogin.setLocationRelativeTo(null);
-                JFVeiculos frmV = new JFVeiculos();;
-                frmV.setVisible(true);
-                frmV.setLocationRelativeTo(null);
-
+//                frmLogin.setVisible(true);
+//                frmLogin.setLocationRelativeTo(null);
             }
         });
     }
- 
+
 }

@@ -20,6 +20,8 @@ public class JFMenu extends javax.swing.JFrame {
         menuMain = new javax.swing.JMenuBar();
         menAlugar = new javax.swing.JMenu();
         itemVeiculos = new javax.swing.JMenuItem();
+        menCadastrar = new javax.swing.JMenu();
+        itemVeiculo = new javax.swing.JMenuItem();
         menuSair = new javax.swing.JMenu();
         itemSairConta = new javax.swing.JMenuItem();
         itemSairPrograma = new javax.swing.JMenuItem();
@@ -39,6 +41,18 @@ public class JFMenu extends javax.swing.JFrame {
         menAlugar.add(itemVeiculos);
 
         menuMain.add(menAlugar);
+
+        menCadastrar.setText("Cadastrar");
+
+        itemVeiculo.setText("Veiculos");
+        itemVeiculo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemVeiculoActionPerformed(evt);
+            }
+        });
+        menCadastrar.add(itemVeiculo);
+
+        menuMain.add(menCadastrar);
 
         menuSair.setText("Sair");
 
@@ -94,19 +108,27 @@ public class JFMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_itemSairContaActionPerformed
 
     private void itemVeiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemVeiculosActionPerformed
-       JFVeiculos frmVeiculos =  new JFVeiculos();
-       frmVeiculos.setVisible(true);
-       frmVeiculos.setLocationRelativeTo(null);
-       
+        JFVeiculos frmVeiculos = new JFVeiculos();
+        frmVeiculos.setVisible(true);
+        frmVeiculos.setLocationRelativeTo(null);
+
     }//GEN-LAST:event_itemVeiculosActionPerformed
+
+    private void itemVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemVeiculoActionPerformed
+        JFCadastroVeiculo frmCadVeiculos = new JFCadastroVeiculo();
+        frmCadVeiculos.setVisible(true);
+        frmCadVeiculos.setLocationRelativeTo(null);
+    }//GEN-LAST:event_itemVeiculoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem itemSairConta;
     private javax.swing.JMenuItem itemSairPrograma;
+    private javax.swing.JMenuItem itemVeiculo;
     private javax.swing.JMenuItem itemVeiculos;
     private javax.swing.JLabel lblNome;
     private javax.swing.JMenu menAlugar;
+    private javax.swing.JMenu menCadastrar;
     private javax.swing.JMenuBar menuMain;
     private javax.swing.JMenu menuSair;
     // End of variables declaration//GEN-END:variables

@@ -29,6 +29,7 @@ public class VeiculoDAO {
                 Veiculo objVeiculo = new Veiculo();
                 objVeiculo.setId(rs.getInt("codigo"));
                 objVeiculo.setNome(rs.getString("nome"));
+                objVeiculo.setTipo(rs.getString("tipo"));
                 objVeiculo.setCombustivel(rs.getString("combustivel"));
                 objVeiculo.setModelo(rs.getString("modelo"));
                 objVeiculo.setMarca(rs.getString("marca"));
@@ -112,11 +113,9 @@ public class VeiculoDAO {
     }
 
     public boolean cadastro(Veiculo v) {
-        //INSERT INTO `veiculo` (`codigo`, `nome`, `tipo`, `combustivel`, `modelo`, `marca`, `ano`)
         try {
             conn = ConexaoDAO.abreConexao();
-            query = " INSERT INTO veiculo (`nome`, `tipo`, `combustivel`, `modelo`, `marca`, `ano`,`alugado`) VALUES ( ?, ?, ?, ?, ?, ?, 0);";
-
+            query = " INSERT INTO veiculo (`nome`, `tipo`, `combustivel`, `modelo`, `marca`, `ano`,`alugado`) VALUES ( ?, ?, ?, ?, ?, ?, 0)";
             ps = conn.prepareStatement(query);
             ps.setString(1, v.getNome());
             ps.setString(2, v.getTipo());
@@ -127,9 +126,9 @@ public class VeiculoDAO {
             ps.executeUpdate();
             return retorno = true;
         } catch (SQLException e) {
-
+            e.printStackTrace();
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(VeiculoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         } finally {
             retorno = false;
             query = "";
@@ -137,7 +136,7 @@ public class VeiculoDAO {
                 conn.close();
                 ps.close();
             } catch (SQLException ex) {
-                Logger.getLogger(VeiculoDAO.class.getName()).log(Level.SEVERE, null, ex);
+                ex.printStackTrace();
             }
         }
         return retorno;
@@ -145,15 +144,14 @@ public class VeiculoDAO {
 
     public boolean alterarVeiculo(Veiculo v) {
         try {
-
-            ///`nome`, `tipo`, `combustivel`, `modelo`, `marca`, `ano
             conn = ConexaoDAO.abreConexao();
             query = "UPDATE veiculo SET nome = '" + v.getNome() + "', "
+                    + "tipo = '" + v.getTipo() + "', "
                     + "combustivel = '" + v.getCombustivel() + "', "
                     + "modelo = '" + v.getModelo() + "',"
                     + "marca = '" + v.getMarca() + "', "
                     + "ano = '" + v.getAno() + "'"
-                    + "WHERE veiculo.codigo = " + v.getId() + ";";
+                    + "WHERE codigo = " + v.getId() + ";";
             ps = conn.prepareStatement(query);
             ps.executeUpdate();
             return retorno = true;
@@ -176,7 +174,7 @@ public class VeiculoDAO {
         try {
 
             conn = ConexaoDAO.abreConexao();
-            query = "DELETE FROM `veiculo` WHERE `veiculo`.`codigo` = " + v.getId() + ";";
+            query = "DELETE FROM `veiculo` WHERE `codigo` = " + v.getId() + ";";
             ps = conn.prepareStatement(query);
             ps.executeUpdate();
             return retorno = true;
