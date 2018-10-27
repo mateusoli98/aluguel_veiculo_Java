@@ -132,6 +132,7 @@ public class JFVeiculos extends javax.swing.JFrame {
         txtDataTermino = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         tableVeiculos.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         tableVeiculos.setModel(new javax.swing.table.DefaultTableModel(
