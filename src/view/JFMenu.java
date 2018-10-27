@@ -7,16 +7,16 @@ import modelDAO.ConexaoDAO;
 public class JFMenu extends javax.swing.JFrame {
 
     public JFMenu() {
-
         initComponents();
-        lblNome.setText(ConexaoDAO.getCliente().getNome());
+        lblUsuario.setText(ConexaoDAO.getCliente().getNome());
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblNome = new javax.swing.JLabel();
+        lblApresentaUsuario = new javax.swing.JLabel();
+        lblUsuario = new javax.swing.JLabel();
         menuMain = new javax.swing.JMenuBar();
         menAlugar = new javax.swing.JMenu();
         itemVeiculos = new javax.swing.JMenuItem();
@@ -28,10 +28,16 @@ public class JFMenu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lblNome.setText("jLabel1");
+        lblApresentaUsuario.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        lblApresentaUsuario.setForeground(new java.awt.Color(0, 102, 255));
+        lblApresentaUsuario.setText("Seja bem vindo:");
+
+        lblUsuario.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
 
         menAlugar.setText("Alugar");
+        menAlugar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
+        itemVeiculos.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         itemVeiculos.setText("Veiculos");
         itemVeiculos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -43,7 +49,10 @@ public class JFMenu extends javax.swing.JFrame {
         menuMain.add(menAlugar);
 
         menCadastrar.setText("Cadastrar");
+        menCadastrar.setFocusable(false);
+        menCadastrar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
+        itemVeiculo.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         itemVeiculo.setText("Veiculos");
         itemVeiculo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -55,7 +64,9 @@ public class JFMenu extends javax.swing.JFrame {
         menuMain.add(menCadastrar);
 
         menuSair.setText("Sair");
+        menuSair.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
+        itemSairConta.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         itemSairConta.setText("Conta");
         itemSairConta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -64,6 +75,7 @@ public class JFMenu extends javax.swing.JFrame {
         });
         menuSair.add(itemSairConta);
 
+        itemSairPrograma.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         itemSairPrograma.setText("Programa");
         itemSairPrograma.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -81,16 +93,20 @@ public class JFMenu extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(78, 78, 78)
-                .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(323, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(lblApresentaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(182, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(112, 112, 112)
-                .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(293, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblApresentaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(394, Short.MAX_VALUE))
         );
 
         pack();
@@ -126,7 +142,8 @@ public class JFMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemSairPrograma;
     private javax.swing.JMenuItem itemVeiculo;
     private javax.swing.JMenuItem itemVeiculos;
-    private javax.swing.JLabel lblNome;
+    private javax.swing.JLabel lblApresentaUsuario;
+    private javax.swing.JLabel lblUsuario;
     private javax.swing.JMenu menAlugar;
     private javax.swing.JMenu menCadastrar;
     private javax.swing.JMenuBar menuMain;

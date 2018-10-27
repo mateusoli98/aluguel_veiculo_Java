@@ -14,7 +14,7 @@ public class ClienteDAO {
 
     public void cadastraCliente(Cliente objCliente) throws SQLException, ClassNotFoundException {
         conn = ConexaoDAO.abreConexao();
-        query = "INSERT INTO cliente VALUES (DEFAULT, ?, ?, ?, ?, ?, md5(?), 1)";
+        query = "INSERT INTO cliente VALUES (DEFAULT, ?, ?, ?, ?, ?, md5(?), 0)";
         ps = conn.prepareStatement(query);
         ps.setString(1, objCliente.getNome());
         ps.setString(2, objCliente.getEmail());
@@ -44,7 +44,7 @@ public class ClienteDAO {
         cliente.setTelefone(rs.getString("telefone"));
         cliente.setCelular(rs.getString("celular"));
         cliente.setUsuario(rs.getString("usuario"));
-        
+         cliente.setAcesso(rs.getInt("acesso"));
         ConexaoDAO.setCliente(cliente);
         } catch (SQLException e) {
         }   

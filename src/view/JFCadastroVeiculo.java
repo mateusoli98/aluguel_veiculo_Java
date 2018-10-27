@@ -114,10 +114,15 @@ public class JFCadastroVeiculo extends javax.swing.JFrame {
         lblModelo1.setText("Tipo");
 
         cmbModelo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        cmbModelo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "**Selecione**", "Hacth", "Sedãn", "4X4" }));
+        cmbModelo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "**Selecione**" }));
 
         cmbTipo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         cmbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "**Selecione**", "Carro", "Moto" }));
+        cmbTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbTipoActionPerformed(evt);
+            }
+        });
 
         cmbCombustivel.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         cmbCombustivel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "**Selecione**", "Alcool", "Gasolina", "Flex" }));
@@ -225,7 +230,7 @@ public class JFCadastroVeiculo extends javax.swing.JFrame {
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         preencheObjeto();
-        veiculo.setId((int)tableVeiculos.getValueAt(tableVeiculos.getSelectedRow(), 0));
+        veiculo.setId((int) tableVeiculos.getValueAt(tableVeiculos.getSelectedRow(), 0));
         if (veiculoDAO.alterarVeiculo(veiculo)) {
             JOptionPane.showMessageDialog(null, "Alteração realizada com sucesso!");
             carregaDadosTable();
@@ -245,7 +250,7 @@ public class JFCadastroVeiculo extends javax.swing.JFrame {
     }//GEN-LAST:event_tableVeiculosMouseClicked
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
-         veiculo.setId((int)tableVeiculos.getValueAt(tableVeiculos.getSelectedRow(), 0));
+        veiculo.setId((int) tableVeiculos.getValueAt(tableVeiculos.getSelectedRow(), 0));
         if (veiculoDAO.deletarVeiculo(veiculo)) {
             JOptionPane.showMessageDialog(null, "Remoção realizada com sucesso!");
             carregaDadosTable();
@@ -254,6 +259,28 @@ public class JFCadastroVeiculo extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Remoção não finalizada, tente novamente!");
         }
     }//GEN-LAST:event_btnDeletarActionPerformed
+
+    private void cmbTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoActionPerformed
+        if (cmbTipo.getSelectedItem().equals("Moto")) {
+            cmbModelo.removeAllItems();
+            cmbModelo.addItem("**Selecione**");
+            cmbModelo.addItem("Custom");
+            cmbModelo.addItem("Scrambler");
+            cmbModelo.addItem("Tracker");
+
+        }
+        if (cmbTipo.getSelectedItem().equals("Carro")) {
+            cmbModelo.removeAllItems();
+            cmbModelo.addItem("**Selecione**");
+            cmbModelo.addItem("Hacth");
+            cmbModelo.addItem("Sedãn");
+            cmbModelo.addItem("4x4");
+        }
+         if (cmbTipo.getSelectedItem().equals("**Selecione**")) {
+            cmbModelo.removeAllItems();
+            cmbModelo.addItem("**Selecione**");
+        }
+    }//GEN-LAST:event_cmbTipoActionPerformed
 
     private void preencheObjeto() {
         veiculo.setNome(txtNome.getText());
@@ -286,6 +313,7 @@ public class JFCadastroVeiculo extends javax.swing.JFrame {
     void limpaCampos() {
         txtNome.setText("");
         cmbTipo.setSelectedItem("**Selecione**");
+        cmbModelo.removeAllItems();
         cmbModelo.setSelectedItem("**Selecione**");
         txtMarca.setText("");
         cmbCombustivel.setSelectedItem("**Selecione**");

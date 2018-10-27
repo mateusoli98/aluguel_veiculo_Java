@@ -302,11 +302,8 @@
           <Font name="Arial" size="14" style="0"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
+          <StringArray count="1">
             <StringItem index="0" value="**Selecione**"/>
-            <StringItem index="1" value="Hacth"/>
-            <StringItem index="2" value="Sed&#xe3;n"/>
-            <StringItem index="3" value="4X4"/>
           </StringArray>
         </Property>
       </Properties>
@@ -327,6 +324,9 @@
           </StringArray>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbTipoActionPerformed"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
