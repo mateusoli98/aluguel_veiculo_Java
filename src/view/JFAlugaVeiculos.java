@@ -125,8 +125,8 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
     void preencheObjeto() {
         objLoc.setCodCliente(ConexaoDAO.getCliente().getCodigo());
         objLoc.setCodVeiculo((int) tableVeiculos.getValueAt(tableVeiculos.getSelectedRow(), 0));
-        objLoc.setDtInicio(conLocacao.converteDatas(dtInicio));
-        objLoc.setDtTermino(conLocacao.converteDatas(dtInicio));
+        objLoc.setDtInicio(conLocacao.converteDatasBanco(dtInicio));
+        objLoc.setDtTermino(conLocacao.converteDatasBanco(dtInicio));
         objLoc.setTotal(Double.parseDouble(lblValorAluguel.getText()));
     }
 

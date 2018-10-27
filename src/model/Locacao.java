@@ -1,10 +1,27 @@
-
 package model;
 
 public class Locacao {
-    private int codCliente, codVeiculo;
-    private String dtInicio, dtTermino;
+
+    private int codCliente, codVeiculo, codLocacao;
+    private String dtInicio, dtTermino, nomeVeiculo;
+
+    public String getNomeVeiculo() {
+        return nomeVeiculo;
+    }
+
+    public void setNomeVeiculo(String nomeVeiculo) {
+        this.nomeVeiculo = nomeVeiculo;
+    }
+
     private double total;
+
+    public int getCodLocacao() {
+        return codLocacao;
+    }
+
+    public void setCodLocacao(int codLocacao) {
+        this.codLocacao = codLocacao;
+    }
 
     public int getCodCliente() {
         return codCliente;

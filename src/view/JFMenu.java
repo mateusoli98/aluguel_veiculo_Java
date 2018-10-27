@@ -27,6 +27,7 @@ public class JFMenu extends javax.swing.JFrame {
         itemSairPrograma = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Menu principal");
 
         lblApresentaUsuario.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         lblApresentaUsuario.setForeground(new java.awt.Color(0, 102, 255));

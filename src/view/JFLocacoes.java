@@ -1,10 +1,42 @@
-
 package view;
+
+import DAO.ConexaoDAO;
+import DAO.LocacaoDAO;
+import DAO.VeiculoDAO;
+import controller.ControleLocacao;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+import model.Locacao;
 
 public class JFLocacoes extends javax.swing.JFrame {
 
+    Locacao objLoc = new Locacao();
+    LocacaoDAO objLocDAO = new LocacaoDAO();
+    DefaultTableModel dtmDefault = new DefaultTableModel();
+    ControleLocacao conLoc = new ControleLocacao();
+
     public JFLocacoes() {
         initComponents();
+        dtmDefault = (DefaultTableModel) tableLocacoes.getModel();
+        tableLocacoes.setRowSorter(new TableRowSorter(dtmDefault));
+        carregaDadosTable();
+    }
+
+    void carregaDadosTable() {
+        inicializaModel();
+        for (Locacao objLoc : objLocDAO.exibeVeiculos(ConexaoDAO.getCliente().getCodigo())) {
+            dtmDefault.addRow(new Object[]{
+                objLoc.getCodLocacao(),
+                objLoc.getNomeVeiculo(),
+                conLoc.converteDatasTable(objLoc.getDtInicio()),
+                conLoc.converteDatasTable(objLoc.getDtTermino()),
+                objLoc.getTotal(),});
+        }
+    }
+
+    void inicializaModel() {
+        dtmDefault = (DefaultTableModel) tableLocacoes.getModel();
+        dtmDefault.setNumRows(0);
     }
 
     @SuppressWarnings("unchecked")
@@ -12,13 +44,13 @@ public class JFLocacoes extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tableLocacoesl = new javax.swing.JTable();
+        tableLocacoes = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Minhas Locações");
 
-        tableLocacoesl.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        tableLocacoesl.setModel(new javax.swing.table.DefaultTableModel(
+        tableLocacoes.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        tableLocacoes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -34,9 +66,9 @@ public class JFLocacoes extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tableLocacoesl);
-        if (tableLocacoesl.getColumnModel().getColumnCount() > 0) {
-            tableLocacoesl.getColumnModel().getColumn(0).setResizable(false);
+        jScrollPane1.setViewportView(tableLocacoes);
+        if (tableLocacoes.getColumnModel().getColumnCount() > 0) {
+            tableLocacoes.getColumnModel().getColumn(0).setResizable(false);
         }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -62,6 +94,6 @@ public class JFLocacoes extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tableLocacoesl;
+    private javax.swing.JTable tableLocacoes;
     // End of variables declaration//GEN-END:variables
 }
