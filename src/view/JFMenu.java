@@ -7,7 +7,7 @@ public class JFMenu extends javax.swing.JFrame {
 
     public JFMenu() {
         initComponents();
-        lblUsuario.setText(""+ConexaoDAO.getCliente().getCodigo());
+        lblUsuario.setText("" + ConexaoDAO.getCliente().getCodigo());
     }
 
     @SuppressWarnings("unchecked")
@@ -19,6 +19,7 @@ public class JFMenu extends javax.swing.JFrame {
         menuMain = new javax.swing.JMenuBar();
         menAlugar = new javax.swing.JMenu();
         itemVeiculos = new javax.swing.JMenuItem();
+        itemMinhasLocacoes = new javax.swing.JMenuItem();
         menCadastrar = new javax.swing.JMenu();
         itemVeiculo = new javax.swing.JMenuItem();
         menuSair = new javax.swing.JMenu();
@@ -44,6 +45,15 @@ public class JFMenu extends javax.swing.JFrame {
             }
         });
         menAlugar.add(itemVeiculos);
+
+        itemMinhasLocacoes.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        itemMinhasLocacoes.setText("Minhas Locações");
+        itemMinhasLocacoes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemMinhasLocacoesActionPerformed(evt);
+            }
+        });
+        menAlugar.add(itemMinhasLocacoes);
 
         menuMain.add(menAlugar);
 
@@ -122,21 +132,27 @@ public class JFMenu extends javax.swing.JFrame {
         frmLogin.setLocationRelativeTo(null);
     }//GEN-LAST:event_itemSairContaActionPerformed
 
-    private void itemVeiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemVeiculosActionPerformed
-        JFAlugaVeiculos frmVeiculos = new JFAlugaVeiculos();
-        frmVeiculos.setVisible(true);
-        frmVeiculos.setLocationRelativeTo(null);
-
-    }//GEN-LAST:event_itemVeiculosActionPerformed
-
     private void itemVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemVeiculoActionPerformed
         JFCadastroVeiculo frmCadVeiculos = new JFCadastroVeiculo();
         frmCadVeiculos.setVisible(true);
         frmCadVeiculos.setLocationRelativeTo(null);
     }//GEN-LAST:event_itemVeiculoActionPerformed
 
+    private void itemMinhasLocacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMinhasLocacoesActionPerformed
+        JFLocacoes frmLocacoes = new JFLocacoes();
+        frmLocacoes.setVisible(true);
+        frmLocacoes.setLocationRelativeTo(null);
+    }//GEN-LAST:event_itemMinhasLocacoesActionPerformed
+
+    private void itemVeiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemVeiculosActionPerformed
+        JFAlugaVeiculos frmVeiculos = new JFAlugaVeiculos();
+        frmVeiculos.setVisible(true);
+        frmVeiculos.setLocationRelativeTo(null);
+    }//GEN-LAST:event_itemVeiculosActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem itemMinhasLocacoes;
     private javax.swing.JMenuItem itemSairConta;
     private javax.swing.JMenuItem itemSairPrograma;
     private javax.swing.JMenuItem itemVeiculo;
