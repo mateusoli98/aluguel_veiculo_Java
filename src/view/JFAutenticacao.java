@@ -89,6 +89,7 @@ public class JFAutenticacao extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
@@ -102,7 +103,7 @@ public class JFAutenticacao extends javax.swing.JFrame {
             usuario = txtUsuario.getText();
             senha = txtSenha.getText();
             if ((rs = clienteDAO.buscaLoginCliente(usuario, senha)).next()) {
-               clienteDAO.infoCliente(rs);
+                clienteDAO.infoCliente(rs);
                 JFMenu frmMenu = new JFMenu();
                 frmMenu.setVisible(true);
                 frmMenu.setLocationRelativeTo(null);

@@ -7,7 +7,7 @@ public class JFMenu extends javax.swing.JFrame {
 
     public JFMenu() {
         initComponents();
-        lblUsuario.setText("" + ConexaoDAO.getCliente().getCodigo());
+        lblUsuario.setText("" + ConexaoDAO.getCliente().getNome());
     }
 
     @SuppressWarnings("unchecked")
@@ -17,6 +17,7 @@ public class JFMenu extends javax.swing.JFrame {
         lblApresentaUsuario = new javax.swing.JLabel();
         lblUsuario = new javax.swing.JLabel();
         menuMain = new javax.swing.JMenuBar();
+        jmPerfl = new javax.swing.JMenu();
         menAlugar = new javax.swing.JMenu();
         itemVeiculos = new javax.swing.JMenuItem();
         itemMinhasLocacoes = new javax.swing.JMenuItem();
@@ -26,7 +27,7 @@ public class JFMenu extends javax.swing.JFrame {
         itemSairConta = new javax.swing.JMenuItem();
         itemSairPrograma = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Menu principal");
 
         lblApresentaUsuario.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
@@ -34,6 +35,14 @@ public class JFMenu extends javax.swing.JFrame {
         lblApresentaUsuario.setText("Seja bem vindo:");
 
         lblUsuario.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+
+        jmPerfl.setText("Perfil");
+        jmPerfl.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jmPerflMouseClicked(evt);
+            }
+        });
+        menuMain.add(jmPerfl);
 
         menAlugar.setText("Alugar");
         menAlugar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -116,10 +125,11 @@ public class JFMenu extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblApresentaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(394, Short.MAX_VALUE))
+                .addContainerGap(392, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void itemSairProgramaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSairProgramaActionPerformed
@@ -151,6 +161,13 @@ public class JFMenu extends javax.swing.JFrame {
         frmVeiculos.setLocationRelativeTo(null);
     }//GEN-LAST:event_itemVeiculosActionPerformed
 
+    private void jmPerflMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmPerflMouseClicked
+        JFPerfil jfPerfil = new JFPerfil();
+        jfPerfil.setVisible(true);
+        dispose();
+        
+    }//GEN-LAST:event_jmPerflMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem itemMinhasLocacoes;
@@ -158,6 +175,7 @@ public class JFMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemSairPrograma;
     private javax.swing.JMenuItem itemVeiculo;
     private javax.swing.JMenuItem itemVeiculos;
+    private javax.swing.JMenu jmPerfl;
     private javax.swing.JLabel lblApresentaUsuario;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JMenu menAlugar;
