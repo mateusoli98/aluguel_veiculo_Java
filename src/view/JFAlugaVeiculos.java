@@ -6,7 +6,7 @@ import javax.swing.table.TableRowSorter;
 import model.Veiculo;
 import modelDAO.VeiculoDAO;
 
-public class JFVeiculos extends javax.swing.JFrame {
+public class JFAlugaVeiculos extends javax.swing.JFrame {
 
     Veiculo objVeiculo = new Veiculo();
     VeiculoDAO objVeiculoDAO = new VeiculoDAO();
@@ -14,7 +14,7 @@ public class JFVeiculos extends javax.swing.JFrame {
     DefaultTableModel dtmDefault = new DefaultTableModel();
     int diaInicio, diaFim, anoVeiculo;
 
-    public JFVeiculos() {
+    public JFAlugaVeiculos() {
         initComponents();
         dtmDefault = (DefaultTableModel) tableVeiculos.getModel();
         tableVeiculos.setRowSorter(new TableRowSorter(dtmDefault));

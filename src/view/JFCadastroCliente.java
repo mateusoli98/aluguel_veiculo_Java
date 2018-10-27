@@ -7,12 +7,12 @@ import javax.swing.JOptionPane;
 import model.Cliente;
 import modelDAO.ClienteDAO;
 
-public class JFCadastro extends javax.swing.JFrame {
+public class JFCadastroCliente extends javax.swing.JFrame {
 
     Cliente cliente = new Cliente();
     ClienteDAO clienteDAO = new ClienteDAO();
 
-    public JFCadastro() {
+    public JFCadastroCliente() {
         initComponents();
     }
 

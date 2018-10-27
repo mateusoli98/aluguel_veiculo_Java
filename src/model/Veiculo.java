@@ -1,13 +1,9 @@
 package model;
 
-import java.text.ParseException;
-import javax.swing.JFormattedTextField;
-import javax.swing.text.MaskFormatter;
-
 public class Veiculo {
 
     private String nome, marca, modelo, tipo, combustivel;
-    private int ano, id;
+    private int ano, codigo;
 
     public String getNome() {
         return nome;
@@ -57,22 +53,12 @@ public class Veiculo {
         this.ano = ano;
     }
 
-    public int getId() {
-        return id;
+    public int getCodigo() {
+        return codigo;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
 
-//    public MaskFormatter Mascara(String Mascara) {
-//        MaskFormatter F_Mascara = new MaskFormatter();
-//        try {
-//            F_Mascara.setMask(Mascara); //Atribui a mascara
-//            F_Mascara.setPlaceholderCharacter(' '); //Caracter para preencimento 
-//        } catch (Exception excecao) {
-//            excecao.printStackTrace();
-//        }
-//        return F_Mascara;
-//    }
 }

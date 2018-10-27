@@ -7,14 +7,14 @@ import java.util.logging.Logger;
 import model.Cliente;
 import modelDAO.ClienteDAO;
 
-public class JFLogin extends javax.swing.JFrame {
+public class JFAutenticacao extends javax.swing.JFrame {
 
     Cliente cliente = new Cliente();
     ClienteDAO clienteDAO = new ClienteDAO();
     ResultSet rs = null;
     String usuario, senha;
 
-    public JFLogin() {
+    public JFAutenticacao() {
         initComponents();
     }
 
@@ -92,7 +92,7 @@ public class JFLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        JFCadastro frmCadastro = new JFCadastro();
+        JFCadastroCliente frmCadastro = new JFCadastroCliente();
         frmCadastro.setVisible(true);
         frmCadastro.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnCadastrarActionPerformed
@@ -102,7 +102,6 @@ public class JFLogin extends javax.swing.JFrame {
             usuario = txtUsuario.getText();
             senha = txtSenha.getText();
             if ((rs = clienteDAO.buscaLoginCliente(usuario, senha)).next()) {
-               // pegaValorBD(rs, senha);
                clienteDAO.infoCliente(rs);
                 JFMenu frmMenu = new JFMenu();
                 frmMenu.setVisible(true);
@@ -110,9 +109,9 @@ public class JFLogin extends javax.swing.JFrame {
                 dispose();
             }
         } catch (SQLException ex) {
-            Logger.getLogger(JFLogin.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JFAutenticacao.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(JFLogin.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JFAutenticacao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnEntrarActionPerformed
 

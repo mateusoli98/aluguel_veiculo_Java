@@ -8,7 +8,7 @@ public class JFMenu extends javax.swing.JFrame {
 
     public JFMenu() {
         initComponents();
-        lblUsuario.setText(ConexaoDAO.getCliente().getNome());
+        lblUsuario.setText(""+ConexaoDAO.getCliente().getCodigo());
     }
 
     @SuppressWarnings("unchecked")
@@ -118,13 +118,13 @@ public class JFMenu extends javax.swing.JFrame {
 
     private void itemSairContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSairContaActionPerformed
         dispose();
-        JFLogin frmLogin = new JFLogin();
+        JFAutenticacao frmLogin = new JFAutenticacao();
         frmLogin.setVisible(true);
         frmLogin.setLocationRelativeTo(null);
     }//GEN-LAST:event_itemSairContaActionPerformed
 
     private void itemVeiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemVeiculosActionPerformed
-        JFVeiculos frmVeiculos = new JFVeiculos();
+        JFAlugaVeiculos frmVeiculos = new JFAlugaVeiculos();
         frmVeiculos.setVisible(true);
         frmVeiculos.setLocationRelativeTo(null);
 

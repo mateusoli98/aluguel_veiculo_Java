@@ -230,7 +230,7 @@ public class JFCadastroVeiculo extends javax.swing.JFrame {
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         preencheObjeto();
-        veiculo.setId((int) tableVeiculos.getValueAt(tableVeiculos.getSelectedRow(), 0));
+        veiculo.setCodigo((int) tableVeiculos.getValueAt(tableVeiculos.getSelectedRow(), 0));
         if (veiculoDAO.alterarVeiculo(veiculo)) {
             JOptionPane.showMessageDialog(null, "Alteração realizada com sucesso!");
             carregaDadosTable();
@@ -250,7 +250,7 @@ public class JFCadastroVeiculo extends javax.swing.JFrame {
     }//GEN-LAST:event_tableVeiculosMouseClicked
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
-        veiculo.setId((int) tableVeiculos.getValueAt(tableVeiculos.getSelectedRow(), 0));
+        veiculo.setCodigo((int) tableVeiculos.getValueAt(tableVeiculos.getSelectedRow(), 0));
         if (veiculoDAO.deletarVeiculo(veiculo)) {
             JOptionPane.showMessageDialog(null, "Remoção realizada com sucesso!");
             carregaDadosTable();
@@ -295,7 +295,7 @@ public class JFCadastroVeiculo extends javax.swing.JFrame {
         inicializaModel();
         for (Veiculo objVeiculo : veiculoDAO.exibeVeiculos()) {
             dtmDefault.addRow(new Object[]{
-                objVeiculo.getId(),
+                objVeiculo.getCodigo(),
                 objVeiculo.getNome(),
                 objVeiculo.getTipo(),
                 objVeiculo.getModelo(),

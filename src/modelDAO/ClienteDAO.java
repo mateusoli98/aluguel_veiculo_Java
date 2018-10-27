@@ -39,6 +39,7 @@ public class ClienteDAO {
     public void infoCliente(ResultSet rs){
         Cliente cliente =  new Cliente();
         try {
+        cliente.setCodigo(rs.getInt("codigo"));
         cliente.setNome(rs.getString("nome"));
         cliente.setEmail(rs.getString("email"));
         cliente.setTelefone(rs.getString("telefone"));

@@ -3,7 +3,15 @@ package model;
 
 public class Cliente {
     private String nome, email, usuario, senha, telefone, celular;
-    private int acesso;
+    private int acesso, codigo;
+
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
 
     public int getAcesso() {
         return acesso;

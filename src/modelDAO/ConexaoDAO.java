@@ -4,12 +4,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import model.Cliente;
+import model.Veiculo;
 
 abstract public class ConexaoDAO {
 
     private static Cliente cliente =  new Cliente(); 
 
-    
     private static final String USUARIO = "root";
     private static final String SENHA = "";
     private static final String URL = "jdbc:mysql://127.0.0.1:3306/aluguelveiculos";
@@ -25,5 +25,4 @@ abstract public class ConexaoDAO {
     public static void setCliente(Cliente cliente) {
         ConexaoDAO.cliente = cliente;
     }
-
 }

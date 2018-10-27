@@ -24,10 +24,9 @@ public class VeiculoDAO {
             query = "SELECT * FROM veiculo";
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
-
             while (rs.next()) {
                 Veiculo objVeiculo = new Veiculo();
-                objVeiculo.setId(rs.getInt("codigo"));
+                objVeiculo.setCodigo(rs.getInt("codigo"));
                 objVeiculo.setNome(rs.getString("nome"));
                 objVeiculo.setTipo(rs.getString("tipo"));
                 objVeiculo.setCombustivel(rs.getString("combustivel"));
@@ -103,7 +102,6 @@ public class VeiculoDAO {
             conn.close();
             ps.close();
             rs.close();
-
         } catch (SQLException erroSQL) {
             erroSQL.printStackTrace();
         } catch (Exception erro) {
@@ -151,7 +149,7 @@ public class VeiculoDAO {
                     + "modelo = '" + v.getModelo() + "',"
                     + "marca = '" + v.getMarca() + "', "
                     + "ano = '" + v.getAno() + "'"
-                    + "WHERE codigo = " + v.getId() + ";";
+                    + "WHERE codigo = " + v.getCodigo()+ ";";
             ps = conn.prepareStatement(query);
             ps.executeUpdate();
             return retorno = true;
@@ -174,7 +172,7 @@ public class VeiculoDAO {
         try {
 
             conn = ConexaoDAO.abreConexao();
-            query = "DELETE FROM `veiculo` WHERE `codigo` = " + v.getId() + ";";
+            query = "DELETE FROM `veiculo` WHERE `codigo` = " + v.getCodigo()+ ";";
             ps = conn.prepareStatement(query);
             ps.executeUpdate();
             return retorno = true;
@@ -192,4 +190,5 @@ public class VeiculoDAO {
         }
         return retorno;
     }
+
 }
