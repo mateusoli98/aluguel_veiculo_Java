@@ -7,7 +7,7 @@ import javax.swing.text.MaskFormatter;
 public class Veiculo {
 
     private String nome, marca, modelo, tipo, combustivel;
-    private int ano;
+    private int ano, id;
 
     public String getNome() {
         return nome;
@@ -57,6 +57,14 @@ public class Veiculo {
         this.ano = ano;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
 //    public MaskFormatter Mascara(String Mascara) {
 //        MaskFormatter F_Mascara = new MaskFormatter();
 //        try {
@@ -67,5 +75,4 @@ public class Veiculo {
 //        }
 //        return F_Mascara;
 //    }
-
 }
