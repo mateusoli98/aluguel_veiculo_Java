@@ -1,7 +1,6 @@
 package view;
 
 import static java.lang.System.exit;
-import model.Cliente;
 import modelDAO.ConexaoDAO;
 
 public class JFMenu extends javax.swing.JFrame {

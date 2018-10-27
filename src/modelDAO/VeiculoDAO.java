@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Locacao;
 import model.Veiculo;
 
 public class VeiculoDAO {
@@ -21,7 +22,7 @@ public class VeiculoDAO {
         ArrayList<Veiculo> listVeiculos = new ArrayList<>();
         try {
             conn = ConexaoDAO.abreConexao();
-            query = "SELECT * FROM veiculo";
+            query = "SELECT * FROM veiculo WHERE alugado = 0";
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -59,6 +60,7 @@ public class VeiculoDAO {
 
             while (rs.next()) {
                 Veiculo objVeiculo = new Veiculo();
+                objVeiculo.setCodigo(rs.getInt("codigo"));
                 objVeiculo.setNome(rs.getString("nome"));
                 objVeiculo.setCombustivel(rs.getString("combustivel"));
                 objVeiculo.setModelo(rs.getString("modelo"));
@@ -90,6 +92,7 @@ public class VeiculoDAO {
 
             while (rs.next()) {
                 Veiculo objVeiculo = new Veiculo();
+                objVeiculo.setCodigo(rs.getInt("codigo"));
                 objVeiculo.setNome(rs.getString("nome"));
                 objVeiculo.setCombustivel(rs.getString("combustivel"));
                 objVeiculo.setModelo(rs.getString("modelo"));
@@ -149,7 +152,7 @@ public class VeiculoDAO {
                     + "modelo = '" + v.getModelo() + "',"
                     + "marca = '" + v.getMarca() + "', "
                     + "ano = '" + v.getAno() + "'"
-                    + "WHERE codigo = " + v.getCodigo()+ ";";
+                    + "WHERE codigo = " + v.getCodigo() + ";";
             ps = conn.prepareStatement(query);
             ps.executeUpdate();
             return retorno = true;
@@ -172,7 +175,58 @@ public class VeiculoDAO {
         try {
 
             conn = ConexaoDAO.abreConexao();
-            query = "DELETE FROM `veiculo` WHERE `codigo` = " + v.getCodigo()+ ";";
+            query = "DELETE FROM `veiculo` WHERE `codigo` = " + v.getCodigo() + ";";
+            ps = conn.prepareStatement(query);
+            ps.executeUpdate();
+            return retorno = true;
+        } catch (SQLException e) {
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(VeiculoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                retorno = false;
+                query = "";
+                conn.close();
+
+            } catch (Exception e) {
+            }
+        }
+        return retorno;
+    }
+
+    public boolean realizaLocacao(Locacao loc) {
+        try {
+            conn = ConexaoDAO.abreConexao();
+            query = " INSERT INTO locacao (`codVeiculo`, `codCliente`, `dtInicio`, `dtTermino`, `total`) VALUES (?, ?, ?, ?,?)";
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, loc.getCodCliente());
+            ps.setInt(2, loc.getCodCliente());
+            ps.setString(3, loc.getDtInicio());
+            ps.setString(4, loc.getDtTermino());
+            ps.setDouble(5, loc.getTotal());
+            ps.executeUpdate();
+            return retorno = true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        } finally {
+            retorno = false;
+            query = "";
+            try {
+                conn.close();
+                ps.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return retorno;
+    }
+    
+    public boolean mudaStatusVeiculo(int alugado, Locacao loc) {
+        try {
+            conn = ConexaoDAO.abreConexao();
+            query = "UPDATE veiculo SET alugado = '" +alugado+ "' WHERE codigo = " + loc.getCodVeiculo() + ";";
             ps = conn.prepareStatement(query);
             ps.executeUpdate();
             return retorno = true;

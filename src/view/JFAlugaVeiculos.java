@@ -1,18 +1,25 @@
 package view;
 
+import controller.ControleLocacao;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+import model.Locacao;
 import model.Veiculo;
+import modelDAO.ConexaoDAO;
 import modelDAO.VeiculoDAO;
 
 public class JFAlugaVeiculos extends javax.swing.JFrame {
 
     Veiculo objVeiculo = new Veiculo();
     VeiculoDAO objVeiculoDAO = new VeiculoDAO();
+    Locacao objLoc = new Locacao();
     String operacao = "", tipoVeiculo = "", nomeVeiculo, dtInicio, dtTermino;
     DefaultTableModel dtmDefault = new DefaultTableModel();
     int diaInicio, diaFim, anoVeiculo;
+    ControleLocacao conLocacao = new ControleLocacao();
 
     public JFAlugaVeiculos() {
         initComponents();
@@ -28,6 +35,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         inicializaModel();
         for (Veiculo objVeiculo : objVeiculoDAO.exibeVeiculos()) {
             dtmDefault.addRow(new Object[]{
+                objVeiculo.getCodigo(),
                 objVeiculo.getNome(),
                 objVeiculo.getModelo(),
                 objVeiculo.getMarca(),
@@ -40,6 +48,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         inicializaModel();
         for (Veiculo objVeiculo : objVeiculoDAO.exibeTipoVeiculos(tipo)) {
             dtmDefault.addRow(new Object[]{
+                objVeiculo.getCodigo(),
                 objVeiculo.getNome(),
                 objVeiculo.getModelo(),
                 objVeiculo.getMarca(),
@@ -52,6 +61,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         inicializaModel();
         for (Veiculo objVeiculo : objVeiculoDAO.exibeVeiculoNome(nome)) {
             dtmDefault.addRow(new Object[]{
+                objVeiculo.getCodigo(),
                 objVeiculo.getNome(),
                 objVeiculo.getModelo(),
                 objVeiculo.getMarca(),
@@ -102,7 +112,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
     }
 
     void calcAluguel() {
-        anoVeiculo = (int) tableVeiculos.getValueAt(tableVeiculos.getSelectedRow(), 4);
+        anoVeiculo = (int) tableVeiculos.getValueAt(tableVeiculos.getSelectedRow(), 5);
         if (anoVeiculo <= 2005) {
             lblValorAluguel.setText("" + retornaDias() * 50.00);
         }
@@ -110,6 +120,14 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         if (anoVeiculo > 2005) {
             lblValorAluguel.setText("" + retornaDias() * 100.00);
         }
+    }
+
+    void preencheObjeto() {
+        objLoc.setCodCliente(ConexaoDAO.getCliente().getCodigo());
+        objLoc.setCodVeiculo((int) tableVeiculos.getValueAt(tableVeiculos.getSelectedRow(), 0));
+        objLoc.setDtInicio(conLocacao.converteDatas(dtInicio));
+        objLoc.setDtTermino(conLocacao.converteDatas(dtInicio));
+        objLoc.setTotal(Double.parseDouble(lblValorAluguel.getText()));
     }
 
     @SuppressWarnings("unchecked")
@@ -132,6 +150,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         txtDataTermino = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Locação Veiculo");
         setResizable(false);
 
         tableVeiculos.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -140,11 +159,11 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nome", "Modelo", "Marca", "Combustivel", "Ano"
+                "Chassi", "Nome", "Modelo", "Marca", "Combustivel", "Ano"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -157,6 +176,9 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tableVeiculos);
+        if (tableVeiculos.getColumnModel().getColumnCount() > 0) {
+            tableVeiculos.getColumnModel().getColumn(0).setResizable(false);
+        }
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel1.setText("Tipo de Veiculo");
@@ -346,10 +368,35 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCalcularActionPerformed
 
+    public void valData(String data) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            sdf.setLenient(false);//valida data
+            System.out.println(sdf.parse(data));// retorna o tipo data
+            System.out.println(sdf.format(sdf.parse(data)));//retorna a data como vc escolheu no data formta
+        } catch (ParseException ex) {
+            javax.swing.JOptionPane.showMessageDialog(null, "Data Invalida", "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-        JFConfirmacaoPedido frmPedidoConfirmado = new JFConfirmacaoPedido();
-        frmPedidoConfirmado.setVisible(true);
-        frmPedidoConfirmado.setLocationRelativeTo(null);
+
+        preencheObjeto();
+        if (objVeiculoDAO.realizaLocacao(objLoc)) {
+            if (objVeiculoDAO.mudaStatusVeiculo(1, objLoc)) {
+                desabilitaCamposContratacao();
+                desabilitaCamposCotacao();
+                carregaDadosTable();
+                JFConfirmacaoPedido frmPedidoConfirmado = new JFConfirmacaoPedido();
+                frmPedidoConfirmado.setVisible(true);
+                frmPedidoConfirmado.setLocationRelativeTo(null);
+            } else {
+                JOptionPane.showMessageDialog(null, "Locação não finalizada, tente novamente!");
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Locação não finalizada, tente novamente!");
+        }
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
 
