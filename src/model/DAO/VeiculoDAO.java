@@ -223,15 +223,19 @@ public class VeiculoDAO {
     }
 
     public boolean realizaLocacao(Locacao loc) {
+        String queryAvaliacao = "INSERT INTO avaliacao(codCliente,codVeiculo) VALUES ("+loc.getCodCliente()+","+loc.getCodVeiculo()+");";
         try {
             conn = ConexaoDAO.abreConexao();
-            query = " INSERT INTO locacao (`codVeiculo`, `codCliente`, `dtInicio`, `dtTermino`, `total`) VALUES (?, ?, ?, ?,?)";
+            query = "INSERT INTO locacao (`codVeiculo`, `codCliente`, `dtInicio`, `dtTermino`) VALUES (?, ?, ?, ?);";
+            
             ps = conn.prepareStatement(query);
-            ps.setInt(1, loc.getCodCliente());
+            ps.setInt(1, loc.getCodVeiculo());
             ps.setInt(2, loc.getCodCliente());
             ps.setString(3, loc.getDtInicio());
             ps.setString(4, loc.getDtTermino());
-            ps.setDouble(5, loc.getTotal());
+            ps.executeUpdate();
+            ps = null;
+            ps = conn.prepareStatement(queryAvaliacao);
             ps.executeUpdate();
             return retorno = true;
         } catch (SQLException e) {

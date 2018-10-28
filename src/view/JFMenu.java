@@ -21,6 +21,7 @@ public class JFMenu extends javax.swing.JFrame {
         menAlugar = new javax.swing.JMenu();
         itemVeiculos = new javax.swing.JMenuItem();
         itemMinhasLocacoes = new javax.swing.JMenuItem();
+        jmHistoricoLocacoes = new javax.swing.JMenuItem();
         menCadastrar = new javax.swing.JMenu();
         itemVeiculo = new javax.swing.JMenuItem();
         menuSair = new javax.swing.JMenu();
@@ -57,13 +58,21 @@ public class JFMenu extends javax.swing.JFrame {
         menAlugar.add(itemVeiculos);
 
         itemMinhasLocacoes.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        itemMinhasLocacoes.setText("Minhas Locações");
+        itemMinhasLocacoes.setText("Minhas Locações Atuais");
         itemMinhasLocacoes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemMinhasLocacoesActionPerformed(evt);
             }
         });
         menAlugar.add(itemMinhasLocacoes);
+
+        jmHistoricoLocacoes.setText("Histórico de Locações");
+        jmHistoricoLocacoes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmHistoricoLocacoesActionPerformed(evt);
+            }
+        });
+        menAlugar.add(jmHistoricoLocacoes);
 
         menuMain.add(menAlugar);
 
@@ -168,6 +177,12 @@ public class JFMenu extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jmPerflMouseClicked
 
+    private void jmHistoricoLocacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmHistoricoLocacoesActionPerformed
+       JFHistoricoLocacao jfHL =  new JFHistoricoLocacao();
+       jfHL.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jmHistoricoLocacoesActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem itemMinhasLocacoes;
@@ -175,6 +190,7 @@ public class JFMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemSairPrograma;
     private javax.swing.JMenuItem itemVeiculo;
     private javax.swing.JMenuItem itemVeiculos;
+    private javax.swing.JMenuItem jmHistoricoLocacoes;
     private javax.swing.JMenu jmPerfl;
     private javax.swing.JLabel lblApresentaUsuario;
     private javax.swing.JLabel lblUsuario;

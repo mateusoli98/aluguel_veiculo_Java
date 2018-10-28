@@ -1,3 +1,5 @@
+package model;
+        
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -9,24 +11,22 @@ public class AvaliacaoDAO {
     String query;
     Connection conn;
     PreparedStatement ps;
-    boolean retorno = false;
 
-    public boolean resgistarAvaliacao(Avaliacao a, Cliente c, Veiculo v) {
+    public boolean resgistarAvaliacao(Avaliacao a, HistoricoLocacao hl) {
         try {
             conn = ConexaoDAO.abreConexao();
-            query = "INSERT INTO avaliacao VALUES (?, ?, ?, ?, ?);";
+            query = "UPDATE avaliacao SET numAvaliacao = "+a.getNumAvaliacao()+", "
+                                       + "comentario = '"+a.getComentario()+"',"
+                                       + "status = 1 " 
+                                       + "WHERE codVeiculo = "+hl.getVeiculo().getCodigo()+" AND "
+                                       + "codCliente = "+ConexaoDAO.getCliente().getCodigo();
+            
             ps = conn.prepareStatement(query);
-            ps.setInt(1, a.getNumAvaliacao());
-            ps.setString(2, a.getComentario());
-            ps.setInt(3, a.getStatus());
-            ps.setInt(4, v.getCodigo());
-            ps.setInt(5, c.getCodigo());
             ps.executeUpdate();
-            retorno =  true;
+            return true;
         } catch (SQLException | ClassNotFoundException e) {
             
         }finally {
-            retorno = false;
             query = "";
             try {
                 conn.close();
@@ -34,7 +34,6 @@ public class AvaliacaoDAO {
             } catch (SQLException ex) {
             }
         }
-        return retorno;
+        return false;
     }
-
 }

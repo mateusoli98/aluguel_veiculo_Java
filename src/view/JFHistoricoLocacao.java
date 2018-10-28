@@ -1,50 +1,57 @@
-
 package view;
 
-import controller.ControleLocacao;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
+import model.Avaliacao;
+import model.AvaliacaoDAO;
+import model.Cliente;
 import model.DAO.ConexaoDAO;
 import model.DAO.LocacaoDAO;
+import model.HistoricoLocacao;
 import model.Locacao;
-
+import model.Veiculo;
 
 public class JFHistoricoLocacao extends javax.swing.JFrame {
 
-    Locacao objLoc = new Locacao();
+    HistoricoLocacao objHL = new HistoricoLocacao();
+    Locacao objLocacao = new Locacao();
+    Veiculo objVeiculo = new Veiculo();
+    Avaliacao objAvaliacao = new Avaliacao();
+    AvaliacaoDAO objAvaliacaoDAO = new AvaliacaoDAO();
     LocacaoDAO objLocDAO = new LocacaoDAO();
     DefaultTableModel dtmDefault = new DefaultTableModel();
-    ControleLocacao conLoc = new ControleLocacao();
-    
+
     public JFHistoricoLocacao() {
         initComponents();
         lblNota.setText(String.valueOf(jsNota.getValue()));
-        lblNomeCliente.setText("Deixe sua avaliação "+ConexaoDAO.getCliente().getNome());
-        
+        lblNomeCliente.setText("Deixe sua avaliação " + ConexaoDAO.getCliente().getNome() + ", selecione uam locação para avaliar :)");
+        carregaDadosTable();
+
     }
 
-   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         lblNomeCliente = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
         jsNota = new javax.swing.JSlider();
         btnEnviar = new javax.swing.JButton();
         lblNota = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jtHistoricoLocacao = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        txtComentario = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Avaliação");
 
         jLabel2.setText("Deixe seu comentário sobre o serviço:");
-
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
 
         jLabel3.setText("Dê sua nota:");
 
@@ -58,6 +65,13 @@ public class JFHistoricoLocacao extends javax.swing.JFrame {
         });
 
         btnEnviar.setText("Enviar Avaliação");
+        btnEnviar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEnviar.setEnabled(false);
+        btnEnviar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnviarActionPerformed(evt);
+            }
+        });
 
         lblNota.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
 
@@ -80,6 +94,11 @@ public class JFHistoricoLocacao extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jtHistoricoLocacao.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtHistoricoLocacaoMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jtHistoricoLocacao);
         if (jtHistoricoLocacao.getColumnModel().getColumnCount() > 0) {
             jtHistoricoLocacao.getColumnModel().getColumn(0).setResizable(false);
@@ -87,6 +106,11 @@ public class JFHistoricoLocacao extends javax.swing.JFrame {
             jtHistoricoLocacao.getColumnModel().getColumn(2).setResizable(false);
             jtHistoricoLocacao.getColumnModel().getColumn(3).setResizable(false);
         }
+
+        txtComentario.setColumns(20);
+        txtComentario.setRows(5);
+        txtComentario.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jScrollPane3.setViewportView(txtComentario);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -97,10 +121,8 @@ public class JFHistoricoLocacao extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
+                            .addComponent(jScrollPane3))
                         .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnEnviar)
@@ -128,10 +150,6 @@ public class JFHistoricoLocacao extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createSequentialGroup()
                             .addGap(22, 22, 22)
@@ -141,8 +159,12 @@ public class JFHistoricoLocacao extends javax.swing.JFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jsNota, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnEnviar))))
-                .addGap(21, 21, 21))
+                            .addComponent(btnEnviar)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(23, 23, 23))
         );
 
         pack();
@@ -153,15 +175,34 @@ public class JFHistoricoLocacao extends javax.swing.JFrame {
         lblNota.setText(String.valueOf(jsNota.getValue()));
     }//GEN-LAST:event_jsNotaStateChanged
 
-    void carregaDadosTable() {
+    private void jtHistoricoLocacaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtHistoricoLocacaoMouseClicked
+        btnEnviar.setEnabled(true);
+        preencheObjeto();
+    }//GEN-LAST:event_jtHistoricoLocacaoMouseClicked
+
+    private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
+        preencheObjeto();
+        objAvaliacao.setComentario(txtComentario.getText());
+        objAvaliacao.setNumAvaliacao(jsNota.getValue());
+        objAvaliacao.setStatus(1);
+
+        if (objAvaliacaoDAO.resgistarAvaliacao(objAvaliacao, objHL)) {
+            JOptionPane.showMessageDialog(null, "Avalação registrada com sucesso!");
+            carregaDadosTable();
+        }
+
+    }//GEN-LAST:event_btnEnviarActionPerformed
+
+    void carregaDadosTable(){
         inicializaModel();
-        for (Object obj : objLocDAO.historicoLocacao()) {
+
+        for (HistoricoLocacao objHL : objLocDAO.historicoLocacao()) {
             dtmDefault.addRow(new Object[]{
-                objLoc.getCodLocacao(),
-                objLoc.getNomeVeiculo(),
-                conLoc.converteDatasTable(objLoc.getDtInicio()),
-                conLoc.converteDatasTable(objLoc.getDtTermino()),
-                objLoc.getTotal(),});
+                objHL.getVeiculo().getCodigo(),
+                objHL.getVeiculo().getNome(),
+                objHL.getVeiculo().getModelo(),
+                objHL.getLocacao().getDtTermino()
+            });
         }
     }
 
@@ -169,26 +210,26 @@ public class JFHistoricoLocacao extends javax.swing.JFrame {
         dtmDefault = (DefaultTableModel) jtHistoricoLocacao.getModel();
         dtmDefault.setNumRows(0);
     }
-    
-    public static void main(String args[]) {
-       
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new JFHistoricoLocacao().setVisible(true);
-            }
-        });
+
+    void preencheObjeto() {
+        objVeiculo.setCodigo((int) jtHistoricoLocacao.getValueAt(jtHistoricoLocacao.getSelectedRow(), 0));
+        objVeiculo.setNome("" + jtHistoricoLocacao.getValueAt(jtHistoricoLocacao.getSelectedRow(), 1));
+        objVeiculo.setModelo("" + jtHistoricoLocacao.getValueAt(jtHistoricoLocacao.getSelectedRow(), 2));
+        objLocacao.setDtTermino("" + jtHistoricoLocacao.getValueAt(jtHistoricoLocacao.getSelectedRow(), 3));
+        objHL.setLocacao(objLocacao);
+        objHL.setVeiculo(objVeiculo);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEnviar;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSlider jsNota;
     private javax.swing.JTable jtHistoricoLocacao;
     private javax.swing.JLabel lblNomeCliente;
     private javax.swing.JLabel lblNota;
+    private javax.swing.JTextArea txtComentario;
     // End of variables declaration//GEN-END:variables
 }

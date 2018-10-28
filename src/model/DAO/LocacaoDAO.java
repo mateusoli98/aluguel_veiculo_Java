@@ -5,8 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import model.HistoricoLocacao;
 import model.Locacao;
 import model.Veiculo;
 
@@ -53,26 +53,32 @@ public class LocacaoDAO {
         return listVeiculos;
     }
 
-    public ArrayList<Object> historicoLocacao() {
-        ArrayList<Object> listHistoricoLocacao = new ArrayList<>();
-        
+    public ArrayList<HistoricoLocacao> historicoLocacao() {
+        ArrayList<HistoricoLocacao> listHistoricoLocacao =  new ArrayList<>();
         try {
             conn = ConexaoDAO.abreConexao();
-            query = "SELECT veiculo.codigo, veiculo.nome, locacao.codigo, locacao.dtTermino FROM veiculo JOIN locacao ON veiculo.codigo = locacao.codVeiculo JOIN cliente ON cliente.codigo = locacao.codCliente WHERE cliente.codigo = "+ConexaoDAO.getCliente().getCodigo()+" AND locacao.dtTermino <= now()";
+            query = "SELECT veiculo.codigo, veiculo.nome, veiculo.modelo, locacao.codigo, locacao.dtTermino FROM veiculo JOIN avaliacao on avaliacao.codVeiculo =  veiculo.codigo JOIN locacao ON veiculo.codigo = locacao.codVeiculo JOIN cliente ON cliente.codigo = locacao.codCliente WHERE cliente.codigo = "+ConexaoDAO.getCliente().getCodigo()+" AND locacao.dtTermino <= now() AND avaliacao.status = 0;";
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
-            while (rs.next()) {
-                Locacao objLocacao = new Locacao();
+            while(rs.next()){
+                HistoricoLocacao objHL =  new HistoricoLocacao();
+                Locacao objLocacao =  new Locacao();
                 Veiculo objVeiculo =  new Veiculo();
-                objLocacao.setCodLocacao(rs.getInt("locacao.cogido"));
-                objLocacao.setDtTermino(rs.getString("locacao.dtTermino"));
                 objVeiculo.setCodigo(rs.getInt("veiculo.codigo"));
                 objVeiculo.setNome(rs.getString("veiculo.nome"));
-                listHistoricoLocacao.add(objLocacao);
-                listHistoricoLocacao.add(objVeiculo);
+                objVeiculo.setModelo(rs.getString("veiculo.modelo"));
+                objLocacao.setCodLocacao(rs.getInt("locacao.codigo"));
+                objLocacao.setDtTermino(rs.getString("locacao.dtTermino"));
+                
+                objHL.setLocacao(objLocacao);
+                objHL.setVeiculo(objVeiculo);
+                
+                listHistoricoLocacao.add(objHL);
+                
+                objHL = null;
                 objLocacao = null;
+                objVeiculo = null;  
             }
-
         } catch (SQLException e) {
 
         } catch (ClassNotFoundException ex) {

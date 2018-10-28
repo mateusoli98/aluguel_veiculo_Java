@@ -12,11 +12,10 @@ public class ClienteDAO {
     String query;
     Connection conn;
     PreparedStatement ps;
-    boolean retorno = false;
-
+    
     public void cadastraCliente(Cliente objCliente) throws SQLException, ClassNotFoundException {
         conn = ConexaoDAO.abreConexao();
-        query = "INSERT INTO cliente VALUES (DEFAULT, ?, ?, ?, ?, ?, md5(?), 0)";
+        query = "INSERT INTO cliente VALUES (DEFAULT, ?, ?, ?, ?, ?, md5(?))";
         ps = conn.prepareStatement(query);
         ps.setString(1, objCliente.getNome());
         ps.setString(2, objCliente.getEmail());
@@ -62,20 +61,20 @@ public class ClienteDAO {
                     + "WHERE codigo = " + c.getCodigo() + ";";
             ps = conn.prepareStatement(query);
             ps.executeUpdate();
-            return retorno = true;
+            return  true;
         } catch (SQLException e) {
         } catch (ClassNotFoundException ex) {
             ex.getMessage();
         } finally {
             try {
-                retorno = false;
+                
                 query = "";
                 conn.close();
 
             } catch (Exception e) {
             }
         }
-        return retorno;
+        return false;
     }
 
     public boolean deletarCliente(Cliente c) {
@@ -84,18 +83,17 @@ public class ClienteDAO {
             query = "DELETE FROM `cliente` WHERE `codigo` = " + c.getCodigo() + ";";
             ps = conn.prepareStatement(query);
             ps.executeUpdate();
-            return retorno = true;
+            return  true;
         } catch (SQLException | ClassNotFoundException e) {
             e.getMessage();
         } finally {
             try {
-                retorno = false;
                 query = "";
                 conn.close();
             } catch (SQLException e) {
             }
         }
-        return retorno;
+        return false;
     }
 
     public void infoCliente(ResultSet rs) {
@@ -107,7 +105,7 @@ public class ClienteDAO {
             cliente.setTelefone(rs.getString("telefone"));
             cliente.setCelular(rs.getString("celular"));
             cliente.setUsuario(rs.getString("usuario"));
-            cliente.setAcesso(rs.getInt("acesso"));
+            
             ConexaoDAO.setCliente(cliente);
         } catch (SQLException e) {
         }

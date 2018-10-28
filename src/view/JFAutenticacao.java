@@ -6,6 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Cliente;
 import model.DAO.ClienteDAO;
+import model.DAO.ConexaoDAO;
 
 public class JFAutenticacao extends javax.swing.JFrame {
 
@@ -104,6 +105,7 @@ public class JFAutenticacao extends javax.swing.JFrame {
             senha = txtSenha.getText();
             if ((rs = clienteDAO.buscaLoginCliente(usuario, senha)).next()) {
                 clienteDAO.infoCliente(rs);
+
                 JFMenu frmMenu = new JFMenu();
                 frmMenu.setVisible(true);
                 frmMenu.setLocationRelativeTo(null);
