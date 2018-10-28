@@ -1,9 +1,6 @@
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.DAO.ConexaoDAO;
 import model.*;
 
@@ -26,8 +23,8 @@ public class AvaliacaoDAO {
             ps.setInt(5, c.getCodigo());
             ps.executeUpdate();
             retorno =  true;
-        } catch (SQLException e) {
-        } catch (ClassNotFoundException ex) {
+        } catch (SQLException | ClassNotFoundException e) {
+            
         }finally {
             retorno = false;
             query = "";
@@ -35,7 +32,6 @@ public class AvaliacaoDAO {
                 conn.close();
                 ps.close();
             } catch (SQLException ex) {
-                ex.printStackTrace();
             }
         }
         return retorno;

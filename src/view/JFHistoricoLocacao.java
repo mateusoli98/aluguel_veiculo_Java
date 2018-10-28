@@ -1,11 +1,19 @@
 
 package view;
 
+import controller.ControleLocacao;
+import javax.swing.table.DefaultTableModel;
 import model.DAO.ConexaoDAO;
+import model.DAO.LocacaoDAO;
+import model.Locacao;
 
 
 public class JFHistoricoLocacao extends javax.swing.JFrame {
 
+    Locacao objLoc = new Locacao();
+    LocacaoDAO objLocDAO = new LocacaoDAO();
+    DefaultTableModel dtmDefault = new DefaultTableModel();
+    ControleLocacao conLoc = new ControleLocacao();
     
     public JFHistoricoLocacao() {
         initComponents();
@@ -28,7 +36,7 @@ public class JFHistoricoLocacao extends javax.swing.JFrame {
         btnEnviar = new javax.swing.JButton();
         lblNota = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtHistoricoLocacao = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -53,7 +61,7 @@ public class JFHistoricoLocacao extends javax.swing.JFrame {
 
         lblNota.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtHistoricoLocacao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -72,7 +80,13 @@ public class JFHistoricoLocacao extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(jtHistoricoLocacao);
+        if (jtHistoricoLocacao.getColumnModel().getColumnCount() > 0) {
+            jtHistoricoLocacao.getColumnModel().getColumn(0).setResizable(false);
+            jtHistoricoLocacao.getColumnModel().getColumn(1).setResizable(false);
+            jtHistoricoLocacao.getColumnModel().getColumn(2).setResizable(false);
+            jtHistoricoLocacao.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -139,37 +153,25 @@ public class JFHistoricoLocacao extends javax.swing.JFrame {
         lblNota.setText(String.valueOf(jsNota.getValue()));
     }//GEN-LAST:event_jsNotaStateChanged
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("default".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFHistoricoLocacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFHistoricoLocacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFHistoricoLocacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFHistoricoLocacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    void carregaDadosTable() {
+        inicializaModel();
+        for (Object obj : objLocDAO.historicoLocacao()) {
+            dtmDefault.addRow(new Object[]{
+                objLoc.getCodLocacao(),
+                objLoc.getNomeVeiculo(),
+                conLoc.converteDatasTable(objLoc.getDtInicio()),
+                conLoc.converteDatasTable(objLoc.getDtTermino()),
+                objLoc.getTotal(),});
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+    }
 
-        /* Create and display the form */
+    void inicializaModel() {
+        dtmDefault = (DefaultTableModel) jtHistoricoLocacao.getModel();
+        dtmDefault.setNumRows(0);
+    }
+    
+    public static void main(String args[]) {
+       
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new JFHistoricoLocacao().setVisible(true);
@@ -183,9 +185,9 @@ public class JFHistoricoLocacao extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JSlider jsNota;
+    private javax.swing.JTable jtHistoricoLocacao;
     private javax.swing.JLabel lblNomeCliente;
     private javax.swing.JLabel lblNota;
     // End of variables declaration//GEN-END:variables
