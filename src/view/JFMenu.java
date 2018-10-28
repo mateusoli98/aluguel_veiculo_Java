@@ -22,6 +22,7 @@ public class JFMenu extends javax.swing.JFrame {
         itemVeiculos = new javax.swing.JMenuItem();
         itemMinhasLocacoes = new javax.swing.JMenuItem();
         jmHistoricoLocacoes = new javax.swing.JMenuItem();
+        jmAvaliacoes = new javax.swing.JMenuItem();
         menCadastrar = new javax.swing.JMenu();
         itemVeiculo = new javax.swing.JMenuItem();
         menuSair = new javax.swing.JMenu();
@@ -73,6 +74,14 @@ public class JFMenu extends javax.swing.JFrame {
             }
         });
         menAlugar.add(jmHistoricoLocacoes);
+
+        jmAvaliacoes.setText("Avaliações");
+        jmAvaliacoes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmAvaliacoesActionPerformed(evt);
+            }
+        });
+        menAlugar.add(jmAvaliacoes);
 
         menuMain.add(menAlugar);
 
@@ -180,8 +189,13 @@ public class JFMenu extends javax.swing.JFrame {
     private void jmHistoricoLocacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmHistoricoLocacoesActionPerformed
        JFHistoricoLocacao jfHL =  new JFHistoricoLocacao();
        jfHL.setVisible(true);
-        dispose();
+        
     }//GEN-LAST:event_jmHistoricoLocacoesActionPerformed
+
+    private void jmAvaliacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmAvaliacoesActionPerformed
+       JFAvaliacoes jfAvaliacoes =  new JFAvaliacoes();
+       jfAvaliacoes.setVisible(true);
+    }//GEN-LAST:event_jmAvaliacoesActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -190,6 +204,7 @@ public class JFMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemSairPrograma;
     private javax.swing.JMenuItem itemVeiculo;
     private javax.swing.JMenuItem itemVeiculos;
+    private javax.swing.JMenuItem jmAvaliacoes;
     private javax.swing.JMenuItem jmHistoricoLocacoes;
     private javax.swing.JMenu jmPerfl;
     private javax.swing.JLabel lblApresentaUsuario;
