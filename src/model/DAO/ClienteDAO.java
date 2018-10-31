@@ -12,10 +12,10 @@ public class ClienteDAO {
     String query;
     Connection conn;
     PreparedStatement ps;
-    
+
     public void cadastraCliente(Cliente objCliente) throws SQLException, ClassNotFoundException {
         conn = ConexaoDAO.abreConexao();
-        query = "INSERT INTO cliente VALUES (DEFAULT, ?, ?, ?, ?, ?, md5(?))";
+        query = "INSERT INTO cliente VALUES (DEFAULT, ?, ?, ?, ?, ?, md5(?), 0)";
         ps = conn.prepareStatement(query);
         ps.setString(1, objCliente.getNome());
         ps.setString(2, objCliente.getEmail());
@@ -61,13 +61,13 @@ public class ClienteDAO {
                     + "WHERE codigo = " + c.getCodigo() + ";";
             ps = conn.prepareStatement(query);
             ps.executeUpdate();
-            return  true;
+            return true;
         } catch (SQLException e) {
         } catch (ClassNotFoundException ex) {
             ex.getMessage();
         } finally {
             try {
-                
+
                 query = "";
                 conn.close();
 
@@ -83,7 +83,7 @@ public class ClienteDAO {
             query = "DELETE FROM `cliente` WHERE `codigo` = " + c.getCodigo() + ";";
             ps = conn.prepareStatement(query);
             ps.executeUpdate();
-            return  true;
+            return true;
         } catch (SQLException | ClassNotFoundException e) {
             e.getMessage();
         } finally {
@@ -105,10 +105,10 @@ public class ClienteDAO {
             cliente.setTelefone(rs.getString("telefone"));
             cliente.setCelular(rs.getString("celular"));
             cliente.setUsuario(rs.getString("usuario"));
-            
+            cliente.setAcesso(rs.getInt("acesso"));
             ConexaoDAO.setCliente(cliente);
         } catch (SQLException e) {
         }
     }
-    
+
 }

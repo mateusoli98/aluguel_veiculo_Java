@@ -7,7 +7,7 @@ public class JFMenu extends javax.swing.JFrame {
 
     public JFMenu() {
         initComponents();
-        lblUsuario.setText("" + ConexaoDAO.getCliente().getNome());
+        lblUsuario.setText(ConexaoDAO.getCliente().getNome());
     }
 
     @SuppressWarnings("unchecked")
@@ -17,7 +17,6 @@ public class JFMenu extends javax.swing.JFrame {
         lblApresentaUsuario = new javax.swing.JLabel();
         lblUsuario = new javax.swing.JLabel();
         menuMain = new javax.swing.JMenuBar();
-        jmPerfl = new javax.swing.JMenu();
         menAlugar = new javax.swing.JMenu();
         itemVeiculos = new javax.swing.JMenuItem();
         itemMinhasLocacoes = new javax.swing.JMenuItem();
@@ -25,6 +24,7 @@ public class JFMenu extends javax.swing.JFrame {
         jmAvaliacoes = new javax.swing.JMenuItem();
         menCadastrar = new javax.swing.JMenu();
         itemVeiculo = new javax.swing.JMenuItem();
+        jmPerfl = new javax.swing.JMenu();
         menuSair = new javax.swing.JMenu();
         itemSairConta = new javax.swing.JMenuItem();
         itemSairPrograma = new javax.swing.JMenuItem();
@@ -38,15 +38,7 @@ public class JFMenu extends javax.swing.JFrame {
 
         lblUsuario.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
 
-        jmPerfl.setText("Perfil");
-        jmPerfl.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jmPerflMouseClicked(evt);
-            }
-        });
-        menuMain.add(jmPerfl);
-
-        menAlugar.setText("Alugar");
+        menAlugar.setText("Locação");
         menAlugar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         itemVeiculos.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -59,7 +51,7 @@ public class JFMenu extends javax.swing.JFrame {
         menAlugar.add(itemVeiculos);
 
         itemMinhasLocacoes.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        itemMinhasLocacoes.setText("Minhas Locações Atuais");
+        itemMinhasLocacoes.setText("Minhas Locações");
         itemMinhasLocacoes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemMinhasLocacoesActionPerformed(evt);
@@ -67,7 +59,8 @@ public class JFMenu extends javax.swing.JFrame {
         });
         menAlugar.add(itemMinhasLocacoes);
 
-        jmHistoricoLocacoes.setText("Histórico de Locações");
+        jmHistoricoLocacoes.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jmHistoricoLocacoes.setText("Histórico");
         jmHistoricoLocacoes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmHistoricoLocacoesActionPerformed(evt);
@@ -75,6 +68,7 @@ public class JFMenu extends javax.swing.JFrame {
         });
         menAlugar.add(jmHistoricoLocacoes);
 
+        jmAvaliacoes.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jmAvaliacoes.setText("Avaliações");
         jmAvaliacoes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,9 +77,12 @@ public class JFMenu extends javax.swing.JFrame {
         });
         menAlugar.add(jmAvaliacoes);
 
-        menuMain.add(menAlugar);
+        if(ConexaoDAO.getCliente().getAcesso() == 0){
 
-        menCadastrar.setText("Cadastrar");
+            menuMain.add(menAlugar);
+        }
+
+        menCadastrar.setText("Cadastramento");
         menCadastrar.setFocusable(false);
         menCadastrar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
@@ -98,7 +95,22 @@ public class JFMenu extends javax.swing.JFrame {
         });
         menCadastrar.add(itemVeiculo);
 
-        menuMain.add(menCadastrar);
+        if(ConexaoDAO.getCliente().getAcesso() == 1){
+            menuMain.add(menCadastrar);
+        }
+
+        jmPerfl.setText("Meu Perfil");
+        jmPerfl.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jmPerfl.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jmPerflMouseClicked(evt);
+            }
+        });
+
+        if(ConexaoDAO.getCliente().getAcesso() == 0){
+
+            menuMain.add(jmPerfl);
+        }
 
         menuSair.setText("Sair");
         menuSair.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N

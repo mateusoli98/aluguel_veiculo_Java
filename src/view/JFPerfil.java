@@ -76,10 +76,10 @@ public class JFPerfil extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAlterarContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarContaActionPerformed
-        JFCadastroCliente jfCadastroCliente =  new JFCadastroCliente();
-        jfCadastroCliente.setVisible(true);
-        
-        dispose();
+//        JFCadastroCliente jfCadastroCliente =  new JFCadastroCliente();;
+//        jfCadastroCliente.setVisible(true);
+//        
+//        dispose();
     }//GEN-LAST:event_btnAlterarContaActionPerformed
 
     private void btnExluirContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExluirContaActionPerformed
