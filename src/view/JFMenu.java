@@ -7,7 +7,7 @@ public class JFMenu extends javax.swing.JFrame {
 
     public JFMenu() {
         initComponents();
-        lblUsuario.setText(ConexaoDAO.getCliente().getNome());
+        lblUsuario.setText(""+ConexaoDAO.getCliente().getCodigo());
     }
 
     @SuppressWarnings("unchecked")
