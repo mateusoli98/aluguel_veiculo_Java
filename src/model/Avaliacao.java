@@ -3,7 +3,15 @@ package model;
 public class Avaliacao {
 
     private String comentario;
-    private int codigo, numAvaliacao, status;
+    private int codigo, numAvaliacao, status, qtdAvaliacao;
+
+    public int getQtdAvaliacao() {
+        return qtdAvaliacao;
+    }
+
+    public void setQtdAvaliacao(int qtdAvaliacao) {
+        this.qtdAvaliacao = qtdAvaliacao;
+    }
 
     public String getComentario() {
         return comentario;

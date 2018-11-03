@@ -219,8 +219,7 @@ public class JFCadastroCliente extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, "Alteração realizada com sucesso!");
 
                         ConexaoDAO.setCliente(cliente);
-                        JFMenu jfMenu = new JFMenu();
-                        jfMenu.setVisible(true);
+                        
                         dispose();
                     } else {
                         JOptionPane.showMessageDialog(null, "Não foi possível realizar a alteração!");
@@ -252,7 +251,7 @@ public class JFCadastroCliente extends javax.swing.JFrame {
                     lblValidaUsuario.setForeground(Color.red);
                 } else {
                     lblValidaUsuario.setVisible(true);
-                    lblValidaUsuario.setText("Usuário indisponível");
+                    lblValidaUsuario.setText("Usuário disponível");
                     lblValidaUsuario.setForeground(Color.GREEN);
                 }
             } catch (SQLException ex) {
