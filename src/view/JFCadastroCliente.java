@@ -23,6 +23,8 @@ public class JFCadastroCliente extends javax.swing.JFrame {
         } else {
             setaCamposAlteracao();
             btnCadastrar.setText("Alterar");
+            setTitle("Atualização Cliente");
+            
         }
     }
 
@@ -47,6 +49,8 @@ public class JFCadastroCliente extends javax.swing.JFrame {
         lblValidaUsuario = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro Cliente");
+        setResizable(false);
 
         txtNome.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 

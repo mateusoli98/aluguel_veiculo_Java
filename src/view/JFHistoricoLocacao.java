@@ -50,6 +50,7 @@ public class JFHistoricoLocacao extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Avaliação");
+        setResizable(false);
 
         jLabel2.setText("Deixe seu comentário sobre o serviço:");
 

@@ -25,6 +25,7 @@ public class JFPerfil extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Perfil");
+        setResizable(false);
 
         lblRecepcaoCliente.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         lblRecepcaoCliente.setText("...");

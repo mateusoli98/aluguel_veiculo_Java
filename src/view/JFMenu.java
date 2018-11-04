@@ -53,6 +53,7 @@ public class JFMenu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Menu principal");
+        setResizable(false);
 
         lblUsuario.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
@@ -257,13 +258,14 @@ public class JFMenu extends javax.swing.JFrame {
         if(cmbTipo.getSelectedItem().equals("Geral")){
             apresentarGraficoGeral();
         }else{
-            apresentarGraficoVeiculo(cmbTipo.getSelectedItem().toString());
+            apresentarGraficoVeiculo(String.valueOf(cmbTipo.getSelectedItem()));
         }
 
     }//GEN-LAST:event_cmbTipoActionPerformed
     public void apresentarGraficoGeral() {
         DefaultCategoryDataset dpd = new DefaultCategoryDataset();
         for (Avaliacao a : avaliacaoDAO.notas()) {
+      
             dpd.setValue(a.getQtdAvaliacao(), "     " + a.getNumAvaliacao(), "");
         }
 

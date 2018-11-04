@@ -47,9 +47,9 @@ public class AvaliacaoDAO {
         try {
             conn = ConexaoDAO.abreConexao();
             if (veiculo.equals("Geral")) {
-                query = "SELECT cliente.nome, avaliacao.numAvaliacao, veiculo.nome, avaliacao.comentario FROM cliente JOIN avaliacao ON cliente.codigo = avaliacao.codCliente JOIN veiculo ON veiculo.codigo = avaliacao.codVeiculo ORDER BY avaliacao.codigo DESC;";
+                query = "SELECT cliente.nome, avaliacao.numAvaliacao, veiculo.nome, avaliacao.comentario FROM cliente JOIN avaliacao ON cliente.codigo = avaliacao.codCliente JOIN veiculo ON veiculo.codigo = avaliacao.codVeiculo WHERE avaliacao.status <> 0 ORDER BY avaliacao.codigo DESC;";
             }else{
-                query = "SELECT cliente.nome, avaliacao.numAvaliacao, veiculo.nome, avaliacao.comentario FROM cliente JOIN avaliacao ON cliente.codigo = avaliacao.codCliente JOIN veiculo ON veiculo.codigo = avaliacao.codVeiculo WHERE veiculo.nome = "+veiculo+" ORDER BY avaliacao.codigo DESC;";
+                query = "SELECT cliente.nome, avaliacao.numAvaliacao, veiculo.nome, avaliacao.comentario FROM cliente JOIN avaliacao ON cliente.codigo = avaliacao.codCliente JOIN veiculo ON veiculo.codigo = avaliacao.codVeiculo WHERE veiculo.nome = "+veiculo+" AND avaliacao.status <> 0 ORDER BY avaliacao.codigo DESC;";
             }
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();

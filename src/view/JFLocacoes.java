@@ -48,6 +48,7 @@ public class JFLocacoes extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Minhas Locações");
+        setResizable(false);
 
         tableLocacoes.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         tableLocacoes.setModel(new javax.swing.table.DefaultTableModel(

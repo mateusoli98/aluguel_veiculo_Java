@@ -140,34 +140,7 @@ public class VeiculoDAO {
         return listVeiculos;
     }
 
-    public ArrayList<Veiculo> exibeVeiculoContratado() throws ClassNotFoundException {
-        ArrayList<Veiculo> veiculoContratado = new ArrayList<>();
-        try {
-            conn = ConexaoDAO.abreConexao();
-            query = "SELECT * FROM veiculo WHERE nome LIKE '%' AND alugado = 0";
-            ps = conn.prepareStatement(query);
-            rs = ps.executeQuery();
-
-            while (rs.next()) {
-                Veiculo objVeiculo = new Veiculo();
-                objVeiculo.setCodigo(rs.getInt("codigo"));
-                objVeiculo.setNome(rs.getString("nome"));
-                objVeiculo.setCombustivel(rs.getString("combustivel"));
-                objVeiculo.setModelo(rs.getString("modelo"));
-                objVeiculo.setMarca(rs.getString("marca"));
-                objVeiculo.setAno(rs.getInt("ano"));
-                veiculoContratado.add(objVeiculo);
-                query = "";
-            }
-            conn.close();
-            ps.close();
-            rs.close();
-        } catch (SQLException erroSQL) {
-        } 
-
-        return veiculoContratado;
-    }
-
+  
     public boolean cadastro(Veiculo v) {
         try {
             conn = ConexaoDAO.abreConexao();
@@ -249,20 +222,26 @@ public class VeiculoDAO {
         return retorno;
     }
 
-    public boolean realizaLocacao(Locacao loc) {
+    public boolean realizaLocacao(Locacao loc, int alugado) {
         String queryAvaliacao = "INSERT INTO avaliacao(codCliente,codVeiculo) VALUES ("+loc.getCodCliente()+","+loc.getCodVeiculo()+");";
         try {
             conn = ConexaoDAO.abreConexao();
-            query = "INSERT INTO locacao (`codVeiculo`, `codCliente`, `dtInicio`, `dtTermino`) VALUES (?, ?, ?, ?);";
+            query = "INSERT INTO locacao (`codVeiculo`, `codCliente`, `dtInicio`, `dtTermino`, `total`) VALUES (?, ?, ?, ?,?);";
             
             ps = conn.prepareStatement(query);
             ps.setInt(1, loc.getCodVeiculo());
             ps.setInt(2, loc.getCodCliente());
             ps.setString(3, loc.getDtInicio());
             ps.setString(4, loc.getDtTermino());
+            ps.setDouble(5, loc.getTotal());
             ps.executeUpdate();
             ps = null;
             ps = conn.prepareStatement(queryAvaliacao);
+            ps.executeUpdate();
+            ps = null;
+            query = "";
+            query = "UPDATE veiculo SET alugado = '" + alugado + "' WHERE codigo = " + loc.getCodVeiculo() + ";";
+            ps = conn.prepareStatement(query);
             ps.executeUpdate();
             return retorno = true;
         } catch (SQLException e) {

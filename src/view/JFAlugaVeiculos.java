@@ -126,7 +126,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         objLoc.setCodCliente(ConexaoDAO.getCliente().getCodigo());
         objLoc.setCodVeiculo((int) tableVeiculos.getValueAt(tableVeiculos.getSelectedRow(), 0));
         objLoc.setDtInicio(conLocacao.converteDatasBanco(dtInicio));
-        objLoc.setDtTermino(conLocacao.converteDatasBanco(dtInicio));
+        objLoc.setDtTermino(conLocacao.converteDatasBanco(dtTermino));
         objLoc.setTotal(Double.parseDouble(lblValorAluguel.getText()));
     }
 
@@ -382,17 +382,17 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
 
         preencheObjeto();
-        if (objVeiculoDAO.realizaLocacao(objLoc)) {
-            if (objVeiculoDAO.mudaStatusVeiculo(1, objLoc)) {
+        if (objVeiculoDAO.realizaLocacao(objLoc, 1)) {
+//            if (objVeiculoDAO.mudaStatusVeiculo(1, objLoc)) {
                 desabilitaCamposContratacao();
                 desabilitaCamposCotacao();
                 carregaDadosTable();
                 JFConfirmacaoPedido frmPedidoConfirmado = new JFConfirmacaoPedido();
                 frmPedidoConfirmado.setVisible(true);
                 frmPedidoConfirmado.setLocationRelativeTo(null);
-            } else {
-                JOptionPane.showMessageDialog(null, "Locação não finalizada, tente novamente!");
-            }
+//            } else {
+//                JOptionPane.showMessageDialog(null, "Locação não finalizada, tente novamente!");
+//            }
 
         } else {
             JOptionPane.showMessageDialog(null, "Locação não finalizada, tente novamente!");

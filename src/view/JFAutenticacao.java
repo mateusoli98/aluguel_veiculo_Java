@@ -30,6 +30,7 @@ public class JFAutenticacao extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         btnCadastrar.setText("Cadastrar-se");
         btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
