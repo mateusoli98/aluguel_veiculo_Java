@@ -21,12 +21,12 @@ public class JFMenu extends javax.swing.JFrame {
     AvaliacaoDAO avaliacaoDAO = new AvaliacaoDAO();
     VeiculoDAO veiculoDAO = new VeiculoDAO();
     LocacaoDAO loc = new LocacaoDAO();
+    String escolhaGrafico = "";
 
     public JFMenu() {
-
         initComponents();
         loc.testeFuncao();
-        lblUsuario.setText("Seja bem vindo   " + ConexaoDAO.getCliente().getNome());
+        lblUsuario.setText("Bem vindo: " + ConexaoDAO.getCliente().getNome());
         apresentarGraficoGeral();
         lblComentario.setText("<html>" + avaliacaoDAO.comentarios(cmbTipo.getSelectedItem().toString()) + "</html>");
         jspComentarios.getVerticalScrollBar().setUnitIncrement(10);
@@ -39,10 +39,11 @@ public class JFMenu extends javax.swing.JFrame {
 
         lblUsuario = new javax.swing.JLabel();
         panGrafico = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        lblParametroGrafico = new javax.swing.JLabel();
         jspComentarios = new javax.swing.JScrollPane();
         lblComentario = new javax.swing.JLabel();
         cmbTipo = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
         menuMain = new javax.swing.JMenuBar();
         menAlugar = new javax.swing.JMenu();
         itemVeiculos = new javax.swing.JMenuItem();
@@ -55,7 +56,7 @@ public class JFMenu extends javax.swing.JFrame {
         itemSairConta = new javax.swing.JMenuItem();
         itemSairPrograma = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu principal");
         setResizable(false);
 
@@ -72,16 +73,21 @@ public class JFMenu extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jLabel1.setText("Comentários");
+        lblParametroGrafico.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblParametroGrafico.setText("Parametro do Gráfico");
 
         jspComentarios.setViewportView(lblComentario);
 
+        cmbTipo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         cmbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Geral" }));
         cmbTipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbTipoActionPerformed(evt);
             }
         });
+
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel2.setText("Comentários");
 
         menAlugar.setText("Locação");
         menAlugar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -181,34 +187,39 @@ public class JFMenu extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(44, 44, 44)
-                        .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lblParametroGrafico)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jspComentarios)
+                        .addComponent(jspComentarios, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
                         .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(116, 116, 116))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addGap(145, 145, 145))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panGrafico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jspComentarios, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblParametroGrafico)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jspComentarios, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE)
+                    .addComponent(panGrafico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(32, 32, 32))
         );
+
+        lblParametroGrafico.getAccessibleContext().setAccessibleName("");
 
         pack();
         setLocationRelativeTo(null);
@@ -248,25 +259,29 @@ public class JFMenu extends javax.swing.JFrame {
     private void jmPerflMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmPerflMouseClicked
         JFPerfil jfPerfil = new JFPerfil();
         jfPerfil.setVisible(true);
-
-
     }//GEN-LAST:event_jmPerflMouseClicked
 
     private void jmHistoricoLocacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmHistoricoLocacoesActionPerformed
         JFHistoricoLocacao jfHL = new JFHistoricoLocacao();
         jfHL.setVisible(true);
-
     }//GEN-LAST:event_jmHistoricoLocacoesActionPerformed
 
     private void cmbTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoActionPerformed
-        if (cmbTipo.getSelectedItem().equals("Geral")) {
+        escolhaGrafico = (String) cmbTipo.getSelectedItem();
+        if (escolhaGrafico.equals("Geral")) {
             apresentarGraficoGeral();
+            lblComentario.setText("<html>" + avaliacaoDAO.comentarios(escolhaGrafico) + "</html>");
         } else {
-            apresentarGraficoVeiculo(String.valueOf(cmbTipo.getSelectedItem()));
+            System.out.println(escolhaGrafico);
+            apresentarGraficoVeiculo(escolhaGrafico);
+            lblComentario.setText("<html>" + avaliacaoDAO.comentarios(escolhaGrafico) + "</html>");
         }
-
     }//GEN-LAST:event_cmbTipoActionPerformed
     public void apresentarGraficoGeral() {
+        panGrafico.removeAll();
+        panGrafico.revalidate();
+        panGrafico.repaint();
+        panGrafico.validate();
         DefaultCategoryDataset dpd = new DefaultCategoryDataset();
         for (Avaliacao a : avaliacaoDAO.notas()) {
             dpd.setValue(a.getQtdAvaliacao(), "     " + a.getNumAvaliacao(), "");
@@ -277,11 +292,14 @@ public class JFMenu extends javax.swing.JFrame {
         chartpanel.setBackground(Color.BLACK);
         panGrafico.setLayout(new BorderLayout(0, 0));
         panGrafico.add(chartpanel);
-        panGrafico.validate();
 
     }
 
     public void apresentarGraficoVeiculo(String veiculo) {
+        panGrafico.removeAll();
+        panGrafico.revalidate();
+        panGrafico.repaint();
+        panGrafico.validate();
         DefaultCategoryDataset dpd = new DefaultCategoryDataset();
         for (Avaliacao a : avaliacaoDAO.notasVeiculo(veiculo)) {
             dpd.setValue(a.getQtdAvaliacao(), "     " + a.getNumAvaliacao(), "");
@@ -292,8 +310,6 @@ public class JFMenu extends javax.swing.JFrame {
         chartpanel.setBackground(Color.BLACK);
         panGrafico.setLayout(new BorderLayout(0, 0));
         panGrafico.add(chartpanel);
-        panGrafico.validate();
-
     }
 
     public void apresentarVeiculos() {
@@ -308,11 +324,12 @@ public class JFMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemSairPrograma;
     private javax.swing.JMenuItem itemVeiculo;
     private javax.swing.JMenuItem itemVeiculos;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuItem jmHistoricoLocacoes;
     private javax.swing.JMenu jmPerfl;
     private javax.swing.JScrollPane jspComentarios;
     private javax.swing.JLabel lblComentario;
+    private javax.swing.JLabel lblParametroGrafico;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JMenu menAlugar;
     private javax.swing.JMenu menCadastrar;
