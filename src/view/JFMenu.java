@@ -7,6 +7,7 @@ import model.Avaliacao;
 import model.AvaliacaoDAO;
 import model.Cliente;
 import model.DAO.ConexaoDAO;
+import model.DAO.LocacaoDAO;
 import model.DAO.VeiculoDAO;
 import model.Veiculo;
 import org.jfree.chart.ChartFactory;
@@ -19,9 +20,12 @@ public class JFMenu extends javax.swing.JFrame {
 
     AvaliacaoDAO avaliacaoDAO = new AvaliacaoDAO();
     VeiculoDAO veiculoDAO = new VeiculoDAO();
+    LocacaoDAO loc = new LocacaoDAO();
 
     public JFMenu() {
+
         initComponents();
+        loc.testeFuncao();
         lblUsuario.setText("Seja bem vindo   " + ConexaoDAO.getCliente().getNome());
         apresentarGraficoGeral();
         lblComentario.setText("<html>" + avaliacaoDAO.comentarios(cmbTipo.getSelectedItem().toString()) + "</html>");
@@ -255,9 +259,9 @@ public class JFMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jmHistoricoLocacoesActionPerformed
 
     private void cmbTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoActionPerformed
-        if(cmbTipo.getSelectedItem().equals("Geral")){
+        if (cmbTipo.getSelectedItem().equals("Geral")) {
             apresentarGraficoGeral();
-        }else{
+        } else {
             apresentarGraficoVeiculo(String.valueOf(cmbTipo.getSelectedItem()));
         }
 
@@ -265,7 +269,6 @@ public class JFMenu extends javax.swing.JFrame {
     public void apresentarGraficoGeral() {
         DefaultCategoryDataset dpd = new DefaultCategoryDataset();
         for (Avaliacao a : avaliacaoDAO.notas()) {
-      
             dpd.setValue(a.getQtdAvaliacao(), "     " + a.getNumAvaliacao(), "");
         }
 

@@ -1,14 +1,9 @@
 package view;
-
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import model.Avaliacao;
 import model.AvaliacaoDAO;
-import model.Cliente;
 import model.DAO.ConexaoDAO;
 import model.DAO.LocacaoDAO;
 import model.HistoricoLocacao;
@@ -30,7 +25,6 @@ public class JFHistoricoLocacao extends javax.swing.JFrame {
         lblNota.setText(String.valueOf(jsNota.getValue()));
         lblNomeCliente.setText("Deixe sua avaliação " + ConexaoDAO.getCliente().getNome() + ", selecione uam locação para avaliar :)");
         carregaDadosTable();
-
     }
 
     @SuppressWarnings("unchecked")
@@ -202,7 +196,7 @@ public class JFHistoricoLocacao extends javax.swing.JFrame {
                 objHL.getVeiculo().getCodigo(),
                 objHL.getVeiculo().getNome(),
                 objHL.getVeiculo().getModelo(),
-                objHL.getLocacao().getDtTermino()
+//                objHL.getLocacao().getDtTermino()
             });
         }
     }
@@ -216,7 +210,7 @@ public class JFHistoricoLocacao extends javax.swing.JFrame {
         objVeiculo.setCodigo((int) jtHistoricoLocacao.getValueAt(jtHistoricoLocacao.getSelectedRow(), 0));
         objVeiculo.setNome("" + jtHistoricoLocacao.getValueAt(jtHistoricoLocacao.getSelectedRow(), 1));
         objVeiculo.setModelo("" + jtHistoricoLocacao.getValueAt(jtHistoricoLocacao.getSelectedRow(), 2));
-        objLocacao.setDtTermino("" + jtHistoricoLocacao.getValueAt(jtHistoricoLocacao.getSelectedRow(), 3));
+//        objLocacao.setDtTermino("" + jtHistoricoLocacao.getValueAt(jtHistoricoLocacao.getSelectedRow(), 3));
         objHL.setLocacao(objLocacao);
         objHL.setVeiculo(objVeiculo);
     }

@@ -54,30 +54,31 @@ public class LocacaoDAO {
     }
 
     public ArrayList<HistoricoLocacao> historicoLocacao() {
-        ArrayList<HistoricoLocacao> listHistoricoLocacao =  new ArrayList<>();
+        ArrayList<HistoricoLocacao> listHistoricoLocacao = new ArrayList<>();
         try {
             conn = ConexaoDAO.abreConexao();
-            query = "SELECT veiculo.codigo, veiculo.nome, veiculo.modelo, locacao.codigo, locacao.dtTermino FROM veiculo JOIN avaliacao on avaliacao.codVeiculo =  veiculo.codigo JOIN locacao ON veiculo.codigo = locacao.codVeiculo JOIN cliente ON cliente.codigo = locacao.codCliente WHERE cliente.codigo = "+ConexaoDAO.getCliente().getCodigo()+" AND locacao.dtTermino <= now() AND avaliacao.status = 0;";
+//            query = "SELECT veiculo.codigo, veiculo.nome, veiculo.modelo, locacao.codigo, locacao.dtTermino FROM veiculo JOIN avaliacao on avaliacao.codVeiculo =  veiculo.codigo JOIN locacao ON veiculo.codigo = locacao.codVeiculo JOIN cliente ON cliente.codigo = locacao.codCliente WHERE cliente.codigo = " + ConexaoDAO.getCliente().getCodigo() + " AND locacao.dtTermino <= now() AND avaliacao.status = 0;";
+          query = "SELECT veiculo.codigo, veiculo.nome, veiculo.modelo FROM veiculo JOIN avaliacao on avaliacao.codVeiculo =  veiculo.codigo JOIN cliente ON avaliacao.codCliente = cliente.codigo WHERE cliente.codigo = " + ConexaoDAO.getCliente().getCodigo() + " AND avaliacao.status = 0;";
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
-            while(rs.next()){
-                HistoricoLocacao objHL =  new HistoricoLocacao();
-                Locacao objLocacao =  new Locacao();
-                Veiculo objVeiculo =  new Veiculo();
-                objVeiculo.setCodigo(rs.getInt("veiculo.codigo"));
+            while (rs.next()) {
+                HistoricoLocacao objHL = new HistoricoLocacao();
+                Locacao objLocacao = new Locacao();
+                Veiculo objVeiculo = new Veiculo();
+               objVeiculo.setCodigo(rs.getInt("veiculo.codigo"));
                 objVeiculo.setNome(rs.getString("veiculo.nome"));
                 objVeiculo.setModelo(rs.getString("veiculo.modelo"));
-                objLocacao.setCodLocacao(rs.getInt("locacao.codigo"));
-                objLocacao.setDtTermino(rs.getString("locacao.dtTermino"));
-                
+//                objLocacao.setCodLocacao(rs.getInt("locacao.codigo"));
+//                objLocacao.setDtTermino(rs.getString("locacao.dtTermino"));
+
                 objHL.setLocacao(objLocacao);
                 objHL.setVeiculo(objVeiculo);
-                
+
                 listHistoricoLocacao.add(objHL);
-                
+
                 objHL = null;
                 objLocacao = null;
-                objVeiculo = null;  
+                objVeiculo = null;
             }
         } catch (SQLException e) {
 
@@ -95,4 +96,39 @@ public class LocacaoDAO {
         }
         return listHistoricoLocacao;
     }
+
+    public void testeFuncao() {
+        String query2 = "";
+        try {
+            conn = ConexaoDAO.abreConexao();
+            query = "SELECT codigo AS codResultado1, codVeiculo as codResultado2 FROM locacao WHERE dtTermino <= now();";
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                query = "DELETE FROM locacao WHERE codigo = '" + rs.getInt(1) + "';";
+                ps = conn.prepareStatement(query);
+                ps.executeUpdate();
+                query2 = "UPDATE veiculo SET alugado = 0 WHERE codigo = '" + rs.getInt(2) + "';";
+                ps = conn.prepareStatement(query2);
+                ps.executeUpdate();
+            }
+
+        } catch (SQLException erroSQL) {
+            erroSQL.printStackTrace();
+        } catch (Exception erro) {
+            erro.printStackTrace();
+        } finally {
+            try {
+                query = "";
+                query2 = "";
+                conn.close();
+                ps.close();
+                rs.close();
+            } catch (SQLException e) {
+
+            }
+        }
+    }
+
 }
