@@ -280,8 +280,6 @@ public class JFMenu extends javax.swing.JFrame {
     public void apresentarGraficoGeral() {
         panGrafico.removeAll();
         panGrafico.revalidate();
-        panGrafico.repaint();
-        panGrafico.validate();
         DefaultCategoryDataset dpd = new DefaultCategoryDataset();
         for (Avaliacao a : avaliacaoDAO.notas()) {
             dpd.setValue(a.getQtdAvaliacao(), "     " + a.getNumAvaliacao(), "");
@@ -298,8 +296,6 @@ public class JFMenu extends javax.swing.JFrame {
     public void apresentarGraficoVeiculo(String veiculo) {
         panGrafico.removeAll();
         panGrafico.revalidate();
-        panGrafico.repaint();
-        panGrafico.validate();
         DefaultCategoryDataset dpd = new DefaultCategoryDataset();
         for (Avaliacao a : avaliacaoDAO.notasVeiculo(veiculo)) {
             dpd.setValue(a.getQtdAvaliacao(), "     " + a.getNumAvaliacao(), "");
