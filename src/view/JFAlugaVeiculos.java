@@ -361,8 +361,13 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
     private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
 
         if (!txtDataInicio.getText().contains(" /  /    ") && !txtDataTermino.getText().contains(" /  /    ")) {
-            habilitaCamposContratacao();
-            calcAluguel();
+            if (!txtDataInicio.getText().equals(txtDataTermino.getText())) {
+                habilitaCamposContratacao();
+                calcAluguel();
+            } else {
+                JOptionPane.showMessageDialog(null, "Datas de Inicio e Termino não devem ser iguais!");
+            }
+
         } else {
             JOptionPane.showMessageDialog(null, "Insira as Datas de sua escolha!");
         }
@@ -383,17 +388,12 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
 
         preencheObjeto();
         if (objVeiculoDAO.realizaLocacao(objLoc, 1)) {
-//            if (objVeiculoDAO.mudaStatusVeiculo(1, objLoc)) {
-                desabilitaCamposContratacao();
-                desabilitaCamposCotacao();
-                carregaDadosTable();
-                JFConfirmacaoPedido frmPedidoConfirmado = new JFConfirmacaoPedido();
-                frmPedidoConfirmado.setVisible(true);
-                frmPedidoConfirmado.setLocationRelativeTo(null);
-//            } else {
-//                JOptionPane.showMessageDialog(null, "Locação não finalizada, tente novamente!");
-//            }
-
+            desabilitaCamposContratacao();
+            desabilitaCamposCotacao();
+            carregaDadosTable();
+            JFConfirmacaoPedido frmPedidoConfirmado = new JFConfirmacaoPedido();
+            frmPedidoConfirmado.setVisible(true);
+            frmPedidoConfirmado.setLocationRelativeTo(null);
         } else {
             JOptionPane.showMessageDialog(null, "Locação não finalizada, tente novamente!");
         }

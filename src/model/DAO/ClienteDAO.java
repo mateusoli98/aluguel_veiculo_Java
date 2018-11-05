@@ -49,7 +49,7 @@ public class ClienteDAO {
         return false;
     }
 
-    public boolean alterarCliente(Cliente c) {
+    public boolean alterarCliente(Cliente c)  {
         try {
             conn = ConexaoDAO.abreConexao();
             query = "UPDATE cliente SET nome = '" + c.getNome() + "', "

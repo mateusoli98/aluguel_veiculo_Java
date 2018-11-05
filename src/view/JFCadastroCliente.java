@@ -24,7 +24,7 @@ public class JFCadastroCliente extends javax.swing.JFrame {
             setaCamposAlteracao();
             btnCadastrar.setText("Alterar");
             setTitle("Atualização Cliente");
-            
+
         }
     }
 
@@ -198,17 +198,25 @@ public class JFCadastroCliente extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    void limpaCampos() {
+        txtUsuario.setText("");
+        txtNome.setText("");
+        txtTelefone.setText("");
+        txtCelular.setText("");
+        txtEmail.setText("");
+        txtSenha.setText("");
+        txtNome.requestFocus();
+        lblValidaUsuario.setVisible(false);
+    }
+
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         setaObjeto();
         if (btnCadastrar.getText().equals("Cadastrar")) {
             try {
-                if (!clienteDAO.buscaUsuarioCliente(cliente.getUsuario())) {
-                    clienteDAO.cadastraCliente(cliente);
-                    JOptionPane.showMessageDialog(null, "Cadastro concluido com sucesso!");
-                    dispose();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Usuário já existe, tente outro!");
-                }
+                clienteDAO.cadastraCliente(cliente);
+                JOptionPane.showMessageDialog(null, "Cadastro concluido com sucesso!");
+                dispose();
+
             } catch (SQLException ex) {
                 ex.printStackTrace();
             } catch (ClassNotFoundException ex) {
@@ -217,31 +225,22 @@ public class JFCadastroCliente extends javax.swing.JFrame {
         }
 
         if (btnCadastrar.getText().equals("Alterar")) {
-            try {
-                if (!clienteDAO.buscaUsuarioCliente(cliente.getUsuario())) {
-                    if (clienteDAO.alterarCliente(cliente)) {
-                        JOptionPane.showMessageDialog(null, "Alteração realizada com sucesso!");
 
-                        ConexaoDAO.setCliente(cliente);
-                        
-                        dispose();
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Não foi possível realizar a alteração!");
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Usuário já existe, tente outro!");
-                }
-            } catch (SQLException ex) {
-                ex.getMessage();
-            } catch (ClassNotFoundException ex) {
+            if (clienteDAO.alterarCliente(cliente)) {
+                JOptionPane.showMessageDialog(null, "Alteração realizada com sucesso!");
 
+                ConexaoDAO.setCliente(cliente);
+
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Não foi possível realizar a alteração!");
             }
         }
 
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
-        // TODO add your handling code here:
+       limpaCampos();
     }//GEN-LAST:event_btnLimparActionPerformed
 
     private void txtUsuarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyReleased
@@ -249,14 +248,17 @@ public class JFCadastroCliente extends javax.swing.JFrame {
             lblValidaUsuario.setVisible(false);
         } else {
             try {
+
                 if (clienteDAO.buscaUsuarioCliente(txtUsuario.getText())) {
                     lblValidaUsuario.setVisible(true);
                     lblValidaUsuario.setText("Usuário indisponível");
-                    lblValidaUsuario.setForeground(Color.red);
+                    lblValidaUsuario.setForeground(new Color(237, 16, 16));
+                    btnCadastrar.setEnabled(false);
                 } else {
                     lblValidaUsuario.setVisible(true);
                     lblValidaUsuario.setText("Usuário disponível");
-                    lblValidaUsuario.setForeground(Color.GREEN);
+                    lblValidaUsuario.setForeground(new Color(0, 153, 12));
+                    btnCadastrar.setEnabled(true);
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(JFCadastroCliente.class.getName()).log(Level.SEVERE, null, ex);

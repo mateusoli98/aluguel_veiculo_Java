@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import model.Cliente;
 import model.DAO.ClienteDAO;
 
@@ -92,6 +93,17 @@ public class JFAutenticacao extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    boolean verificaCampos() {
+        boolean retorno = false;
+        usuario = txtUsuario.getText();
+        senha = txtSenha.getText();
+        if (!usuario.equals("") && !senha.equals("")) {
+            retorno = true;
+        }
+        return retorno;
+    }
+
+
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         JFCadastroCliente frmCadastro = new JFCadastroCliente();
         frmCadastro.setVisible(true);
@@ -99,22 +111,26 @@ public class JFAutenticacao extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        try {
-            usuario = txtUsuario.getText();
-            senha = txtSenha.getText();
-            if ((rs = clienteDAO.buscaLoginCliente(usuario, senha)).next()) {
-                clienteDAO.infoCliente(rs);
-
-                JFMenu frmMenu = new JFMenu();
-                frmMenu.setVisible(true);
-                frmMenu.setLocationRelativeTo(null);
-                dispose();
+        if (verificaCampos()) {
+            try {
+                if ((rs = clienteDAO.buscaLoginCliente(usuario, senha)).next()) {
+                    clienteDAO.infoCliente(rs);
+                    JFMenu frmMenu = new JFMenu();
+                    frmMenu.setVisible(true);
+                    frmMenu.setLocationRelativeTo(null);
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Usuário e/ou Senha incorretos!");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(JFAutenticacao.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(JFAutenticacao.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(JFAutenticacao.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(JFAutenticacao.class.getName()).log(Level.SEVERE, null, ex);
+        } else {
+            JOptionPane.showMessageDialog(null, "Preecha todos os campos!");
         }
+
     }//GEN-LAST:event_btnEntrarActionPerformed
 
 
