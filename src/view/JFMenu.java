@@ -76,6 +76,7 @@ public class JFMenu extends javax.swing.JFrame {
         lblParametroGrafico.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblParametroGrafico.setText("Parametro do Gráfico");
 
+        lblComentario.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jspComentarios.setViewportView(lblComentario);
 
         cmbTipo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N

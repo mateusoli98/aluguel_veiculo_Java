@@ -73,6 +73,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
     void habilitaCamposCotacao() {
         txtDataInicio.setVisible(true);
         txtDataTermino.setVisible(true);
+        txtDataTermino.setVisible(true);
         lblDataFim.setVisible(true);
         lblDataInicio.setVisible(true);
         btnCalcular.setVisible(true);
@@ -81,6 +82,8 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
     void desabilitaCamposCotacao() {
         txtDataInicio.setVisible(false);
         txtDataTermino.setVisible(false);
+        txtDataInicio.setText("");
+        txtDataTermino.setText("");
         lblDataFim.setVisible(false);
         lblDataInicio.setVisible(false);
         btnCalcular.setVisible(false);

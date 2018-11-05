@@ -243,6 +243,9 @@
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
         <Component class="javax.swing.JLabel" name="lblComentario">
+          <Properties>
+            <Property name="verticalAlignment" type="int" value="1"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

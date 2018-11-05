@@ -113,7 +113,7 @@ public class VeiculoDAO {
         ArrayList<Veiculo> listVeiculos = new ArrayList<>();
         try {
             conn = ConexaoDAO.abreConexao();
-            query = "SELECT * FROM veiculo WHERE nome LIKE '%" + nome + "' AND alugado = 0";
+            query = "SELECT * FROM veiculo WHERE nome LIKE '%" + nome + "%' AND alugado = 0";
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
 
