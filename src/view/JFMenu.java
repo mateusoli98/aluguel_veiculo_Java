@@ -20,15 +20,15 @@ public class JFMenu extends javax.swing.JFrame {
 
     AvaliacaoDAO avaliacaoDAO = new AvaliacaoDAO();
     VeiculoDAO veiculoDAO = new VeiculoDAO();
-    LocacaoDAO loc = new LocacaoDAO();
+    LocacaoDAO locDAO = new LocacaoDAO();
     String escolhaGrafico = "";
 
     public JFMenu() {
         initComponents();
-        loc.testeFuncao();
+        locDAO.verificaDisponibilidadeVeiculo();
         lblUsuario.setText("Bem vindo: " + ConexaoDAO.getCliente().getNome());
         apresentarGraficoGeral();
-        lblComentario.setText("<html>" + avaliacaoDAO.comentarios(cmbTipo.getSelectedItem().toString()) + "</html>");
+        lblComentario.setText("<html>" + avaliacaoDAO.comentariosGeral() + "</html>");
         jspComentarios.getVerticalScrollBar().setUnitIncrement(10);
         apresentarVeiculos();
     }
@@ -194,13 +194,13 @@ public class JFMenu extends javax.swing.JFrame {
                         .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jspComentarios, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 221, Short.MAX_VALUE)
                         .addComponent(jLabel2)
-                        .addGap(145, 145, 145))))
+                        .addGap(145, 145, 145))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jspComentarios)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,10 +208,11 @@ public class JFMenu extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblParametroGrafico)
-                    .addComponent(jLabel2))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblParametroGrafico)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jspComentarios, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE)
@@ -270,11 +271,8 @@ public class JFMenu extends javax.swing.JFrame {
         escolhaGrafico = (String) cmbTipo.getSelectedItem();
         if (escolhaGrafico.equals("Geral")) {
             apresentarGraficoGeral();
-            lblComentario.setText("<html>" + avaliacaoDAO.comentarios(escolhaGrafico) + "</html>");
         } else {
-            System.out.println(escolhaGrafico);
             apresentarGraficoVeiculo(escolhaGrafico);
-            lblComentario.setText("<html>" + avaliacaoDAO.comentarios(escolhaGrafico) + "</html>");
         }
     }//GEN-LAST:event_cmbTipoActionPerformed
     public void apresentarGraficoGeral() {
@@ -291,6 +289,7 @@ public class JFMenu extends javax.swing.JFrame {
         panGrafico.setLayout(new BorderLayout(0, 0));
         panGrafico.add(chartpanel);
 
+        lblComentario.setText("<html>" + avaliacaoDAO.comentariosGeral() + "</html>");
     }
 
     public void apresentarGraficoVeiculo(String veiculo) {
@@ -300,12 +299,13 @@ public class JFMenu extends javax.swing.JFrame {
         for (Avaliacao a : avaliacaoDAO.notasVeiculo(veiculo)) {
             dpd.setValue(a.getQtdAvaliacao(), "     " + a.getNumAvaliacao(), "");
         }
-
         JFreeChart grafico = ChartFactory.createBarChart3D("Todas as avaliações de " + veiculo, "Notas", "Avaliações", dpd, PlotOrientation.VERTICAL, true, true, false);
         ChartPanel chartpanel = new ChartPanel(grafico);
         chartpanel.setBackground(Color.BLACK);
         panGrafico.setLayout(new BorderLayout(0, 0));
         panGrafico.add(chartpanel);
+
+        lblComentario.setText("<html>" + avaliacaoDAO.comentariosPorVeiculo(escolhaGrafico) + "</html>");
     }
 
     public void apresentarVeiculos() {

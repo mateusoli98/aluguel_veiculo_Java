@@ -15,7 +15,7 @@ public class LocacaoDAO {
     PreparedStatement ps;
     ResultSet rs;
     Connection conn;
-    String query = "";
+    String query = "", query2 = "";;
     boolean retorno = false;
 
     public ArrayList<Locacao> exibeVeiculos(int codCliente) {
@@ -57,7 +57,6 @@ public class LocacaoDAO {
         ArrayList<HistoricoLocacao> listHistoricoLocacao = new ArrayList<>();
         try {
             conn = ConexaoDAO.abreConexao();
-//            query = "SELECT veiculo.codigo, veiculo.nome, veiculo.modelo, locacao.codigo, locacao.dtTermino FROM veiculo JOIN avaliacao on avaliacao.codVeiculo =  veiculo.codigo JOIN locacao ON veiculo.codigo = locacao.codVeiculo JOIN cliente ON cliente.codigo = locacao.codCliente WHERE cliente.codigo = " + ConexaoDAO.getCliente().getCodigo() + " AND locacao.dtTermino <= now() AND avaliacao.status = 0;";
           query = "SELECT veiculo.codigo, veiculo.nome, veiculo.modelo FROM veiculo JOIN avaliacao on avaliacao.codVeiculo =  veiculo.codigo JOIN cliente ON avaliacao.codCliente = cliente.codigo WHERE cliente.codigo = " + ConexaoDAO.getCliente().getCodigo() + " AND avaliacao.status = 0;";
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
@@ -68,9 +67,6 @@ public class LocacaoDAO {
                objVeiculo.setCodigo(rs.getInt("veiculo.codigo"));
                 objVeiculo.setNome(rs.getString("veiculo.nome"));
                 objVeiculo.setModelo(rs.getString("veiculo.modelo"));
-//                objLocacao.setCodLocacao(rs.getInt("locacao.codigo"));
-//                objLocacao.setDtTermino(rs.getString("locacao.dtTermino"));
-
                 objHL.setLocacao(objLocacao);
                 objHL.setVeiculo(objVeiculo);
 
@@ -97,8 +93,7 @@ public class LocacaoDAO {
         return listHistoricoLocacao;
     }
 
-    public void testeFuncao() {
-        String query2 = "";
+    public void verificaDisponibilidadeVeiculo() {
         try {
             conn = ConexaoDAO.abreConexao();
             query = "SELECT codigo AS codResultado1, codVeiculo as codResultado2 FROM locacao WHERE dtTermino <= now();";

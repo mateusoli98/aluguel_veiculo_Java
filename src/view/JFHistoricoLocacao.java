@@ -72,17 +72,14 @@ public class JFHistoricoLocacao extends javax.swing.JFrame {
 
         jtHistoricoLocacao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Chassi", "Nome", "Modelo", "Data Termino"
+                "Chassi", "Nome", "Modelo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -99,7 +96,6 @@ public class JFHistoricoLocacao extends javax.swing.JFrame {
             jtHistoricoLocacao.getColumnModel().getColumn(0).setResizable(false);
             jtHistoricoLocacao.getColumnModel().getColumn(1).setResizable(false);
             jtHistoricoLocacao.getColumnModel().getColumn(2).setResizable(false);
-            jtHistoricoLocacao.getColumnModel().getColumn(3).setResizable(false);
         }
 
         txtComentario.setColumns(20);
@@ -196,7 +192,6 @@ public class JFHistoricoLocacao extends javax.swing.JFrame {
                 objHL.getVeiculo().getCodigo(),
                 objHL.getVeiculo().getNome(),
                 objHL.getVeiculo().getModelo(),
-//                objHL.getLocacao().getDtTermino()
             });
         }
     }
@@ -210,7 +205,6 @@ public class JFHistoricoLocacao extends javax.swing.JFrame {
         objVeiculo.setCodigo((int) jtHistoricoLocacao.getValueAt(jtHistoricoLocacao.getSelectedRow(), 0));
         objVeiculo.setNome("" + jtHistoricoLocacao.getValueAt(jtHistoricoLocacao.getSelectedRow(), 1));
         objVeiculo.setModelo("" + jtHistoricoLocacao.getValueAt(jtHistoricoLocacao.getSelectedRow(), 2));
-//        objLocacao.setDtTermino("" + jtHistoricoLocacao.getValueAt(jtHistoricoLocacao.getSelectedRow(), 3));
         objHL.setLocacao(objLocacao);
         objHL.setVeiculo(objVeiculo);
     }
