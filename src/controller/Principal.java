@@ -1,6 +1,5 @@
 package controller;
 
-import model.Email;
 import view.JFAutenticacao;
 
 
@@ -21,14 +20,6 @@ public class Principal {
             frmLogin.setVisible(true);
             frmLogin.setLocationRelativeTo(null);
         });
-
-
-
-//        Email e =  new Email();
-//        e.enviar();
-
-
-
 
     }
 }
