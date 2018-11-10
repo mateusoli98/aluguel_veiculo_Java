@@ -9,7 +9,7 @@ import model.Cliente;
 import model.DAO.ConexaoDAO;
 import model.DAO.LocacaoDAO;
 import model.DAO.VeiculoDAO;
-import model.Email;
+
 import model.Veiculo;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -45,7 +45,6 @@ public class JFMenu extends javax.swing.JFrame {
         lblComentario = new javax.swing.JLabel();
         cmbTipo = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         menuMain = new javax.swing.JMenuBar();
         menAlugar = new javax.swing.JMenu();
         itemVeiculos = new javax.swing.JMenuItem();
@@ -91,13 +90,6 @@ public class JFMenu extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel2.setText("Comentários");
-
-        jButton1.setText("teste email");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         menAlugar.setText("Locação");
         menAlugar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -209,22 +201,15 @@ public class JFMenu extends javax.swing.JFrame {
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 215, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(145, 145, 145))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addGap(21, 21, 21))))))
+                        .addComponent(jLabel2)
+                        .addGap(145, 145, 145))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addGap(18, 18, 18)
+                .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -292,10 +277,6 @@ public class JFMenu extends javax.swing.JFrame {
             apresentarGraficoVeiculo(escolhaGrafico);
         }
     }//GEN-LAST:event_cmbTipoActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Email.enviar();
-    }//GEN-LAST:event_jButton1ActionPerformed
     public void apresentarGraficoGeral() {
         panGrafico.removeAll();
         panGrafico.revalidate();
@@ -341,7 +322,6 @@ public class JFMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemSairPrograma;
     private javax.swing.JMenuItem itemVeiculo;
     private javax.swing.JMenuItem itemVeiculos;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuItem jmHistoricoLocacoes;
     private javax.swing.JMenu jmPerfl;
