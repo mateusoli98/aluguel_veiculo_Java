@@ -81,7 +81,7 @@ public class AvaliacaoDAO {
         String comentarios = "";
         try {
             conn = ConexaoDAO.abreConexao();
-            query = "SELECT cliente.nome, avaliacao.numAvaliacao, veiculo.nome, avaliacao.comentario FROM cliente JOIN avaliacao ON cliente.codigo = avaliacao.codCliente JOIN veiculo ON veiculo.codigo = avaliacao.codVeiculo WHERE veiculo.nome = " + veiculo + " AND avaliacao.status = 1 ORDER BY avaliacao.codigo DESC;";
+            query = "SELECT cliente.nome, avaliacao.numAvaliacao, veiculo.nome, avaliacao.comentario FROM cliente JOIN avaliacao ON cliente.codigo = avaliacao.codCliente JOIN veiculo ON veiculo.codigo = avaliacao.codVeiculo WHERE veiculo.nome = "+ veiculo +" AND avaliacao.status = 1 ORDER BY avaliacao.codigo DESC;";
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
 

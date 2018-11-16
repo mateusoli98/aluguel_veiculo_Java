@@ -45,6 +45,7 @@ public class JFMenu extends javax.swing.JFrame {
         lblComentario = new javax.swing.JLabel();
         cmbTipo = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         menuMain = new javax.swing.JMenuBar();
         menAlugar = new javax.swing.JMenu();
         itemVeiculos = new javax.swing.JMenuItem();
@@ -90,6 +91,9 @@ public class JFMenu extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel2.setText("Comentários");
+
+        jLabel1.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
+        jLabel1.setText("Erico Verissimo, 366 - Jardim Amanda - Hortolândia/SP - Locacões de Veiculos A&M - Todos direitos reservados 2018");
 
         menAlugar.setText("Locação");
         menAlugar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -203,6 +207,10 @@ public class JFMenu extends javax.swing.JFrame {
                         .addGap(0, 215, Short.MAX_VALUE)
                         .addComponent(jLabel2)
                         .addGap(145, 145, 145))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1039, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -219,7 +227,9 @@ public class JFMenu extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jspComentarios, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE)
                     .addComponent(panGrafico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(32, 32, 32))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addGap(30, 30, 30))
         );
 
         lblParametroGrafico.getAccessibleContext().setAccessibleName("");
@@ -307,7 +317,7 @@ public class JFMenu extends javax.swing.JFrame {
         panGrafico.setLayout(new BorderLayout(0, 0));
         panGrafico.add(chartpanel);
 
-        lblComentario.setText("<html>" + avaliacaoDAO.comentariosPorVeiculo(escolhaGrafico) + "</html>");
+        lblComentario.setText(avaliacaoDAO.comentariosPorVeiculo(escolhaGrafico));
     }
 
     public void apresentarVeiculos() {
@@ -322,6 +332,7 @@ public class JFMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemSairPrograma;
     private javax.swing.JMenuItem itemVeiculo;
     private javax.swing.JMenuItem itemVeiculos;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuItem jmHistoricoLocacoes;
     private javax.swing.JMenu jmPerfl;

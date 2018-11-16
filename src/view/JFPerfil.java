@@ -11,7 +11,7 @@ public class JFPerfil extends javax.swing.JFrame {
     ClienteDAO clienteDAO = new ClienteDAO();
     public JFPerfil() {
         initComponents();
-        lblRecepcaoCliente.setText("Olá "+ConexaoDAO.getCliente().getNome()+", o que deseja fazer?");
+        lblRecepcaoCliente.setText(ConexaoDAO.getCliente().getNome()+", o que deseja fazer?");
     }
 
     
@@ -28,8 +28,10 @@ public class JFPerfil extends javax.swing.JFrame {
         setResizable(false);
 
         lblRecepcaoCliente.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        lblRecepcaoCliente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblRecepcaoCliente.setText("...");
 
+        btnAlterarConta.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnAlterarConta.setText("Alterar dados da conta");
         btnAlterarConta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -37,6 +39,7 @@ public class JFPerfil extends javax.swing.JFrame {
             }
         });
 
+        btnExluirConta.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnExluirConta.setText("Excuir conta");
         btnExluirConta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -48,28 +51,27 @@ public class JFPerfil extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addComponent(lblRecepcaoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(lblRecepcaoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addComponent(btnAlterarConta)
-                        .addGap(64, 64, 64)
-                        .addComponent(btnExluirConta)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addGap(46, 46, 46)
+                .addComponent(btnAlterarConta)
+                .addGap(40, 40, 40)
+                .addComponent(btnExluirConta)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(lblRecepcaoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
+                .addGap(28, 28, 28)
+                .addComponent(lblRecepcaoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAlterarConta)
                     .addComponent(btnExluirConta))
-                .addGap(69, 69, 69))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         pack();
