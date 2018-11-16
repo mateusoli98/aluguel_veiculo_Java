@@ -222,7 +222,7 @@ public class VeiculoDAO {
         return retorno;
     }
 
-    public boolean realizaLocacao(Locacao loc, int alugado) {
+    public boolean realizaLocacao(Locacao loc) {
         String queryAvaliacao = "INSERT INTO avaliacao(codCliente,codVeiculo) VALUES ("+loc.getCodCliente()+","+loc.getCodVeiculo()+");";
         try {
             conn = ConexaoDAO.abreConexao();
@@ -240,7 +240,7 @@ public class VeiculoDAO {
             ps.executeUpdate();
             ps = null;
             query = "";
-            query = "UPDATE veiculo SET alugado = '" + alugado + "' WHERE codigo = " + loc.getCodVeiculo() + ";";
+            query = "UPDATE veiculo SET alugado = 1 WHERE codigo = " + loc.getCodVeiculo() + ";";
             ps = conn.prepareStatement(query);
             ps.executeUpdate();
             return retorno = true;

@@ -4,6 +4,7 @@ public class Locacao {
 
     private int codCliente, codVeiculo, codLocacao;
     private String dtInicio, dtTermino, nomeVeiculo;
+    private double total;
 
     public String getNomeVeiculo() {
         return nomeVeiculo;
@@ -12,8 +13,6 @@ public class Locacao {
     public void setNomeVeiculo(String nomeVeiculo) {
         this.nomeVeiculo = nomeVeiculo;
     }
-
-    private double total;
 
     public int getCodLocacao() {
         return codLocacao;

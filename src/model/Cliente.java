@@ -2,8 +2,8 @@
 package model;
 
 public class Cliente {
-    private String nome, email, usuario, senha, telefone, celular;
-    private int acesso, codigo;
+    private String nome, email, usuario, senha;
+    private int acesso, codigo,  telefone, celular;
 
     public int getCodigo() {
         return codigo;
@@ -53,19 +53,19 @@ public class Cliente {
         this.senha = senha;
     }
 
-    public String getTelefone() {
+    public int getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(String telefone) {
+    public void setTelefone(int telefone) {
         this.telefone = telefone;
     }
 
-    public String getCelular() {
+    public int getCelular() {
         return celular;
     }
 
-    public void setCelular(String celular) {
+    public void setCelular(int celular) {
         this.celular = celular;
     }
     

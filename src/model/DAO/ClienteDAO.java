@@ -19,8 +19,8 @@ public class ClienteDAO {
         ps = conn.prepareStatement(query);
         ps.setString(1, objCliente.getNome());
         ps.setString(2, objCliente.getEmail());
-        ps.setString(3, objCliente.getTelefone());
-        ps.setString(4, objCliente.getCelular());
+        ps.setInt(3, objCliente.getTelefone());
+        ps.setInt(4, objCliente.getCelular());
         ps.setString(5, objCliente.getUsuario());
         ps.setString(6, objCliente.getSenha());
         ps.executeUpdate();
@@ -102,8 +102,8 @@ public class ClienteDAO {
             cliente.setCodigo(rs.getInt("codigo"));
             cliente.setNome(rs.getString("nome"));
             cliente.setEmail(rs.getString("email"));
-            cliente.setTelefone(rs.getString("telefone"));
-            cliente.setCelular(rs.getString("celular"));
+            cliente.setTelefone(rs.getInt("telefone"));
+            cliente.setCelular(rs.getInt("celular"));
             cliente.setUsuario(rs.getString("usuario"));
             cliente.setAcesso(rs.getInt("acesso"));
             ConexaoDAO.setCliente(cliente);

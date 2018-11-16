@@ -131,6 +131,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         objLoc.setDtInicio(conLocacao.converteDatasBanco(dtInicio));
         objLoc.setDtTermino(conLocacao.converteDatasBanco(dtTermino));
         objLoc.setTotal(Double.parseDouble(lblValorAluguel.getText()));
+        objLoc.setNomeVeiculo(""+tableVeiculos.getValueAt(tableVeiculos.getSelectedRow(), 1));
     }
 
     @SuppressWarnings("unchecked")
@@ -390,11 +391,11 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
 
         preencheObjeto();
-        if (objVeiculoDAO.realizaLocacao(objLoc, 1)) {
+        if (objVeiculoDAO.realizaLocacao(objLoc)) {
             desabilitaCamposContratacao();
             desabilitaCamposCotacao();
             carregaDadosTable();
-            JFConfirmacaoPedido frmPedidoConfirmado = new JFConfirmacaoPedido();
+            JFNotaPedido frmPedidoConfirmado = new JFNotaPedido(objLoc);
             frmPedidoConfirmado.setVisible(true);
             frmPedidoConfirmado.setLocationRelativeTo(null);
         } else {

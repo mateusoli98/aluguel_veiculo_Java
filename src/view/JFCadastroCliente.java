@@ -220,36 +220,40 @@ public class JFCadastroCliente extends javax.swing.JFrame {
 
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        setaObjeto();
+        try {
+            setaObjeto();
+            if (verificaCampos()) {
+                if (btnCadastrar.getText().equals("Cadastrar")) {
+                    try {
+                        clienteDAO.cadastraCliente(cliente);
+                        JOptionPane.showMessageDialog(null, "Cadastro concluido com sucesso!");
+                        dispose();
 
-        if (verificaCampos()) {
-            if (btnCadastrar.getText().equals("Cadastrar")) {
-                try {
-                    clienteDAO.cadastraCliente(cliente);
-                    JOptionPane.showMessageDialog(null, "Cadastro concluido com sucesso!");
-                    dispose();
-
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                } catch (ClassNotFoundException ex) {
-                    ex.printStackTrace();
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    } catch (ClassNotFoundException ex) {
+                        ex.printStackTrace();
+                    }
                 }
-            }
 
-            if (btnCadastrar.getText().equals("Alterar")) {
+                if (btnCadastrar.getText().equals("Alterar")) {
 
-                if (clienteDAO.alterarCliente(cliente)) {
-                    JOptionPane.showMessageDialog(null, "Alteração realizada com sucesso!");
+                    if (clienteDAO.alterarCliente(cliente)) {
+                        JOptionPane.showMessageDialog(null, "Alteração realizada com sucesso!");
 
-                    ConexaoDAO.setCliente(cliente);
+                        ConexaoDAO.setCliente(cliente);
 
-                    dispose();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Não foi possível realizar a alteração!");
+                        dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Não foi possível realizar a alteração!");
+                    }
                 }
+            } else {
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
             }
-        } else JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
-       
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Telefone/Celular digite apenas numeros!");
+        }
 
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
@@ -289,8 +293,8 @@ public class JFCadastroCliente extends javax.swing.JFrame {
         cliente.setCodigo(ConexaoDAO.getCliente().getCodigo());
         cliente.setNome(txtNome.getText());
         cliente.setEmail(txtEmail.getText());
-        cliente.setTelefone(txtTelefone.getText());
-        cliente.setCelular(txtCelular.getText());
+        cliente.setTelefone(Integer.parseInt(txtTelefone.getText()));
+        cliente.setCelular(Integer.parseInt(txtCelular.getText()));
         cliente.setUsuario(txtUsuario.getText());
         cliente.setSenha(txtSenha.getText());
     }
@@ -298,8 +302,8 @@ public class JFCadastroCliente extends javax.swing.JFrame {
     void setaCamposAlteracao() {
         txtNome.setText(ConexaoDAO.getCliente().getNome());
         txtEmail.setText(ConexaoDAO.getCliente().getEmail());
-        txtTelefone.setText(ConexaoDAO.getCliente().getTelefone());
-        txtCelular.setText(ConexaoDAO.getCliente().getCelular());
+        txtTelefone.setText(String.valueOf(ConexaoDAO.getCliente().getTelefone()));
+        txtCelular.setText(String.valueOf(ConexaoDAO.getCliente().getCelular()));
         txtUsuario.setText(ConexaoDAO.getCliente().getUsuario());
         lblSenha.setText("Digite sua nova senha");
     }
