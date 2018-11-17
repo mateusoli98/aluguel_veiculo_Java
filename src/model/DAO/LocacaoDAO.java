@@ -22,11 +22,11 @@ public class LocacaoDAO {
     ;
     boolean retorno = false;
 
-    public ArrayList<Locacao> exibeVeiculos(int codCliente) {
+    public ArrayList<Locacao> exibeVeiculos() {
         ArrayList<Locacao> listVeiculos = new ArrayList<>();
         try {
             conn = ConexaoDAO.abreConexao();
-            query = "SELECT locacao.codigo, locacao.total, locacao.dtInicio, locacao.dtTermino, veiculo.nome FROM locacao JOIN veiculo ON locacao.codVeiculo = veiculo.codigo JOIN cliente ON locacao.codCliente = cliente.codigo WHERE locacao.codCliente = '" + codCliente + "'";
+            query = "SELECT locacao.codigo, locacao.total, locacao.dtInicio, locacao.dtTermino, veiculo.nome FROM locacao JOIN veiculo ON locacao.codVeiculo = veiculo.codigo JOIN pessoa ON locacao.codPessoa = pessoa.codigo WHERE locacao.codPessoa = '" + ConexaoDAO.getCliente().getCodigo() + "'";
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -61,7 +61,7 @@ public class LocacaoDAO {
         ArrayList<HistoricoLocacao> listHistoricoLocacao = new ArrayList<>();
         try {
             conn = ConexaoDAO.abreConexao();
-            query = "SELECT veiculo.codigo, veiculo.nome, veiculo.modelo FROM veiculo JOIN avaliacao on avaliacao.codVeiculo =  veiculo.codigo JOIN cliente ON avaliacao.codCliente = cliente.codigo WHERE cliente.codigo = " + ConexaoDAO.getCliente().getCodigo() + " AND avaliacao.status = 0;";
+            query = "SELECT veiculo.codigo, veiculo.nome, veiculo.modelo FROM veiculo JOIN avaliacao on avaliacao.codVeiculo =  veiculo.codigo JOIN pessoa ON avaliacao.codPessoa = pessoa.codigo WHERE pessoa.codigo = " + ConexaoDAO.getCliente().getCodigo() + " AND avaliacao.status = 0;";
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             while (rs.next()) {

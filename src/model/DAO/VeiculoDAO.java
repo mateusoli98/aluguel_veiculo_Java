@@ -223,10 +223,10 @@ public class VeiculoDAO {
     }
 
     public boolean realizaLocacao(Locacao loc) {
-        String queryAvaliacao = "INSERT INTO avaliacao(codCliente,codVeiculo) VALUES ("+loc.getCodCliente()+","+loc.getCodVeiculo()+");";
+        String queryAvaliacao = "INSERT INTO avaliacao(codPessoa,codVeiculo) VALUES ("+loc.getCodCliente()+","+loc.getCodVeiculo()+");";
         try {
             conn = ConexaoDAO.abreConexao();
-            query = "INSERT INTO locacao (`codVeiculo`, `codCliente`, `dtInicio`, `dtTermino`, `total`) VALUES (?, ?, ?, ?,?);";
+            query = "INSERT INTO locacao (`codVeiculo`, `codPessoa`, `dtInicio`, `dtTermino`, `total`) VALUES (?, ?, ?, ?,?);";
             
             ps = conn.prepareStatement(query);
             ps.setInt(1, loc.getCodVeiculo());

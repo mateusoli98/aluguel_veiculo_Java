@@ -2,7 +2,6 @@ package view;
 
 import model.DAO.ConexaoDAO;
 import model.DAO.LocacaoDAO;
-import model.DAO.VeiculoDAO;
 import controller.ControleLocacao;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -24,7 +23,7 @@ public class JFLocacoes extends javax.swing.JFrame {
 
     void carregaDadosTable() {
         inicializaModel();
-        for (Locacao objLoc : objLocDAO.exibeVeiculos(ConexaoDAO.getCliente().getCodigo())) {
+        for (Locacao objLoc : objLocDAO.exibeVeiculos()) {
             dtmDefault.addRow(new Object[]{
                 objLoc.getCodLocacao(),
                 objLoc.getNomeVeiculo(),

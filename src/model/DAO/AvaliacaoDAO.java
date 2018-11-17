@@ -23,7 +23,7 @@ public class AvaliacaoDAO {
                     + "comentario = '" + a.getComentario() + "',"
                     + "status = 1 "
                     + "WHERE codVeiculo = " + hl.getVeiculo().getCodigo() + " AND "
-                    + "codCliente = " + ConexaoDAO.getCliente().getCodigo() + ";";
+                    + "codPessoa = " + ConexaoDAO.getCliente().getCodigo() + ";";
 
             ps = conn.prepareStatement(query);
             ps.executeUpdate();
@@ -46,15 +46,15 @@ public class AvaliacaoDAO {
         try {
             conn = ConexaoDAO.abreConexao();
             if (veiculo.equals("Geral")) {
-                query = "SELECT cliente.nome, avaliacao.numAvaliacao, veiculo.nome, avaliacao.comentario FROM cliente JOIN avaliacao ON cliente.codigo = avaliacao.codCliente JOIN veiculo ON veiculo.codigo = avaliacao.codVeiculo WHERE avaliacao.status = 1 ORDER BY avaliacao.codigo DESC;";
+                query = "SELECT pessoa.nome, avaliacao.numAvaliacao, veiculo.nome, avaliacao.comentario FROM pessoa JOIN avaliacao ON pessoa.codigo = avaliacao.codPessoa JOIN veiculo ON veiculo.codigo = avaliacao.codVeiculo WHERE avaliacao.status = 1 ORDER BY avaliacao.codigo DESC;";
             } else {
-                query = "SELECT cliente.nome, avaliacao.numAvaliacao, veiculo.nome, avaliacao.comentario FROM cliente JOIN avaliacao ON cliente.codigo = avaliacao.codCliente JOIN veiculo ON veiculo.codigo = avaliacao.codVeiculo WHERE veiculo.nome = '" + veiculo + "' AND avaliacao.status = 1 ORDER BY avaliacao.codigo DESC;";
+                query = "SELECT pessoa.nome, avaliacao.numAvaliacao, veiculo.nome, avaliacao.comentario FROM pessoa JOIN avaliacao ON pessoa.codigo = avaliacao.codPessoa JOIN veiculo ON veiculo.codigo = avaliacao.codVeiculo WHERE veiculo.nome = '" + veiculo + "' AND avaliacao.status = 1 ORDER BY avaliacao.codigo DESC;";
             }
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                comentarios += "<br>Cliente: <b>" + rs.getString("cliente.nome") + "</b> avaliou o "
+                comentarios += "<br>Cliente: <b>" + rs.getString("pessoa.nome") + "</b> avaliou o "
                         + "veículo: <b>" + rs.getString("veiculo.nome") + "</b> com nota: <b>"
                         + +rs.getInt("avaliacao.numAvaliacao")
                         + "</b><br><br>"
