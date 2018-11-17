@@ -22,7 +22,7 @@ public class VeiculoDAO {
         ArrayList<Veiculo> listVeiculos = new ArrayList<>();
         try {
             conn = ConexaoDAO.abreConexao();
-            query = "SELECT * FROM veiculo WHERE alugado = 0";
+            query = "SELECT * FROM exibeveiculos";
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             while (rs.next()) {

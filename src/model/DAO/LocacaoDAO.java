@@ -1,10 +1,13 @@
 package model.DAO;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import model.HistoricoLocacao;
 import model.Locacao;
@@ -15,7 +18,8 @@ public class LocacaoDAO {
     PreparedStatement ps;
     ResultSet rs;
     Connection conn;
-    String query = "", query2 = "";;
+    String query = "", query2 = "";
+    ;
     boolean retorno = false;
 
     public ArrayList<Locacao> exibeVeiculos(int codCliente) {
@@ -57,14 +61,14 @@ public class LocacaoDAO {
         ArrayList<HistoricoLocacao> listHistoricoLocacao = new ArrayList<>();
         try {
             conn = ConexaoDAO.abreConexao();
-          query = "SELECT veiculo.codigo, veiculo.nome, veiculo.modelo FROM veiculo JOIN avaliacao on avaliacao.codVeiculo =  veiculo.codigo JOIN cliente ON avaliacao.codCliente = cliente.codigo WHERE cliente.codigo = " + ConexaoDAO.getCliente().getCodigo() + " AND avaliacao.status = 0;";
+            query = "SELECT veiculo.codigo, veiculo.nome, veiculo.modelo FROM veiculo JOIN avaliacao on avaliacao.codVeiculo =  veiculo.codigo JOIN cliente ON avaliacao.codCliente = cliente.codigo WHERE cliente.codigo = " + ConexaoDAO.getCliente().getCodigo() + " AND avaliacao.status = 0;";
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             while (rs.next()) {
                 HistoricoLocacao objHL = new HistoricoLocacao();
                 Locacao objLocacao = new Locacao();
                 Veiculo objVeiculo = new Veiculo();
-               objVeiculo.setCodigo(rs.getInt("veiculo.codigo"));
+                objVeiculo.setCodigo(rs.getInt("veiculo.codigo"));
                 objVeiculo.setNome(rs.getString("veiculo.nome"));
                 objVeiculo.setModelo(rs.getString("veiculo.modelo"));
                 objHL.setLocacao(objLocacao);
@@ -96,33 +100,49 @@ public class LocacaoDAO {
     public void verificaDisponibilidadeVeiculo() {
         try {
             conn = ConexaoDAO.abreConexao();
-            query = "SELECT codigo AS codResultado1, codVeiculo as codResultado2 FROM locacao WHERE dtTermino <= now();";
-            ps = conn.prepareStatement(query);
-            rs = ps.executeQuery();
-
-            while (rs.next()) {
-                query = "DELETE FROM locacao WHERE codigo = '" + rs.getInt(1) + "';";
-                ps = conn.prepareStatement(query);
-                ps.executeUpdate();
-                query2 = "UPDATE veiculo SET alugado = 0 WHERE codigo = '" + rs.getInt(2) + "';";
-                ps = conn.prepareStatement(query2);
-                ps.executeUpdate();
-            }
-
-        } catch (SQLException erroSQL) {
-            erroSQL.printStackTrace();
-        } catch (Exception erro) {
-            erro.printStackTrace();
-        } finally {
-            try {
-                query = "";
-                query2 = "";
-                conn.close();
-                ps.close();
-                rs.close();
-            } catch (SQLException e) {
-
-            }
+            CallableStatement ps;
+            query = "{call disponibilidadeCarro ()}";
+            ps = conn.prepareCall(query);
+            ps.execute();
+            conn.close();
+            ps.close();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(LocacaoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(LocacaoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+//    public void verificaDisponibilidadeVeiculo() {
+//        try {
+//            conn = ConexaoDAO.abreConexao();
+//            query = "SELECT codigo AS codResultado1, codVeiculo as codResultado2 FROM locacao WHERE dtTermino <= now();";
+//            ps = conn.prepareStatement(query);
+//            rs = ps.executeQuery();
+//
+//            while (rs.next()) {
+//                query = "DELETE FROM locacao WHERE codigo = '" + rs.getInt(1) + "';";
+//                ps = conn.prepareStatement(query);
+//                ps.executeUpdate();
+//                query2 = "UPDATE veiculo SET alugado = 0 WHERE codigo = '" + rs.getInt(2) + "';";
+//                ps = conn.prepareStatement(query2);
+//                ps.executeUpdate();
+//            }
+//
+//        } catch (SQLException erroSQL) {
+//            erroSQL.printStackTrace();
+//        } catch (Exception erro) {
+//            erro.printStackTrace();
+//        } finally {
+//            try {
+//                query = "";
+//                query2 = "";
+//                conn.close();
+//                ps.close();
+//                rs.close();
+//            } catch (SQLException e) {
+//
+//            }
+//        }
+//    }
 }
