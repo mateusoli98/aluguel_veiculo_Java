@@ -229,6 +229,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
 
         lblValorAluguel.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         lblValorAluguel.setForeground(new java.awt.Color(0, 153, 0));
+        lblValorAluguel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         btnCalcular.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnCalcular.setText("Calcular");

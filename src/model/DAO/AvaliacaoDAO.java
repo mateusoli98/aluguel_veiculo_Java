@@ -41,79 +41,15 @@ public class AvaliacaoDAO {
         return false;
     }
 
-//    public String comentarios(String veiculo) {
-//        String comentarios = "";
-//        try {
-//            conn = ConexaoDAO.abreConexao();
-//            if (veiculo.equals("Geral")) {
-//                query = "SELECT cliente.nome, avaliacao.numAvaliacao, veiculo.nome, avaliacao.comentario FROM cliente JOIN avaliacao ON cliente.codigo = avaliacao.codCliente JOIN veiculo ON veiculo.codigo = avaliacao.codVeiculo WHERE avaliacao.status = 1 ORDER BY avaliacao.codigo DESC;";
-//            } else {
-//                query = "SELECT cliente.nome, avaliacao.numAvaliacao, veiculo.nome, avaliacao.comentario FROM cliente JOIN avaliacao ON cliente.codigo = avaliacao.codCliente JOIN veiculo ON veiculo.codigo = avaliacao.codVeiculo WHERE veiculo.nome = " + veiculo + " AND avaliacao.status = 1 ORDER BY avaliacao.codigo DESC;";
-//            }
-//            ps = conn.prepareStatement(query);
-//            rs = ps.executeQuery();
-//
-//            while (rs.next()) {
-//                comentarios += "<br>Cliente: <b>" + rs.getString("cliente.nome") + "</b> avaliou o "
-//                        + "veículo: <b>" + rs.getString("veiculo.nome") + "</b> com nota: <b>"
-//                        + +rs.getInt("avaliacao.numAvaliacao")
-//                        + "</b><br><br>"
-//                        + "<b>Experiencia com nossos serviços:</b><br>"
-//                        + "<i>\"" + rs.getString("avaliacao.comentario") + "\"</i>"
-//                        + "<br><br><hr>";
-//            }
-//
-//        } catch (SQLException | ClassNotFoundException e) {
-//
-//        } finally {
-//            try {
-//                query = "";
-//                conn.close();
-//                ps.close();
-//                rs.close();
-//            } catch (SQLException e) {
-//            }
-//        }
-//
-//        return comentarios;
-//    }
-    public String comentariosPorVeiculo(String veiculo) {
+    public String comentarios(String veiculo) {;
         String comentarios = "";
         try {
             conn = ConexaoDAO.abreConexao();
-            query = "SELECT cliente.nome, avaliacao.numAvaliacao, veiculo.nome, avaliacao.comentario FROM cliente JOIN avaliacao ON cliente.codigo = avaliacao.codCliente JOIN veiculo ON veiculo.codigo = avaliacao.codVeiculo WHERE veiculo.nome = "+ veiculo +" AND avaliacao.status = 1 ORDER BY avaliacao.codigo DESC;";
-            ps = conn.prepareStatement(query);
-            rs = ps.executeQuery();
-
-            while (rs.next()) {
-                comentarios += "<br>Cliente: <b>" + rs.getString("cliente.nome") + "</b> avaliou o "
-                        + "veículo: <b>" + rs.getString("veiculo.nome") + "</b> com nota: <b>"
-                        + +rs.getInt("avaliacao.numAvaliacao")
-                        + "</b><br><br>"
-                        + "<b>Experiencia com nossos serviços:</b><br>"
-                        + "<i>\"" + rs.getString("avaliacao.comentario") + "\"</i>"
-                        + "<br><br><hr>";
+            if (veiculo.equals("Geral")) {
+                query = "SELECT cliente.nome, avaliacao.numAvaliacao, veiculo.nome, avaliacao.comentario FROM cliente JOIN avaliacao ON cliente.codigo = avaliacao.codCliente JOIN veiculo ON veiculo.codigo = avaliacao.codVeiculo WHERE avaliacao.status = 1 ORDER BY avaliacao.codigo DESC;";
+            } else {
+                query = "SELECT cliente.nome, avaliacao.numAvaliacao, veiculo.nome, avaliacao.comentario FROM cliente JOIN avaliacao ON cliente.codigo = avaliacao.codCliente JOIN veiculo ON veiculo.codigo = avaliacao.codVeiculo WHERE veiculo.nome = '" + veiculo + "' AND avaliacao.status = 1 ORDER BY avaliacao.codigo DESC;";
             }
-        } catch (SQLException | ClassNotFoundException e) {
-
-        } finally {
-            try {
-                query = "";
-                conn.close();
-                ps.close();
-                rs.close();
-            } catch (SQLException e) {
-            }
-        }
-
-        return comentarios;
-    }
-
-    public String comentariosGeral() {
-        String comentarios = "";
-        try {
-            conn = ConexaoDAO.abreConexao();
-            query = "SELECT cliente.nome, avaliacao.numAvaliacao, veiculo.nome, avaliacao.comentario FROM cliente JOIN avaliacao ON cliente.codigo = avaliacao.codCliente JOIN veiculo ON veiculo.codigo = avaliacao.codVeiculo WHERE avaliacao.status = 1 ORDER BY avaliacao.codigo DESC;";
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
 
@@ -141,7 +77,7 @@ public class AvaliacaoDAO {
 
         return comentarios;
     }
-
+    
     public ArrayList<Avaliacao> notas() {
         int i = 0;
         ArrayList<Avaliacao> listAvaliacao = new ArrayList<>();

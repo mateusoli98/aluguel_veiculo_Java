@@ -3,6 +3,7 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import static java.lang.System.exit;
+import javax.swing.JOptionPane;
 import model.Avaliacao;
 import model.AvaliacaoDAO;
 import model.Cliente;
@@ -28,8 +29,7 @@ public class JFMenu extends javax.swing.JFrame {
         initComponents();
         locDAO.verificaDisponibilidadeVeiculo();
         lblUsuario.setText("Bem vindo: " + ConexaoDAO.getCliente().getNome());
-        apresentarGraficoGeral();
-        lblComentario.setText("<html>" + avaliacaoDAO.comentariosGeral() + "</html>");
+        apresentarGraficoGeral(""+cmbTipo.getSelectedItem());
         jspComentarios.getVerticalScrollBar().setUnitIncrement(10);
         apresentarVeiculos();
     }
@@ -282,12 +282,12 @@ public class JFMenu extends javax.swing.JFrame {
     private void cmbTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoActionPerformed
         escolhaGrafico = (String) cmbTipo.getSelectedItem();
         if (escolhaGrafico.equals("Geral")) {
-            apresentarGraficoGeral();
+            apresentarGraficoGeral(escolhaGrafico);
         } else {
             apresentarGraficoVeiculo(escolhaGrafico);
         }
     }//GEN-LAST:event_cmbTipoActionPerformed
-    public void apresentarGraficoGeral() {
+    public void apresentarGraficoGeral(String escolha) {
         panGrafico.removeAll();
         panGrafico.revalidate();
         DefaultCategoryDataset dpd = new DefaultCategoryDataset();
@@ -301,23 +301,22 @@ public class JFMenu extends javax.swing.JFrame {
         panGrafico.setLayout(new BorderLayout(0, 0));
         panGrafico.add(chartpanel);
 
-        lblComentario.setText("<html>" + avaliacaoDAO.comentariosGeral() + "</html>");
+        lblComentario.setText("<html>" + avaliacaoDAO.comentarios(escolha) + "</html>");
     }
 
-    public void apresentarGraficoVeiculo(String veiculo) {
+    public void apresentarGraficoVeiculo(String escolha) {
         panGrafico.removeAll();
         panGrafico.revalidate();
         DefaultCategoryDataset dpd = new DefaultCategoryDataset();
-        for (Avaliacao a : avaliacaoDAO.notasVeiculo(veiculo)) {
+        for (Avaliacao a : avaliacaoDAO.notasVeiculo(escolha)) {
             dpd.setValue(a.getQtdAvaliacao(), "     " + a.getNumAvaliacao(), "");
         }
-        JFreeChart grafico = ChartFactory.createBarChart3D("Todas as avaliações de " + veiculo, "Notas", "Avaliações", dpd, PlotOrientation.VERTICAL, true, true, false);
+        JFreeChart grafico = ChartFactory.createBarChart3D("Todas as avaliações de " + escolha, "Notas", "Avaliações", dpd, PlotOrientation.VERTICAL, true, true, false);
         ChartPanel chartpanel = new ChartPanel(grafico);
         chartpanel.setBackground(Color.BLACK);
         panGrafico.setLayout(new BorderLayout(0, 0));
         panGrafico.add(chartpanel);
-
-        lblComentario.setText(avaliacaoDAO.comentariosPorVeiculo(escolhaGrafico));
+        lblComentario.setText("<html>" + avaliacaoDAO.comentarios(escolha) + "</html>");;
     }
 
     public void apresentarVeiculos() {
