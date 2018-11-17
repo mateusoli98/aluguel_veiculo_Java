@@ -113,36 +113,4 @@ public class LocacaoDAO {
         }
     }
 
-//    public void verificaDisponibilidadeVeiculo() {
-//        try {
-//            conn = ConexaoDAO.abreConexao();
-//            query = "SELECT codigo AS codResultado1, codVeiculo as codResultado2 FROM locacao WHERE dtTermino <= now();";
-//            ps = conn.prepareStatement(query);
-//            rs = ps.executeQuery();
-//
-//            while (rs.next()) {
-//                query = "DELETE FROM locacao WHERE codigo = '" + rs.getInt(1) + "';";
-//                ps = conn.prepareStatement(query);
-//                ps.executeUpdate();
-//                query2 = "UPDATE veiculo SET alugado = 0 WHERE codigo = '" + rs.getInt(2) + "';";
-//                ps = conn.prepareStatement(query2);
-//                ps.executeUpdate();
-//            }
-//
-//        } catch (SQLException erroSQL) {
-//            erroSQL.printStackTrace();
-//        } catch (Exception erro) {
-//            erro.printStackTrace();
-//        } finally {
-//            try {
-//                query = "";
-//                query2 = "";
-//                conn.close();
-//                ps.close();
-//                rs.close();
-//            } catch (SQLException e) {
-//
-//            }
-//        }
-//    }
 }
