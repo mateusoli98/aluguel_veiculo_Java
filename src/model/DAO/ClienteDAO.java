@@ -1,11 +1,12 @@
 package model.DAO;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import model.Cliente;
+import model.Pessoa;
 
 public class ClienteDAO {
 
@@ -13,33 +14,33 @@ public class ClienteDAO {
     Connection conn;
     PreparedStatement ps;
 
-    public void cadastraCliente(Cliente objCliente) throws SQLException, ClassNotFoundException {
+    public void cadastro(Pessoa objCliente) throws SQLException, ClassNotFoundException {
         conn = ConexaoDAO.abreConexao();
-        query = "INSERT INTO cliente VALUES (DEFAULT, ?, ?, ?, ?, ?, md5(?), 0)";
-        ps = conn.prepareStatement(query);
+        CallableStatement ps;
+        query = "{call cadastro (?,?,?,?,?,?)}";
+        ps = conn.prepareCall(query);
         ps.setString(1, objCliente.getNome());
         ps.setString(2, objCliente.getEmail());
         ps.setInt(3, objCliente.getTelefone());
         ps.setInt(4, objCliente.getCelular());
         ps.setString(5, objCliente.getUsuario());
         ps.setString(6, objCliente.getSenha());
-        ps.executeUpdate();
+        ps.execute();
         conn.close();
         ps.close();
-        query = "";
     }
 
-    public ResultSet buscaLoginCliente(String usuario, String senha) throws SQLException, ClassNotFoundException {
+    public ResultSet buscaLogin(String usuario, String senha) throws SQLException, ClassNotFoundException {
         conn = ConexaoDAO.abreConexao();
-        query = "SELECT * FROM cliente WHERE usuario = '" + usuario + "' and senha = md5('" + senha + "')";
+        query = "SELECT * FROM usuario JOIN pessoa ON pessoa.codUsuario = usuario.codigo WHERE usuario.usuario = '" + usuario + "' and usuario.senha = md5('" + senha + "')";
         ps = conn.prepareStatement(query);
         ResultSet rs = ps.executeQuery(query);
         return rs;
     }
 
-    public boolean buscaUsuarioCliente(String usuario) throws SQLException, ClassNotFoundException {
+    public boolean buscaUsuario(String usuario) throws SQLException, ClassNotFoundException {
         conn = ConexaoDAO.abreConexao();
-        query = "SELECT * FROM cliente WHERE usuario = '" + usuario + "';";
+        query = "SELECT * FROM usuario WHERE usuario = '" + usuario + "';";
         ps = conn.prepareStatement(query);
         ResultSet rs = ps.executeQuery(query);
 
@@ -49,25 +50,28 @@ public class ClienteDAO {
         return false;
     }
 
-    public boolean alterarCliente(Cliente c)  {
+    public boolean alterar(Pessoa c) {
         try {
             conn = ConexaoDAO.abreConexao();
-            query = "UPDATE cliente SET nome = '" + c.getNome() + "', "
-                    + "email = '" + c.getEmail() + "', "
-                    + "celular = '" + c.getCelular() + "', "
-                    + "telefone = '" + c.getTelefone() + "',"
-                    + "usuario = '" + c.getUsuario() + "', "
-                    + "senha = md5('" + c.getSenha() + "')"
-                    + "WHERE codigo = " + c.getCodigo() + ";";
-            ps = conn.prepareStatement(query);
-            ps.executeUpdate();
+            CallableStatement ps;
+            query = "{call atualiza (?,?,?,?,?,?,?)}";
+            ps = conn.prepareCall(query);
+            ps.setString(1, c.getNome());
+            ps.setString(2, c.getEmail());
+            ps.setInt(3, c.getTelefone());
+            ps.setInt(4, c.getCelular());
+            ps.setString(5, c.getUsuario());
+            ps.setString(6, c.getSenha());
+            ps.setInt(7, c.getCodigo());
+            ps.execute();
+            conn.close();
+            ps.close();
             return true;
         } catch (SQLException e) {
         } catch (ClassNotFoundException ex) {
             ex.getMessage();
         } finally {
             try {
-
                 query = "";
                 conn.close();
 
@@ -77,12 +81,18 @@ public class ClienteDAO {
         return false;
     }
 
-    public boolean deletarCliente(Cliente c) {
+    public boolean deletar(Pessoa c) {
         try {
             conn = ConexaoDAO.abreConexao();
-            query = "DELETE FROM `cliente` WHERE `codigo` = " + c.getCodigo() + ";";
+            query = "DELETE FROM `pessoa` WHERE `codigo` = " + c.getCodigo() + ";";
             ps = conn.prepareStatement(query);
             ps.executeUpdate();
+            ps = null;
+
+            query = "DELETE FROM `usuario` WHERE `codigo` = " + c.getCodigo() + ";";
+            ps = conn.prepareStatement(query);
+            ps.executeUpdate();
+            ps = null;
             return true;
         } catch (SQLException | ClassNotFoundException e) {
             e.getMessage();
@@ -96,16 +106,16 @@ public class ClienteDAO {
         return false;
     }
 
-    public void infoCliente(ResultSet rs) {
-        Cliente cliente = new Cliente();
+    public void infoPessoa(ResultSet rs) {
+        Pessoa cliente = new Pessoa();
         try {
-            cliente.setCodigo(rs.getInt("codigo"));
-            cliente.setNome(rs.getString("nome"));
-            cliente.setEmail(rs.getString("email"));
-            cliente.setTelefone(rs.getInt("telefone"));
-            cliente.setCelular(rs.getInt("celular"));
-            cliente.setUsuario(rs.getString("usuario"));
-            cliente.setAcesso(rs.getInt("acesso"));
+            cliente.setCodigo(rs.getInt("pessoa.codigo"));
+            cliente.setNome(rs.getString("pessoa.nome"));
+            cliente.setEmail(rs.getString("pessoa.email"));
+            cliente.setTelefone(rs.getInt("pessoa.telefone"));
+            cliente.setCelular(rs.getInt("pessoa.celular"));
+            cliente.setUsuario(rs.getString("usuario.usuario"));
+            cliente.setAcesso(rs.getInt("usuario.acesso"));
             ConexaoDAO.setCliente(cliente);
         } catch (SQLException e) {
         }
