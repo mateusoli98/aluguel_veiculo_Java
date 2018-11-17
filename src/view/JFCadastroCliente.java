@@ -6,13 +6,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
-import model.Cliente;
+import model.Pessoa;
 import model.DAO.ClienteDAO;
 import model.DAO.ConexaoDAO;
 
 public class JFCadastroCliente extends javax.swing.JFrame {
 
-    Cliente cliente = new Cliente();
+    Pessoa cliente = new Pessoa();
     ClienteDAO clienteDAO = new ClienteDAO();
 
     public JFCadastroCliente() {
@@ -225,7 +225,7 @@ public class JFCadastroCliente extends javax.swing.JFrame {
             if (verificaCampos()) {
                 if (btnCadastrar.getText().equals("Cadastrar")) {
                     try {
-                        clienteDAO.cadastraCliente(cliente);
+                        clienteDAO.cadastro(cliente);
                         JOptionPane.showMessageDialog(null, "Cadastro concluido com sucesso!");
                         dispose();
 
@@ -238,7 +238,7 @@ public class JFCadastroCliente extends javax.swing.JFrame {
 
                 if (btnCadastrar.getText().equals("Alterar")) {
 
-                    if (clienteDAO.alterarCliente(cliente)) {
+                    if (clienteDAO.alterar(cliente)) {
                         JOptionPane.showMessageDialog(null, "Alteração realizada com sucesso!");
 
                         ConexaoDAO.setCliente(cliente);
@@ -267,7 +267,7 @@ public class JFCadastroCliente extends javax.swing.JFrame {
         } else {
             try {
 
-                if (clienteDAO.buscaUsuarioCliente(txtUsuario.getText())) {
+                if (clienteDAO.buscaUsuario(txtUsuario.getText())) {
                     lblValidaUsuario.setVisible(true);
                     lblValidaUsuario.setText("Usuário indisponível");
                     lblValidaUsuario.setForeground(new Color(237, 16, 16));

@@ -6,7 +6,8 @@ import static java.lang.System.exit;
 import javax.swing.JOptionPane;
 import model.Avaliacao;
 import model.AvaliacaoDAO;
-import model.Cliente;
+import model.DAO.ClienteDAO;
+import model.Pessoa;
 import model.DAO.ConexaoDAO;
 import model.DAO.LocacaoDAO;
 import model.DAO.VeiculoDAO;
@@ -24,12 +25,13 @@ public class JFMenu extends javax.swing.JFrame {
     VeiculoDAO veiculoDAO = new VeiculoDAO();
     LocacaoDAO locDAO = new LocacaoDAO();
     String escolhaGrafico = "";
+    ClienteDAO clienteDAO = new ClienteDAO();
 
     public JFMenu() {
         initComponents();
         locDAO.verificaDisponibilidadeVeiculo();
         lblUsuario.setText("Bem vindo: " + ConexaoDAO.getCliente().getNome());
-        apresentarGraficoGeral(""+cmbTipo.getSelectedItem());
+        apresentarGraficoGeral("" + cmbTipo.getSelectedItem());
         jspComentarios.getVerticalScrollBar().setUnitIncrement(10);
         apresentarVeiculos();
     }
@@ -54,6 +56,8 @@ public class JFMenu extends javax.swing.JFrame {
         menCadastrar = new javax.swing.JMenu();
         itemVeiculo = new javax.swing.JMenuItem();
         jmPerfl = new javax.swing.JMenu();
+        itemEditar = new javax.swing.JMenuItem();
+        itemExcluir = new javax.swing.JMenuItem();
         menuSair = new javax.swing.JMenu();
         itemSairConta = new javax.swing.JMenuItem();
         itemSairPrograma = new javax.swing.JMenuItem();
@@ -149,11 +153,22 @@ public class JFMenu extends javax.swing.JFrame {
 
         jmPerfl.setText("Meu Perfil");
         jmPerfl.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jmPerfl.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jmPerflMouseClicked(evt);
+
+        itemEditar.setText("Alterar");
+        itemEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemEditarActionPerformed(evt);
             }
         });
+        jmPerfl.add(itemEditar);
+
+        itemExcluir.setText("Excluir");
+        itemExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemExcluirActionPerformed(evt);
+            }
+        });
+        jmPerfl.add(itemExcluir);
 
         if(ConexaoDAO.getCliente().getAcesso() == 0){
 
@@ -244,7 +259,7 @@ public class JFMenu extends javax.swing.JFrame {
 
     private void itemSairContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSairContaActionPerformed
         dispose();
-        Cliente cliente = new Cliente();
+        Pessoa cliente = new Pessoa();
         ConexaoDAO.setCliente(cliente);
         JFAutenticacao frmLogin = new JFAutenticacao();
         frmLogin.setVisible(true);
@@ -269,11 +284,6 @@ public class JFMenu extends javax.swing.JFrame {
         frmVeiculos.setLocationRelativeTo(null);
     }//GEN-LAST:event_itemVeiculosActionPerformed
 
-    private void jmPerflMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmPerflMouseClicked
-        JFPerfil jfPerfil = new JFPerfil();
-        jfPerfil.setVisible(true);
-    }//GEN-LAST:event_jmPerflMouseClicked
-
     private void jmHistoricoLocacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmHistoricoLocacoesActionPerformed
         JFHistoricoLocacao jfHL = new JFHistoricoLocacao();
         jfHL.setVisible(true);
@@ -287,6 +297,26 @@ public class JFMenu extends javax.swing.JFrame {
             apresentarGraficoVeiculo(escolhaGrafico);
         }
     }//GEN-LAST:event_cmbTipoActionPerformed
+
+    private void itemEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemEditarActionPerformed
+        JFCadastroCliente cliente = new JFCadastroCliente();
+        cliente.setVisible(true);
+    }//GEN-LAST:event_itemEditarActionPerformed
+
+    private void itemExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemExcluirActionPerformed
+        int dialogConfirmar = JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir sua conta?", "Excluir conta", JOptionPane.YES_NO_OPTION);
+        if (dialogConfirmar == JOptionPane.YES_OPTION) {
+            if (clienteDAO.deletar(ConexaoDAO.getCliente())) {
+                JOptionPane.showMessageDialog(null, "Exclusão realizada com sucesso!");
+                dispose();
+                JFAutenticacao jfAutenticacao = new JFAutenticacao();
+                jfAutenticacao.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Exclusão sem sucesso!");
+            }
+
+        }
+    }//GEN-LAST:event_itemExcluirActionPerformed
     public void apresentarGraficoGeral(String escolha) {
         panGrafico.removeAll();
         panGrafico.revalidate();
@@ -326,6 +356,8 @@ public class JFMenu extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cmbTipo;
+    private javax.swing.JMenuItem itemEditar;
+    private javax.swing.JMenuItem itemExcluir;
     private javax.swing.JMenuItem itemMinhasLocacoes;
     private javax.swing.JMenuItem itemSairConta;
     private javax.swing.JMenuItem itemSairPrograma;

@@ -5,12 +5,12 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import model.Cliente;
+import model.Pessoa;
 import model.DAO.ClienteDAO;
 
 public class JFAutenticacao extends javax.swing.JFrame {
 
-    Cliente cliente = new Cliente();
+    Pessoa cliente = new Pessoa();
     ClienteDAO clienteDAO = new ClienteDAO();
     ResultSet rs = null;
     String usuario, senha;
@@ -114,8 +114,8 @@ public class JFAutenticacao extends javax.swing.JFrame {
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         if (verificaCampos()) {
             try {
-                if ((rs = clienteDAO.buscaLoginCliente(usuario, senha)).next()) {
-                    clienteDAO.infoCliente(rs);
+                if ((rs = clienteDAO.buscaLogin(usuario, senha)).next()) {
+                    clienteDAO.infoPessoa(rs);
                     JFMenu frmMenu = new JFMenu();
                     frmMenu.setVisible(true);
                     frmMenu.setLocationRelativeTo(null);

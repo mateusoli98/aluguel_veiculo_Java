@@ -1,7 +1,7 @@
 
 package model;
 
-public class Cliente {
+public class Pessoa {
     private String nome, email, usuario, senha;
     private int acesso, codigo,  telefone, celular;
 
