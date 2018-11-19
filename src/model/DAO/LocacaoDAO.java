@@ -97,6 +97,34 @@ public class LocacaoDAO {
         return listHistoricoLocacao;
     }
 
+    public int qntLocacoesVencidas() {
+        int retorno = 0;
+        try {
+            conn = ConexaoDAO.abreConexao();
+            query = "SELECT count(codigo) FROM locacao WHERE dtTermino <= now();";
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                retorno = rs.getInt(1);
+            }
+        } catch (SQLException erroSQL) {
+            erroSQL.printStackTrace();
+        } catch (Exception erro) {
+            erro.printStackTrace();
+        } finally {
+            try {
+                query = "";
+                conn.close();
+                ps.close();
+                rs.close();
+            } catch (SQLException e) {
+
+            }
+        }
+        return retorno;
+    }
+
     public void verificaDisponibilidadeVeiculo() {
         try {
             conn = ConexaoDAO.abreConexao();

@@ -177,7 +177,7 @@
                   <Component id="lblUsuario" alignment="0" min="-2" pref="219" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="lblParametroGrafico" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="cmbTipo" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -206,7 +206,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
               <Component id="lblUsuario" min="-2" pref="27" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel2" alignment="1" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -254,7 +254,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="14" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Parametro do Gr&#xe1;fico"/>
+        <Property name="text" type="java.lang.String" value="Informa&#xe7;&#xf5;es de "/>
       </Properties>
       <AccessibilityProperties>
         <Property name="AccessibleContext.accessibleName" type="java.lang.String" value=""/>
@@ -302,7 +302,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="14" style="3"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Erico Verissimo, 366 - Jardim Amanda - Hortol&#xe2;ndia/SP - Locac&#xf5;es de Veiculos A&amp;M - Todos direitos reservados 2018"/>
+        <Property name="text" type="java.lang.String" value="Erico Verissimo, 366 - Jardim Amanda - Hortol&#xe2;ndia/SP - Locac&#xf5;es de Veiculos A&amp;M - (19) 3897-3105 - Todos direitos reservados 2018"/>
       </Properties>
     </Component>
   </SubComponents>

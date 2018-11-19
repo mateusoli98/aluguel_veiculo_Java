@@ -29,7 +29,11 @@ public class JFMenu extends javax.swing.JFrame {
 
     public JFMenu() {
         initComponents();
-        locDAO.verificaDisponibilidadeVeiculo();
+        int i = 0;
+        while (i <= locDAO.qntLocacoesVencidas()) {
+            locDAO.verificaDisponibilidadeVeiculo();
+            i++;
+        }
         lblUsuario.setText("Bem vindo: " + ConexaoDAO.getCliente().getNome());
         apresentarGraficoGeral("" + cmbTipo.getSelectedItem());
         jspComentarios.getVerticalScrollBar().setUnitIncrement(10);
@@ -80,7 +84,7 @@ public class JFMenu extends javax.swing.JFrame {
         );
 
         lblParametroGrafico.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lblParametroGrafico.setText("Parametro do Gráfico");
+        lblParametroGrafico.setText("Informações de ");
 
         lblComentario.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jspComentarios.setViewportView(lblComentario);
@@ -97,7 +101,7 @@ public class JFMenu extends javax.swing.JFrame {
         jLabel2.setText("Comentários");
 
         jLabel1.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
-        jLabel1.setText("Erico Verissimo, 366 - Jardim Amanda - Hortolândia/SP - Locacões de Veiculos A&M - Todos direitos reservados 2018");
+        jLabel1.setText("Erico Verissimo, 366 - Jardim Amanda - Hortolândia/SP - Locacões de Veiculos A&M - (19) 3897-3105 - Todos direitos reservados 2018");
 
         menAlugar.setText("Locação");
         menAlugar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -211,7 +215,7 @@ public class JFMenu extends javax.swing.JFrame {
                     .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblParametroGrafico)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -232,7 +236,7 @@ public class JFMenu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23)
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)

@@ -1,4 +1,5 @@
 package view;
+
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -23,7 +24,7 @@ public class JFHistoricoLocacao extends javax.swing.JFrame {
     public JFHistoricoLocacao() {
         initComponents();
         lblNota.setText(String.valueOf(jsNota.getValue()));
-        lblNomeCliente.setText("Deixe sua avaliação " + ConexaoDAO.getCliente().getNome() + ", selecione uam locação para avaliar :)");
+        lblNomeCliente.setText("Deixe sua avaliação " + ConexaoDAO.getCliente().getNome() + ", selecione um veiculo locado para avaliar :)");
         carregaDadosTable();
     }
 
@@ -172,27 +173,32 @@ public class JFHistoricoLocacao extends javax.swing.JFrame {
     }//GEN-LAST:event_jtHistoricoLocacaoMouseClicked
 
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
-        preencheObjeto();
-        objAvaliacao.setComentario(txtComentario.getText());
-        objAvaliacao.setNumAvaliacao(jsNota.getValue());
-        objAvaliacao.setStatus(1);
 
-        if (objAvaliacaoDAO.resgistarAvaliacao(objAvaliacao, objHL)) {
-            JOptionPane.showMessageDialog(null, "Avalação registrada com sucesso!");
-            carregaDadosTable();
+        if (!txtComentario.getText().isEmpty()) {
+            preencheObjeto();
+            objAvaliacao.setComentario(txtComentario.getText());
+            objAvaliacao.setNumAvaliacao(jsNota.getValue());
+            objAvaliacao.setStatus(1);
+
+            if (objAvaliacaoDAO.resgistarAvaliacao(objAvaliacao, objHL)) {
+                JOptionPane.showMessageDialog(null, "Avalação registrada com sucesso!");
+                carregaDadosTable();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Deixe seu comentário!");
         }
+
 
     }//GEN-LAST:event_btnEnviarActionPerformed
 
-    void carregaDadosTable(){
+    void carregaDadosTable() {
         inicializaModel();
 
         for (HistoricoLocacao objHL : objLocDAO.historicoLocacao()) {
             dtmDefault.addRow(new Object[]{
                 objHL.getVeiculo().getCodigo(),
                 objHL.getVeiculo().getNome(),
-                objHL.getVeiculo().getModelo(),
-            });
+                objHL.getVeiculo().getModelo(),});
         }
     }
 
