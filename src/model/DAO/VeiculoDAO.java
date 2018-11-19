@@ -50,7 +50,32 @@ public class VeiculoDAO {
         return listVeiculos;
     }
     
-   
+    public ArrayList<Veiculo> exibeNomeVeiculos(){
+        ArrayList<Veiculo> listVeiculos = new ArrayList<>();
+        try {
+            conn = ConexaoDAO.abreConexao();
+            query = "SELECT * FROM veiculo";
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Veiculo objVeiculo = new Veiculo();
+                objVeiculo.setNome(rs.getString("nome"));
+                listVeiculos.add(objVeiculo);
+                objVeiculo = null;
+                query = "";
+            }
+            conn.close();
+            ps.close();
+            rs.close();
+
+        } catch (SQLException erroSQL) {
+            erroSQL.printStackTrace();
+        } catch (Exception erro) {
+            erro.printStackTrace();
+        }
+        return listVeiculos;
+    }
 
     public ArrayList<Veiculo> exibeTipoVeiculos(String tipo) {
         ArrayList<Veiculo> listVeiculos = new ArrayList<>();
@@ -198,10 +223,12 @@ public class VeiculoDAO {
     }
 
     public boolean realizaLocacao(Locacao loc) {
-        String queryAvaliacao = "INSERT INTO avaliacao(codPessoa,codVeiculo) VALUES ("+loc.getCodCliente()+","+loc.getCodVeiculo()+");";
+        String queryAvaliacao = "INSERT INTO avaliacao(codPessoa,codVeiculo) "
+                + "VALUES ("+loc.getCodCliente()+","+loc.getCodVeiculo()+");";
         try {
             conn = ConexaoDAO.abreConexao();
-            query = "INSERT INTO locacao (`codVeiculo`, `codPessoa`, `dtInicio`, `dtTermino`, `total`) VALUES (?, ?, ?, ?,?);";
+            query = "INSERT INTO locacao (`codVeiculo`, `codPessoa`, `dtInicio`, `dtTermino`, `total`) "
+                    + "VALUES (?, ?, ?, ?,?);";
             
             ps = conn.prepareStatement(query);
             ps.setInt(1, loc.getCodVeiculo());
