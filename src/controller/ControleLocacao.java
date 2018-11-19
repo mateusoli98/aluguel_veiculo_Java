@@ -30,4 +30,11 @@ public class ControleLocacao {
         return dataBanco;
     }
 
+    public int anoAtual() {
+        Date data = new Date();
+        SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+        String ano = formatador.format(data);
+        return Integer.parseInt(ano.substring(ano.lastIndexOf("/") + 1));
+    }
+
 }

@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -103,7 +104,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
 
     void desabilitaCamposContratacao() {
         lblMoeda.setVisible(false);
-          lblValorAluguel.setVisible(false);
+        lblValorAluguel.setVisible(false);
         btnConfirmar.setVisible(false);
         btnCancelar.setVisible(false);
     }
@@ -392,17 +393,24 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
+        int anoInicio = Integer.parseInt(txtDataInicio.getText().substring(txtDataInicio.getText().lastIndexOf("/") + 1));
+        int anoTermino = Integer.parseInt(txtDataInicio.getText().substring(txtDataInicio.getText().lastIndexOf("/") + 1));
         if (!txtDataInicio.getText().contains(" /  /    ") && !txtDataTermino.getText().contains(" /  /    ")) {
-            if (!txtDataInicio.getText().equals(txtDataTermino.getText())) {
-                habilitaCamposContratacao();
-                calcAluguel();
+            if (!(anoInicio < conLocacao.anoAtual()) && !(anoTermino < conLocacao.anoAtual())) {
+                if (!txtDataInicio.getText().equals(txtDataTermino.getText())) {
+                    habilitaCamposContratacao();
+                    calcAluguel();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Datas de Inicio e Termino não devem ser iguais!");
+                }
             } else {
-                JOptionPane.showMessageDialog(null, "Datas de Inicio e Termino não devem ser iguais!");
+                JOptionPane.showMessageDialog(null, "Ano invalido");
             }
-
         } else {
             JOptionPane.showMessageDialog(null, "Insira as Datas de sua escolha!");
         }
+
+
     }//GEN-LAST:event_btnCalcularActionPerformed
 
     public void valData(String data) {
