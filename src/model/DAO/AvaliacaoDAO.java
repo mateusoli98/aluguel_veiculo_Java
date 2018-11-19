@@ -41,14 +41,20 @@ public class AvaliacaoDAO {
         return false;
     }
 
-    public String comentarios(String veiculo) {;
+    public String comentarios(String veiculo) {
         String comentarios = "";
         try {
             conn = ConexaoDAO.abreConexao();
             if (veiculo.equals("Geral")) {
-                query = "SELECT pessoa.nome, avaliacao.numAvaliacao, veiculo.nome, avaliacao.comentario FROM pessoa JOIN avaliacao ON pessoa.codigo = avaliacao.codPessoa JOIN veiculo ON veiculo.codigo = avaliacao.codVeiculo WHERE avaliacao.status = 1 ORDER BY avaliacao.codigo DESC;";
+                query = "SELECT DISTINCT pessoa.nome, avaliacao.numAvaliacao, veiculo.nome, avaliacao.comentario FROM pessoa "
+                        + "JOIN avaliacao ON pessoa.codigo = avaliacao.codPessoa "
+                        + "JOIN veiculo ON veiculo.codigo = avaliacao.codVeiculo "
+                        + "WHERE avaliacao.status = 1 ORDER BY avaliacao.codigo DESC;";
             } else {
-                query = "SELECT pessoa.nome, avaliacao.numAvaliacao, veiculo.nome, avaliacao.comentario FROM pessoa JOIN avaliacao ON pessoa.codigo = avaliacao.codPessoa JOIN veiculo ON veiculo.codigo = avaliacao.codVeiculo WHERE veiculo.nome = '" + veiculo + "' AND avaliacao.status = 1 ORDER BY avaliacao.codigo DESC;";
+                query = "SELECT DISTINCT pessoa.nome, avaliacao.numAvaliacao, veiculo.nome, avaliacao.comentario FROM pessoa "
+                        + "JOIN avaliacao ON pessoa.codigo = avaliacao.codPessoa "
+                        + "JOIN veiculo ON veiculo.codigo = avaliacao.codVeiculo "
+                        + "WHERE veiculo.nome = '" + veiculo + "' AND avaliacao.status = 1 ORDER BY avaliacao.codigo DESC;";
             }
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
@@ -111,7 +117,9 @@ public class AvaliacaoDAO {
         try {
             conn = ConexaoDAO.abreConexao();
             while (i <= 5) {
-                query = "SELECT COUNT(avaliacao.numAvaliacao) as nota, avaliacao.numAvaliacao from avaliacao join veiculo on veiculo.codigo = avaliacao.codVeiculo where veiculo.nome = '" + veiculo + "' and numAvaliacao = " + i;
+                query = "SELECT COUNT(avaliacao.numAvaliacao) as nota, avaliacao.numAvaliacao from avaliacao "
+                        + "join veiculo on veiculo.codigo = avaliacao.codVeiculo "
+                        + "where veiculo.nome = '" + veiculo + "' and numAvaliacao = " + i;
                 ps = conn.prepareStatement(query);
                 rs = ps.executeQuery();
                 while (rs.next()) {

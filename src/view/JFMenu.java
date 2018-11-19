@@ -6,7 +6,7 @@ import static java.lang.System.exit;
 import javax.swing.JOptionPane;
 import model.Avaliacao;
 import model.AvaliacaoDAO;
-import model.DAO.ClienteDAO;
+import model.DAO.PessoaDAO;
 import model.Pessoa;
 import model.DAO.ConexaoDAO;
 import model.DAO.LocacaoDAO;
@@ -25,7 +25,7 @@ public class JFMenu extends javax.swing.JFrame {
     VeiculoDAO veiculoDAO = new VeiculoDAO();
     LocacaoDAO locDAO = new LocacaoDAO();
     String escolhaGrafico = "";
-    ClienteDAO clienteDAO = new ClienteDAO();
+    PessoaDAO clienteDAO = new PessoaDAO();
 
     public JFMenu() {
         initComponents();
@@ -101,6 +101,7 @@ public class JFMenu extends javax.swing.JFrame {
         jLabel2.setText("Comentários");
 
         jLabel1.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(51, 102, 255));
         jLabel1.setText("Erico Verissimo, 366 - Jardim Amanda - Hortolândia/SP - Locacões de Veiculos A&M - (19) 3897-3105 - Todos direitos reservados 2018");
 
         menAlugar.setText("Locação");
@@ -303,7 +304,7 @@ public class JFMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbTipoActionPerformed
 
     private void itemEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemEditarActionPerformed
-        JFCadastroCliente cliente = new JFCadastroCliente();
+        JFCadastroPessoa cliente = new JFCadastroPessoa();
         cliente.setVisible(true);
     }//GEN-LAST:event_itemEditarActionPerformed
 

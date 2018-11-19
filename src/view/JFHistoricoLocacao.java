@@ -182,6 +182,8 @@ public class JFHistoricoLocacao extends javax.swing.JFrame {
 
             if (objAvaliacaoDAO.resgistarAvaliacao(objAvaliacao, objHL)) {
                 JOptionPane.showMessageDialog(null, "Avalação registrada com sucesso!");
+                btnEnviar.setEnabled(true);
+                txtComentario.setText("");
                 carregaDadosTable();
             }
         } else {

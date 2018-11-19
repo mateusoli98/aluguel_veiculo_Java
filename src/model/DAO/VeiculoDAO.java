@@ -50,32 +50,7 @@ public class VeiculoDAO {
         return listVeiculos;
     }
     
-    public ArrayList<Veiculo> exibeNomeVeiculos(){
-        ArrayList<Veiculo> listVeiculos = new ArrayList<>();
-        try {
-            conn = ConexaoDAO.abreConexao();
-            query = "SELECT * FROM veiculo";
-            ps = conn.prepareStatement(query);
-            rs = ps.executeQuery();
-
-            while (rs.next()) {
-                Veiculo objVeiculo = new Veiculo();
-                objVeiculo.setNome(rs.getString("nome"));
-                listVeiculos.add(objVeiculo);
-                objVeiculo = null;
-                query = "";
-            }
-            conn.close();
-            ps.close();
-            rs.close();
-
-        } catch (SQLException erroSQL) {
-            erroSQL.printStackTrace();
-        } catch (Exception erro) {
-            erro.printStackTrace();
-        }
-        return listVeiculos;
-    }
+   
 
     public ArrayList<Veiculo> exibeTipoVeiculos(String tipo) {
         ArrayList<Veiculo> listVeiculos = new ArrayList<>();

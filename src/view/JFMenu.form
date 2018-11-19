@@ -302,6 +302,9 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="14" style="3"/>
         </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="66" red="33" type="rgb"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Erico Verissimo, 366 - Jardim Amanda - Hortol&#xe2;ndia/SP - Locac&#xf5;es de Veiculos A&amp;M - (19) 3897-3105 - Todos direitos reservados 2018"/>
       </Properties>
     </Component>

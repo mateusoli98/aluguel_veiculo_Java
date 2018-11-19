@@ -61,7 +61,7 @@ public class LocacaoDAO {
         ArrayList<HistoricoLocacao> listHistoricoLocacao = new ArrayList<>();
         try {
             conn = ConexaoDAO.abreConexao();
-            query = "SELECT veiculo.codigo, veiculo.nome, veiculo.modelo FROM veiculo JOIN avaliacao on avaliacao.codVeiculo =  veiculo.codigo JOIN pessoa ON avaliacao.codPessoa = pessoa.codigo WHERE pessoa.codigo = " + ConexaoDAO.getCliente().getCodigo() + " AND avaliacao.status = 0;";
+            query = "SELECT DISTINCT veiculo.codigo, veiculo.nome, veiculo.modelo FROM veiculo JOIN avaliacao on avaliacao.codVeiculo =  veiculo.codigo JOIN pessoa ON avaliacao.codPessoa = pessoa.codigo WHERE pessoa.codigo = " + ConexaoDAO.getCliente().getCodigo() + " AND avaliacao.status = 0;";
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             while (rs.next()) {

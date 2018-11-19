@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 import model.Pessoa;
 
-public class ClienteDAO {
+public class PessoaDAO {
 
     String query;
     Connection conn;
@@ -32,7 +32,8 @@ public class ClienteDAO {
 
     public ResultSet buscaLogin(String usuario, String senha) throws SQLException, ClassNotFoundException {
         conn = ConexaoDAO.abreConexao();
-        query = "SELECT * FROM usuario JOIN pessoa ON pessoa.codUsuario = usuario.codigo WHERE usuario.usuario = '" + usuario + "' and usuario.senha = md5('" + senha + "')";
+        query = "SELECT * FROM usuario JOIN pessoa ON pessoa.codUsuario = usuario.codigo "
+                + "WHERE usuario.usuario = '" + usuario + "' and usuario.senha = md5('" + senha + "')";
         ps = conn.prepareStatement(query);
         ResultSet rs = ps.executeQuery(query);
         return rs;

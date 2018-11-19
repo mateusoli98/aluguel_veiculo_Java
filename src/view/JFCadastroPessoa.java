@@ -7,15 +7,15 @@ import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 import model.Pessoa;
-import model.DAO.ClienteDAO;
+import model.DAO.PessoaDAO;
 import model.DAO.ConexaoDAO;
 
-public class JFCadastroCliente extends javax.swing.JFrame {
+public class JFCadastroPessoa extends javax.swing.JFrame {
 
     Pessoa cliente = new Pessoa();
-    ClienteDAO clienteDAO = new ClienteDAO();
+    PessoaDAO clienteDAO = new PessoaDAO();
 
-    public JFCadastroCliente() {
+    public JFCadastroPessoa() {
         initComponents();
         lblValidaUsuario.setVisible(false);
         if (ConexaoDAO.getCliente().getCodigo() <= 0) {
@@ -279,9 +279,9 @@ public class JFCadastroCliente extends javax.swing.JFrame {
                     btnCadastrar.setEnabled(true);
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(JFCadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(JFCadastroPessoa.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(JFCadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(JFCadastroPessoa.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
