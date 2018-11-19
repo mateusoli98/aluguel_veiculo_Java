@@ -1,8 +1,13 @@
 package view;
 
 import controller.ControleLocacao;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -90,13 +95,15 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
     }
 
     void habilitaCamposContratacao() {
+        lblMoeda.setVisible(true);
         lblValorAluguel.setVisible(true);
         btnConfirmar.setVisible(true);
         btnCancelar.setVisible(true);
     }
 
     void desabilitaCamposContratacao() {
-        lblValorAluguel.setVisible(false);
+        lblMoeda.setVisible(false);
+          lblValorAluguel.setVisible(false);
         btnConfirmar.setVisible(false);
         btnCancelar.setVisible(false);
     }
@@ -109,9 +116,23 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
     int retornaDias() {
         dtInicio = txtDataInicio.getText();
         dtTermino = txtDataTermino.getText();
-        diaInicio = Integer.parseInt(dtInicio.substring(0, 2));
-        diaFim = Integer.parseInt(dtTermino.substring(0, 2));
-        return diaFim - diaInicio;
+        int i = 0;
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        Date dt1, dt2;
+        try {
+            dt1 = df.parse(dtInicio);
+            dt2 = df.parse(dtTermino);
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(dt1);
+            for (Date dt = dt1; dt.compareTo(dt2) <= 0;) {
+                cal.add(Calendar.DATE, +1);
+                dt = cal.getTime();
+                i++;
+            }
+        } catch (ParseException ex) {
+            Logger.getLogger(JFAlugaVeiculos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return i;
     }
 
     void calcAluguel() {
@@ -131,7 +152,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         objLoc.setDtInicio(conLocacao.converteDatasBanco(dtInicio));
         objLoc.setDtTermino(conLocacao.converteDatasBanco(dtTermino));
         objLoc.setTotal(Double.parseDouble(lblValorAluguel.getText()));
-        objLoc.setNomeVeiculo(""+tableVeiculos.getValueAt(tableVeiculos.getSelectedRow(), 1));
+        objLoc.setNomeVeiculo("" + tableVeiculos.getValueAt(tableVeiculos.getSelectedRow(), 1));
     }
 
     @SuppressWarnings("unchecked")
@@ -148,10 +169,11 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         lblDataFim = new javax.swing.JLabel();
         btnConfirmar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        lblValorAluguel = new javax.swing.JLabel();
+        lblMoeda = new javax.swing.JLabel();
         btnCalcular = new javax.swing.JButton();
         txtDataInicio = new javax.swing.JFormattedTextField();
         txtDataTermino = new javax.swing.JFormattedTextField();
+        lblValorAluguel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Locação Veiculo");
@@ -227,9 +249,10 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
             }
         });
 
-        lblValorAluguel.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
-        lblValorAluguel.setForeground(new java.awt.Color(0, 153, 0));
-        lblValorAluguel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblMoeda.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        lblMoeda.setForeground(new java.awt.Color(0, 153, 0));
+        lblMoeda.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblMoeda.setText("R$");
 
         btnCalcular.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnCalcular.setText("Calcular");
@@ -253,6 +276,10 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         }
         txtDataTermino.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
+        lblValorAluguel.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        lblValorAluguel.setForeground(new java.awt.Color(0, 153, 0));
+        lblValorAluguel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -272,31 +299,30 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                 .addContainerGap(33, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(228, 228, 228)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(lblDataInicio)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(lblDataFim))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(txtDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtDataTermino, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addGap(211, 211, 211)
-                            .addComponent(btnConfirmar)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnCancelar)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(lblValorAluguel, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(265, 265, 265)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(218, 218, 218)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblDataInicio)
+                            .addComponent(txtDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblDataFim, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtDataTermino)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(265, 265, 265)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblMoeda, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblValorAluguel, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(btnCalcular))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(214, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnConfirmar)
+                .addGap(18, 18, 18)
+                .addComponent(btnCancelar)
+                .addGap(221, 221, 221))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -318,14 +344,16 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                     .addComponent(txtDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtDataTermino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(btnCalcular)
+                .addComponent(btnCalcular, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblValorAluguel, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblMoeda, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblValorAluguel, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConfirmar)
                     .addComponent(btnCancelar))
-                .addGap(40, 40, 40))
+                .addGap(34, 34, 34))
         );
 
         pack();
@@ -364,7 +392,6 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
-
         if (!txtDataInicio.getText().contains(" /  /    ") && !txtDataTermino.getText().contains(" /  /    ")) {
             if (!txtDataInicio.getText().equals(txtDataTermino.getText())) {
                 habilitaCamposContratacao();
@@ -415,6 +442,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblDataFim;
     private javax.swing.JLabel lblDataInicio;
+    private javax.swing.JLabel lblMoeda;
     private javax.swing.JLabel lblValorAluguel;
     private javax.swing.JTable tableVeiculos;
     private javax.swing.JFormattedTextField txtDataInicio;
