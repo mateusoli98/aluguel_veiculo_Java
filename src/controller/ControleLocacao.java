@@ -75,5 +75,4 @@ public class ControleLocacao {
         }
         return retorno;
     }
-
 }

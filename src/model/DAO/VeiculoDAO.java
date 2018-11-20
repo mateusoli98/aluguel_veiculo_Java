@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import model.Locacao;
 import model.Veiculo;
 
@@ -208,6 +209,7 @@ public class VeiculoDAO {
             ps.executeUpdate();
             return retorno = true;
         } catch (SQLException e) {
+//            JOptionPane.showMessageDialog(null, "Veiculo em uso!");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(VeiculoDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
