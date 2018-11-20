@@ -8,7 +8,7 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Loca&#xe7;&#xe3;o"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="12" style="0"/>
+              <Font name="Arial" size="14" style="0"/>
             </Property>
           </Properties>
           <AuxValues>
@@ -19,7 +19,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="itemVeiculos">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Arial" size="12" style="0"/>
+                  <Font name="Arial" size="14" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Veiculos"/>
               </Properties>
@@ -33,7 +33,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="itemMinhasLocacoes">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Arial" size="12" style="0"/>
+                  <Font name="Arial" size="14" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Minhas Loca&#xe7;&#xf5;es"/>
               </Properties>
@@ -44,7 +44,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="jmHistoricoLocacoes">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Arial" size="12" style="0"/>
+                  <Font name="Arial" size="14" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Hist&#xf3;rico"/>
               </Properties>
@@ -59,7 +59,7 @@
             <Property name="text" type="java.lang.String" value="Cadastro"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="12" style="0"/>
+              <Font name="Arial" size="14" style="0"/>
             </Property>
           </Properties>
           <AuxValues>
@@ -70,7 +70,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="itemVeiculo">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Arial" size="12" style="0"/>
+                  <Font name="Arial" size="14" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Veiculos"/>
               </Properties>
@@ -84,7 +84,7 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Meu Perfil"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="12" style="0"/>
+              <Font name="Arial" size="14" style="0"/>
             </Property>
           </Properties>
           <AuxValues>
@@ -94,6 +94,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="itemEditar">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Arial" size="14" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Alterar"/>
               </Properties>
               <Events>
@@ -102,6 +105,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itemExcluir">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Arial" size="14" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Excluir"/>
               </Properties>
               <Events>
@@ -114,14 +120,14 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Sair"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="12" style="0"/>
+              <Font name="Arial" size="14" style="0"/>
             </Property>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="itemSairConta">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Arial" size="12" style="0"/>
+                  <Font name="Arial" size="14" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Conta"/>
               </Properties>
@@ -132,7 +138,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="itemSairPrograma">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Arial" size="12" style="0"/>
+                  <Font name="Arial" size="14" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Programa"/>
               </Properties>
@@ -305,7 +311,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="66" red="33" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Erico Verissimo, 366 - Jardim Amanda - Hortol&#xe2;ndia/SP - Locac&#xf5;es de Veiculos A&amp;M - (19) 3897-3105 - Todos direitos reservados 2018"/>
+        <Property name="text" type="java.lang.String" value="Av. Brasil, 366 - Jardim Amanda - Hortol&#xe2;ndia/SP - Locac&#xf5;es de Veiculos A&amp;M - (19) 3897-3105 - Todos direitos reservados 2018"/>
       </Properties>
     </Component>
   </SubComponents>

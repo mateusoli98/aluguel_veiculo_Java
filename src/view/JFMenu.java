@@ -102,12 +102,12 @@ public class JFMenu extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 102, 255));
-        jLabel1.setText("Erico Verissimo, 366 - Jardim Amanda - Hortolândia/SP - Locacões de Veiculos A&M - (19) 3897-3105 - Todos direitos reservados 2018");
+        jLabel1.setText("Av. Brasil, 366 - Jardim Amanda - Hortolândia/SP - Locacões de Veiculos A&M - (19) 3897-3105 - Todos direitos reservados 2018");
 
         menAlugar.setText("Locação");
-        menAlugar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        menAlugar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
-        itemVeiculos.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        itemVeiculos.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         itemVeiculos.setText("Veiculos");
         itemVeiculos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,7 +116,7 @@ public class JFMenu extends javax.swing.JFrame {
         });
         menAlugar.add(itemVeiculos);
 
-        itemMinhasLocacoes.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        itemMinhasLocacoes.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         itemMinhasLocacoes.setText("Minhas Locações");
         itemMinhasLocacoes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -125,7 +125,7 @@ public class JFMenu extends javax.swing.JFrame {
         });
         menAlugar.add(itemMinhasLocacoes);
 
-        jmHistoricoLocacoes.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jmHistoricoLocacoes.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jmHistoricoLocacoes.setText("Histórico");
         jmHistoricoLocacoes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,9 +141,9 @@ public class JFMenu extends javax.swing.JFrame {
 
         menCadastrar.setText("Cadastro");
         menCadastrar.setFocusable(false);
-        menCadastrar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        menCadastrar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
-        itemVeiculo.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        itemVeiculo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         itemVeiculo.setText("Veiculos");
         itemVeiculo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -157,8 +157,9 @@ public class JFMenu extends javax.swing.JFrame {
         }
 
         jmPerfl.setText("Meu Perfil");
-        jmPerfl.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jmPerfl.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
+        itemEditar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         itemEditar.setText("Alterar");
         itemEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -167,6 +168,7 @@ public class JFMenu extends javax.swing.JFrame {
         });
         jmPerfl.add(itemEditar);
 
+        itemExcluir.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         itemExcluir.setText("Excluir");
         itemExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -181,9 +183,9 @@ public class JFMenu extends javax.swing.JFrame {
         }
 
         menuSair.setText("Sair");
-        menuSair.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        menuSair.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
-        itemSairConta.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        itemSairConta.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         itemSairConta.setText("Conta");
         itemSairConta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -192,7 +194,7 @@ public class JFMenu extends javax.swing.JFrame {
         });
         menuSair.add(itemSairConta);
 
-        itemSairPrograma.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        itemSairPrograma.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         itemSairPrograma.setText("Programa");
         itemSairPrograma.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

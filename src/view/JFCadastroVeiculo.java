@@ -208,7 +208,7 @@ public class JFCadastroVeiculo extends javax.swing.JFrame {
                         .addComponent(txtAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCadastrar)
                     .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDeletar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(35, Short.MAX_VALUE))
@@ -218,14 +218,19 @@ public class JFCadastroVeiculo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        preencheObjeto();
-        if (veiculoDAO.cadastro(veiculo)) {
-            JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso!");
-            carregaDadosTable();
-            limpaCampos();
-        } else {
-            JOptionPane.showMessageDialog(null, "Cadastro não finalizado, tente novamente!");
+        try {
+            preencheObjeto();
+            if (veiculoDAO.cadastro(veiculo)) {
+                JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso!");
+                carregaDadosTable();
+                limpaCampos();
+            } else {
+                JOptionPane.showMessageDialog(null, "Cadastro não finalizado, tente novamente!");
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Ano do veiculo deve ser numerico!");
         }
+
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
@@ -276,7 +281,7 @@ public class JFCadastroVeiculo extends javax.swing.JFrame {
             cmbModelo.addItem("Sedãn");
             cmbModelo.addItem("4x4");
         }
-         if (cmbTipo.getSelectedItem().equals("**Selecione**")) {
+        if (cmbTipo.getSelectedItem().equals("**Selecione**")) {
             cmbModelo.removeAllItems();
             cmbModelo.addItem("**Selecione**");
         }

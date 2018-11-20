@@ -300,6 +300,9 @@
           <Font name="Arial" size="14" style="0"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtDataInicioMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="txtDataTermino">
       <Properties>
@@ -310,6 +313,9 @@
           <Font name="Arial" size="14" style="0"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtDataTerminoMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblValorAluguel">
       <Properties>

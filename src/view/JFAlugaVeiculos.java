@@ -269,6 +269,11 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         txtDataInicio.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtDataInicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtDataInicioMouseClicked(evt);
+            }
+        });
 
         try {
             txtDataTermino.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
@@ -276,6 +281,11 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         txtDataTermino.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtDataTermino.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtDataTerminoMouseClicked(evt);
+            }
+        });
 
         lblValorAluguel.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         lblValorAluguel.setForeground(new java.awt.Color(0, 153, 0));
@@ -393,39 +403,13 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
-        int anoInicio = Integer.parseInt(txtDataInicio.getText().substring(txtDataInicio.getText().lastIndexOf("/") + 1));
-        int anoTermino = Integer.parseInt(txtDataInicio.getText().substring(txtDataInicio.getText().lastIndexOf("/") + 1));
-        if (!txtDataInicio.getText().contains(" /  /    ") && !txtDataTermino.getText().contains(" /  /    ")) {
-            if (!(anoInicio < conLocacao.anoAtual()) && !(anoTermino < conLocacao.anoAtual())) {
-                if (!txtDataInicio.getText().equals(txtDataTermino.getText())) {
-                    habilitaCamposContratacao();
-                    calcAluguel();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Datas de Inicio e Termino não devem ser iguais!");
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Ano invalido");
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Insira as Datas de sua escolha!");
+        if (conLocacao.validaData(txtDataInicio.getText(), txtDataTermino.getText())) {;
+            habilitaCamposContratacao();
+            calcAluguel();
         }
-
-
     }//GEN-LAST:event_btnCalcularActionPerformed
 
-    public void valData(String data) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            sdf.setLenient(false);//valida data
-            System.out.println(sdf.parse(data));// retorna o tipo data
-            System.out.println(sdf.format(sdf.parse(data)));//retorna a data como vc escolheu no data formta
-        } catch (ParseException ex) {
-            javax.swing.JOptionPane.showMessageDialog(null, "Data Invalida", "ERRO", javax.swing.JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-
         preencheObjeto();
         if (objVeiculoDAO.realizaLocacao(objLoc)) {
             desabilitaCamposContratacao();
@@ -438,6 +422,16 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Locação não finalizada, tente novamente!");
         }
     }//GEN-LAST:event_btnConfirmarActionPerformed
+
+    private void txtDataInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDataInicioMouseClicked
+        //Posiciona cursor no inicio do campo, evitando escrever no meio da data
+        txtDataInicio.setCaretPosition(0);
+    }//GEN-LAST:event_txtDataInicioMouseClicked
+
+    private void txtDataTerminoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDataTerminoMouseClicked
+        //Posiciona cursor no inicio do campo, evitando escrever no meio da data
+        txtDataTermino.setCaretPosition(0);
+    }//GEN-LAST:event_txtDataTerminoMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

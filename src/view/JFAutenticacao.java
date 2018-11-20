@@ -50,6 +50,11 @@ public class JFAutenticacao extends javax.swing.JFrame {
                 btnEntrarActionPerformed(evt);
             }
         });
+        btnEntrar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnEntrarKeyPressed(evt);
+            }
+        });
 
         txtUsuario.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
@@ -152,6 +157,28 @@ public class JFAutenticacao extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnEntrarActionPerformed
+
+    private void btnEntrarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnEntrarKeyPressed
+        if (verificaCampos()) {
+            try {
+                if ((rs = clienteDAO.buscaLogin(usuario, senha)).next()) {
+                    clienteDAO.infoPessoa(rs);
+                    JFMenu frmMenu = new JFMenu();
+                    frmMenu.setVisible(true);
+                    frmMenu.setLocationRelativeTo(null);
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Usuário e/ou Senha incorretos!");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(JFAutenticacao.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(JFAutenticacao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Preecha todos os campos!");
+        }
+    }//GEN-LAST:event_btnEntrarKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
