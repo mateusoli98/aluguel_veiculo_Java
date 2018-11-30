@@ -67,7 +67,5 @@ public class Pessoa {
 
     public void setCelular(int celular) {
         this.celular = celular;
-    }
-    
-    
+    } 
 }
