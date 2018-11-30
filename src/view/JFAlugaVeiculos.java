@@ -1,12 +1,11 @@
 package view;
 
-import controller.ControleLocacao;
+import controller.Validacoes;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -25,7 +24,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
     String operacao = "", tipoVeiculo = "", nomeVeiculo, dtInicio, dtTermino;
     DefaultTableModel dtmDefault = new DefaultTableModel();
     int diaInicio, diaFim, anoVeiculo;
-    ControleLocacao conLocacao = new ControleLocacao();
+    Validacoes objValidacao = new Validacoes();
 
     public JFAlugaVeiculos() {
         initComponents();
@@ -150,8 +149,8 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
     void preencheObjeto() {
         objLoc.setCodCliente(ConexaoDAO.getCliente().getCodigo());
         objLoc.setCodVeiculo((int) tableVeiculos.getValueAt(tableVeiculos.getSelectedRow(), 0));
-        objLoc.setDtInicio(conLocacao.converteDatasBanco(dtInicio));
-        objLoc.setDtTermino(conLocacao.converteDatasBanco(dtTermino));
+        objLoc.setDtInicio(objValidacao.converteDatasBanco(dtInicio));
+        objLoc.setDtTermino(objValidacao.converteDatasBanco(dtTermino));
         objLoc.setTotal(Double.parseDouble(lblValorAluguel.getText()));
         objLoc.setNomeVeiculo("" + tableVeiculos.getValueAt(tableVeiculos.getSelectedRow(), 1));
     }
@@ -403,7 +402,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
-        if (conLocacao.validaData(txtDataInicio.getText(), txtDataTermino.getText())) {;
+        if (objValidacao.validaData(txtDataInicio.getText(), txtDataTermino.getText())) {;
             habilitaCamposContratacao();
             calcAluguel();
         }

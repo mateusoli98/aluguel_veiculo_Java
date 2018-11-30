@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
-public class ControleLocacao {
+public class Validacoes {
 
     public String converteDatasBanco(String dataPadrao) {
         Date data = null;

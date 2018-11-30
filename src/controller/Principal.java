@@ -2,9 +2,7 @@ package controller;
 
 import view.JFAutenticacao;
 
-
 public class Principal {
-
     public static void main(String[] args) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -20,6 +18,5 @@ public class Principal {
             frmLogin.setVisible(true);
             frmLogin.setLocationRelativeTo(null);
         });
-
     }
 }

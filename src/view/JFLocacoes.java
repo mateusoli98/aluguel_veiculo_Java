@@ -1,19 +1,18 @@
 package view;
 
-import model.DAO.ConexaoDAO;
 import model.DAO.LocacaoDAO;
-import controller.ControleLocacao;
+import controller.Validacoes;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import model.Locacao;
 
 public class JFLocacoes extends javax.swing.JFrame {
-    
+
     Locacao objLoc = new Locacao();
     LocacaoDAO objLocDAO = new LocacaoDAO();
     DefaultTableModel dtmDefault = new DefaultTableModel();
-    ControleLocacao conLoc = new ControleLocacao();
-    
+    Validacoes objValidacao = new Validacoes();
+
     public JFLocacoes() {
         initComponents();
         dtmDefault = (DefaultTableModel) tableLocacoes.getModel();
@@ -24,24 +23,24 @@ public class JFLocacoes extends javax.swing.JFrame {
             btnAvaliarVeiculo.setVisible(false);
         }
     }
-    
+
     void carregaDadosTable() {
         inicializaModel();
         for (Locacao objLoc : objLocDAO.exibeVeiculos()) {
             dtmDefault.addRow(new Object[]{
                 objLoc.getCodLocacao(),
                 objLoc.getNomeVeiculo(),
-                conLoc.converteDatasTable(objLoc.getDtInicio()),
-                conLoc.converteDatasTable(objLoc.getDtTermino()),
+                objValidacao.converteDatasTable(objLoc.getDtInicio()),
+                objValidacao.converteDatasTable(objLoc.getDtTermino()),
                 objLoc.getTotal(),});
         }
     }
-    
+
     void inicializaModel() {
         dtmDefault = (DefaultTableModel) tableLocacoes.getModel();
         dtmDefault.setNumRows(0);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
