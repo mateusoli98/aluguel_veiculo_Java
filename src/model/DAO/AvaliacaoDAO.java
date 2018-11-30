@@ -85,13 +85,13 @@ public class AvaliacaoDAO {
     }
     
     public ArrayList<Avaliacao> notas() {
-        int i = 0;
+     
         ArrayList<Avaliacao> listAvaliacao = new ArrayList<>();
 
         try {
             conn = ConexaoDAO.abreConexao();
-            while (i <= 5) {
-                query = "SELECT COUNT(numAvaliacao) as nota, numAvaliacao from avaliacao where numAvaliacao = " + i;
+            
+                query = "SELECT COUNT(numAvaliacao) as nota, numAvaliacao from avaliacao GROUP BY numAvaliacao";
                 ps = conn.prepareStatement(query);
                 rs = ps.executeQuery();
                 while (rs.next()) {
@@ -100,8 +100,7 @@ public class AvaliacaoDAO {
                     avaliacao.setNumAvaliacao(rs.getInt("numAvaliacao"));
                     listAvaliacao.add(avaliacao);
                 }
-                i++;
-            }
+              
         } catch (SQLException e) {
 
         } catch (ClassNotFoundException ex) {
@@ -111,15 +110,15 @@ public class AvaliacaoDAO {
     }
 
     public ArrayList<Avaliacao> notasVeiculo(String veiculo) {
-        int i = 0;
+       
         ArrayList<Avaliacao> listAvaliacao = new ArrayList<>();
 
         try {
             conn = ConexaoDAO.abreConexao();
-            while (i <= 5) {
+           
                 query = "SELECT COUNT(avaliacao.numAvaliacao) as nota, avaliacao.numAvaliacao from avaliacao "
                         + "join veiculo on veiculo.codigo = avaliacao.codVeiculo "
-                        + "where veiculo.nome = '" + veiculo + "' and numAvaliacao = " + i;
+                        + "where veiculo.nome = '" + veiculo + "' GROUP BY numAvaliacao ;";
                 ps = conn.prepareStatement(query);
                 rs = ps.executeQuery();
                 while (rs.next()) {
@@ -128,8 +127,7 @@ public class AvaliacaoDAO {
                     avaliacao.setNumAvaliacao(rs.getInt("numAvaliacao"));
                     listAvaliacao.add(avaliacao);
                 }
-                i++;
-            }
+              
         } catch (SQLException e) {
 
         } catch (ClassNotFoundException ex) {
