@@ -49,8 +49,8 @@ public class VeiculoDAO {
         }
         return listVeiculos;
     }
-    
-    public ArrayList<Veiculo> exibeNomeVeiculos(){
+
+    public ArrayList<Veiculo> exibeNomeVeiculos() {
         ArrayList<Veiculo> listVeiculos = new ArrayList<>();
         try {
             conn = ConexaoDAO.abreConexao();
@@ -140,11 +140,10 @@ public class VeiculoDAO {
         return listVeiculos;
     }
 
-  
     public boolean cadastro(Veiculo v) {
         try {
             conn = ConexaoDAO.abreConexao();
-            query = " INSERT INTO veiculo (`nome`, `tipo`, `combustivel`, `modelo`, `marca`, `ano`,`alugado`) VALUES ( ?, ?, ?, ?, ?, ?, 0)";
+            query = " INSERT INTO veiculo (`nome`, `tipo`, `combustivel`, `modelo`, `marca`, `ano`,`alugado`, foto) VALUES ( ?, ?, ?, ?, ?, ?, 0, ?)";
             ps = conn.prepareStatement(query);
             ps.setString(1, v.getNome());
             ps.setString(2, v.getTipo());
@@ -152,6 +151,7 @@ public class VeiculoDAO {
             ps.setString(4, v.getModelo());
             ps.setString(5, v.getMarca());
             ps.setInt(6, v.getAno());
+            ps.setBytes(7, v.getFoto());
             ps.executeUpdate();
             return retorno = true;
         } catch (SQLException e) {
@@ -225,12 +225,12 @@ public class VeiculoDAO {
 
     public boolean realizaLocacao(Locacao loc) {
         String queryAvaliacao = "INSERT INTO avaliacao(codPessoa,codVeiculo) "
-                + "VALUES ("+loc.getCodCliente()+","+loc.getCodVeiculo()+");";
+                + "VALUES (" + loc.getCodCliente() + "," + loc.getCodVeiculo() + ");";
         try {
             conn = ConexaoDAO.abreConexao();
             query = "INSERT INTO locacao (`codVeiculo`, `codPessoa`, `dtInicio`, `dtTermino`, `total`) "
                     + "VALUES (?, ?, ?, ?,?);";
-            
+
             ps = conn.prepareStatement(query);
             ps.setInt(1, loc.getCodVeiculo());
             ps.setInt(2, loc.getCodCliente());
