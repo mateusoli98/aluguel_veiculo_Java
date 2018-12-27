@@ -6,6 +6,8 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -274,19 +276,18 @@ public class JFCadastroVeiculo extends javax.swing.JFrame {
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         if (verificaCampos()) {
             try {
-                preencheObjeto();
-                if (veiculoDAO.cadastro(veiculo)) {
-                    JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso!");
-                    carregaDadosTable();
-                    limpaCampos();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Cadastro não finalizado, tente novamente!");
-                    limpaCampos();
-                }
+                salvar();
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Ano do veiculo deve ser numerico!");
                 txtAno.requestFocus();
                 txtAno.selectAll();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            } catch (IllegalArgumentException ex) {
+                if (ex.getMessage().equals("image == null!")) {
+                    JOptionPane.showMessageDialog(null, "Voce nao selecionou img");
+                }
+
             }
         } else {
             JOptionPane.showMessageDialog(null, "Preecha todos os campos!");
@@ -397,6 +398,25 @@ public class JFCadastroVeiculo extends javax.swing.JFrame {
         }
     }
 
+    void salvar() throws IOException, IllegalArgumentException {
+
+        ImageIO.write(imagemBuffer, "jpg", bytesImg);
+
+        bytesImg.flush();
+        byteArray = bytesImg.toByteArray();
+        bytesImg.close();
+        preencheObjeto();
+
+        if (veiculoDAO.cadastro(veiculo)) {
+            JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso!");
+            carregaDadosTable();
+            limpaCampos();
+        } else {
+            JOptionPane.showMessageDialog(null, "Cadastro não finalizado, tente novamente!");
+            limpaCampos();
+        }
+    }
+
     private void preencheObjeto() {
         veiculo.setNome(txtNome.getText());
         veiculo.setTipo("" + cmbTipo.getSelectedItem());
@@ -404,6 +424,7 @@ public class JFCadastroVeiculo extends javax.swing.JFrame {
         veiculo.setCombustivel("" + cmbCombustivel.getSelectedItem());
         veiculo.setMarca(txtMarca.getText());
         veiculo.setModelo("" + cmbModelo.getSelectedItem());
+        veiculo.setFoto(byteArray);
     }
 
     void carregaDadosTable() {
@@ -443,6 +464,8 @@ public class JFCadastroVeiculo extends javax.swing.JFrame {
         txtMarca.setText("");
         cmbCombustivel.setSelectedItem("**Selecione**");
         txtAno.setText("");
+        lblFoto.setIcon(null);
+        lblFoto.setText("Insira a img aqui");
     }
 
 
