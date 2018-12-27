@@ -7,8 +7,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -222,10 +220,10 @@ public class JFCadastroVeiculo extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnDeletar, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(4, 4, 4)
-                                .addComponent(lblFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(btnDeletar, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(218, 218, 218)
+                        .addComponent(lblFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(10, 10, 10))
         );
         layout.setVerticalGroup(
@@ -258,8 +256,8 @@ public class JFCadastroVeiculo extends javax.swing.JFrame {
                             .addComponent(txtAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addComponent(lblRequireAno)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblFoto, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addComponent(lblFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -285,9 +283,8 @@ public class JFCadastroVeiculo extends javax.swing.JFrame {
                 ex.printStackTrace();
             } catch (IllegalArgumentException ex) {
                 if (ex.getMessage().equals("image == null!")) {
-                    JOptionPane.showMessageDialog(null, "Voce nao selecionou img");
+                    JOptionPane.showMessageDialog(null, "Voce não selecionou uma imagem para o veiculo!");
                 }
-
             }
         } else {
             JOptionPane.showMessageDialog(null, "Preecha todos os campos!");
@@ -393,9 +390,6 @@ public class JFCadastroVeiculo extends javax.swing.JFrame {
             Image imgRezise = imagemBuffer.getScaledInstance(100, 100, 0);
             lblFoto.setText("");
             lblFoto.setIcon(new ImageIcon(imgRezise));
-        } else {
-            JOptionPane.showMessageDialog(null, "N Gravou");
-            limpaCampos();
         }
     }
 
@@ -483,6 +477,7 @@ public class JFCadastroVeiculo extends javax.swing.JFrame {
         txtAno.setText("");
         lblFoto.setIcon(null);
         lblFoto.setText("Insira a img aqui");
+        imagemBuffer = null;
     }
 
 
