@@ -140,6 +140,28 @@ public class VeiculoDAO {
         return listVeiculos;
     }
 
+    public byte[] retornaFotoVeiculo(int codigoVeiculo) {
+        byte[] fotoVeiculo = null;
+        try {
+            conn = ConexaoDAO.abreConexao();
+            query = "SELECT veiculo.foto FROM veiculo WHERE veiculo.codigo = '" + codigoVeiculo + "'";
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                fotoVeiculo = rs.getBytes("veiculo.foto");
+                query = "";
+            }
+            conn.close();
+            ps.close();
+            rs.close();
+
+        } catch (SQLException | ClassNotFoundException error) {
+            error.printStackTrace();
+        }
+        return fotoVeiculo;
+    }
+
     public boolean cadastro(Veiculo v) {
         try {
             conn = ConexaoDAO.abreConexao();

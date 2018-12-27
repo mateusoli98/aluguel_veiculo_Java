@@ -3,6 +3,7 @@ package view;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -276,7 +277,7 @@ public class JFCadastroVeiculo extends javax.swing.JFrame {
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         if (verificaCampos()) {
             try {
-                salvar();
+                salvarVeiculo();
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Ano do veiculo deve ser numerico!");
                 txtAno.requestFocus();
@@ -321,6 +322,7 @@ public class JFCadastroVeiculo extends javax.swing.JFrame {
         txtMarca.setText("" + tableVeiculos.getValueAt(tableVeiculos.getSelectedRow(), 4));
         cmbCombustivel.setSelectedItem("" + tableVeiculos.getValueAt(tableVeiculos.getSelectedRow(), 5));
         txtAno.setText("" + tableVeiculos.getValueAt(tableVeiculos.getSelectedRow(), 6));
+        buscaFotoVeiculo();
     }//GEN-LAST:event_tableVeiculosMouseClicked
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
@@ -374,13 +376,13 @@ public class JFCadastroVeiculo extends javax.swing.JFrame {
 
     private void lblFotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFotoMouseClicked
         try {
-            getFoto();
+            selecionaFoto();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }//GEN-LAST:event_lblFotoMouseClicked
 
-    void getFoto() throws IOException {
+    void selecionaFoto() throws IOException {
         JFileChooser buscaFoto = new JFileChooser();
         buscaFoto.setFileFilter(new FileNameExtensionFilter("Imagem", "bmp", "png", "jgp", "jpeg"));
         buscaFoto.setAcceptAllFileFilterUsed(false);
@@ -398,7 +400,7 @@ public class JFCadastroVeiculo extends javax.swing.JFrame {
         }
     }
 
-    void salvar() throws IOException, IllegalArgumentException {
+    void salvarVeiculo() throws IOException, IllegalArgumentException {
 
         ImageIO.write(imagemBuffer, "jpg", bytesImg);
 
@@ -415,6 +417,22 @@ public class JFCadastroVeiculo extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Cadastro não finalizado, tente novamente!");
             limpaCampos();
         }
+    }
+
+    void buscaFotoVeiculo() {
+        imagemBuffer = null;
+        veiculo.setCodigo((int) tableVeiculos.getValueAt(tableVeiculos.getSelectedRow(), 0));
+
+        try {
+            imagemBuffer = ImageIO.read(new ByteArrayInputStream(veiculoDAO.retornaFotoVeiculo(veiculo.getCodigo())));
+            Image imgRezise = imagemBuffer.getScaledInstance(100, 100, 0);
+            lblFoto.setText("");
+            lblFoto.setIcon(new ImageIcon(imgRezise));
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
     }
 
     private void preencheObjeto() {
