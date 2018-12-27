@@ -201,9 +201,12 @@ public class VeiculoDAO {
                     + "combustivel = '" + v.getCombustivel() + "', "
                     + "modelo = '" + v.getModelo() + "',"
                     + "marca = '" + v.getMarca() + "', "
-                    + "ano = '" + v.getAno() + "'"
+                    + "ano = '" + v.getAno() + "', "
+                    + "foto = ? "
                     + "WHERE codigo = " + v.getCodigo() + ";";
+            
             ps = conn.prepareStatement(query);
+            ps.setBytes(1, v.getFoto());
             ps.executeUpdate();
             return retorno = true;
         } catch (SQLException e) {

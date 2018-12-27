@@ -7,6 +7,8 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -62,6 +64,7 @@ public class JFCadastroVeiculo extends javax.swing.JFrame {
         lblNome1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro Veiculos");
         setResizable(false);
 
         lblNome.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -293,6 +296,14 @@ public class JFCadastroVeiculo extends javax.swing.JFrame {
         if (verificaCampos()) {
             try {
                 salvarVeiculo();
+                if (veiculoDAO.cadastro(veiculo)) {
+                    JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso!");
+                    carregaDadosTable();
+                    limpaCampos();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Cadastro não finalizado, tente novamente!");
+                    limpaCampos();
+                }
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Ano do veiculo deve ser numerico!");
                 txtAno.requestFocus();
@@ -312,16 +323,24 @@ public class JFCadastroVeiculo extends javax.swing.JFrame {
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         if (verificaCampos()) {
-            preencheObjeto();
-            veiculo.setCodigo((int) tableVeiculos.getValueAt(tableVeiculos.getSelectedRow(), 0));
-            if (veiculoDAO.alterarVeiculo(veiculo)) {
-                JOptionPane.showMessageDialog(null, "Alteração realizada com sucesso!");
-                carregaDadosTable();
-                limpaCampos();
-            } else {
-                JOptionPane.showMessageDialog(null, "Alteração não finalizada, tente novamente!");
-                limpaCampos();
+            try {
+                salvarVeiculo();
+                if (veiculoDAO.alterarVeiculo(veiculo)) {
+                    JOptionPane.showMessageDialog(null, "Alteração realizada com sucesso!");
+                    carregaDadosTable();
+                    limpaCampos();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Alteração não finalizada, tente novamente!");
+                    limpaCampos();
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            } catch (IllegalArgumentException ex) {
+                if (ex.getMessage().equals("image == null!")) {
+                    JOptionPane.showMessageDialog(null, "Voce não selecionou uma imagem para o veiculo!");
+                }
             }
+
         } else {
             JOptionPane.showMessageDialog(null, "Preecha todos os campos!");
         }
@@ -412,22 +431,11 @@ public class JFCadastroVeiculo extends javax.swing.JFrame {
     }
 
     void salvarVeiculo() throws IOException, IllegalArgumentException {
-
         ImageIO.write(imagemBuffer, "jpg", bytesImg);
-
         bytesImg.flush();
         byteArray = bytesImg.toByteArray();
         bytesImg.close();
-        preencheObjeto();
-
-        if (veiculoDAO.cadastro(veiculo)) {
-            JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso!");
-            carregaDadosTable();
-            limpaCampos();
-        } else {
-            JOptionPane.showMessageDialog(null, "Cadastro não finalizado, tente novamente!");
-            limpaCampos();
-        }
+        preencheObjeto();    
     }
 
     void buscaFotoVeiculo() {
@@ -442,6 +450,9 @@ public class JFCadastroVeiculo extends javax.swing.JFrame {
 
         } catch (IOException ex) {
             ex.printStackTrace();
+
+        } catch (NullPointerException ex) {
+            System.out.println(ex.getMessage());
         }
 
     }
