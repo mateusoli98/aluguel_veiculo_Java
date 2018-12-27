@@ -33,7 +33,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         carregaDadosTable();
         desabilitaCamposCotacao();
         desabilitaCamposContratacao();
-
+        lblVerFotos.setVisible(false);
     }
 
     void carregaDadosTable() {
@@ -45,7 +45,8 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                 objVeiculo.getModelo(),
                 objVeiculo.getMarca(),
                 objVeiculo.getCombustivel(),
-                objVeiculo.getAno(),});
+                objVeiculo.getAno(),
+            });
         }
     }
 
@@ -174,6 +175,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         txtDataInicio = new javax.swing.JFormattedTextField();
         txtDataTermino = new javax.swing.JFormattedTextField();
         lblValorAluguel = new javax.swing.JLabel();
+        lblVerFotos = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Locação Veiculo");
@@ -290,6 +292,14 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         lblValorAluguel.setForeground(new java.awt.Color(0, 153, 0));
         lblValorAluguel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
+        lblVerFotos.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblVerFotos.setText("Ver fotos");
+        lblVerFotos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblVerFotosMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -307,6 +317,12 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                         .addComponent(txtNomeVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(33, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnConfirmar)
+                .addGap(18, 18, 18)
+                .addComponent(btnCancelar)
+                .addGap(221, 221, 221))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -325,14 +341,11 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                                 .addComponent(lblMoeda, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblValorAluguel, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnCalcular))))
-                .addContainerGap(214, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnConfirmar)
-                .addGap(18, 18, 18)
-                .addComponent(btnCancelar)
-                .addGap(221, 221, 221))
+                            .addComponent(btnCalcular)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(267, 267, 267)
+                        .addComponent(lblVerFotos, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -345,7 +358,9 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                     .addComponent(txtNomeVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblVerFotos)
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblDataInicio)
                     .addComponent(lblDataFim))
@@ -393,6 +408,8 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNomeVeiculoKeyReleased
 
     private void tableVeiculosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableVeiculosMouseClicked
+        lblVerFotos.setVisible(true);
+        lblVerFotos.setText("<html><u>Ver fotos</u></html>");
         habilitaCamposCotacao();
     }//GEN-LAST:event_tableVeiculosMouseClicked
 
@@ -432,6 +449,11 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         txtDataTermino.setCaretPosition(0);
     }//GEN-LAST:event_txtDataTerminoMouseClicked
 
+    private void lblVerFotosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblVerFotosMouseClicked
+        JFFotos fotos = new JFFotos();
+        fotos.setVisible(true);
+    }//GEN-LAST:event_lblVerFotosMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCalcular;
@@ -445,6 +467,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
     private javax.swing.JLabel lblDataInicio;
     private javax.swing.JLabel lblMoeda;
     private javax.swing.JLabel lblValorAluguel;
+    private javax.swing.JLabel lblVerFotos;
     private javax.swing.JTable tableVeiculos;
     private javax.swing.JFormattedTextField txtDataInicio;
     private javax.swing.JFormattedTextField txtDataTermino;
