@@ -45,8 +45,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                 objVeiculo.getModelo(),
                 objVeiculo.getMarca(),
                 objVeiculo.getCombustivel(),
-                objVeiculo.getAno(),
-            });
+                objVeiculo.getAno(),});
         }
     }
 
@@ -293,7 +292,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         lblValorAluguel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
         lblVerFotos.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lblVerFotos.setText("Ver fotos");
+        lblVerFotos.setText("Ver foto do veiculo");
         lblVerFotos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblVerFotosMouseClicked(evt);
@@ -343,8 +342,8 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                                 .addComponent(lblValorAluguel, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(btnCalcular)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(267, 267, 267)
-                        .addComponent(lblVerFotos, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(249, 249, 249)
+                        .addComponent(lblVerFotos)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -358,9 +357,9 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                     .addComponent(txtNomeVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(lblVerFotos)
-                .addGap(32, 32, 32)
+                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblDataInicio)
                     .addComponent(lblDataFim))
@@ -409,7 +408,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
 
     private void tableVeiculosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableVeiculosMouseClicked
         lblVerFotos.setVisible(true);
-        lblVerFotos.setText("<html><u>Ver fotos</u></html>");
+        lblVerFotos.setText("<html><u>Ver foto do veiculo</u></html>");
         habilitaCamposCotacao();
     }//GEN-LAST:event_tableVeiculosMouseClicked
 
@@ -450,7 +449,8 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDataTerminoMouseClicked
 
     private void lblVerFotosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblVerFotosMouseClicked
-        JFFotos fotos = new JFFotos();
+        int idVeiculo = (int) tableVeiculos.getValueAt(tableVeiculos.getSelectedRow(), 0);
+        JFFotos fotos = new JFFotos(idVeiculo);
         fotos.setVisible(true);
     }//GEN-LAST:event_lblVerFotosMouseClicked
 
