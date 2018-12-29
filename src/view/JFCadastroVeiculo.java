@@ -172,6 +172,7 @@ public class JFCadastroVeiculo extends javax.swing.JFrame {
         lblFoto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblFoto.setText("Inisira a foto aqui");
         lblFoto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblFoto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblFoto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblFotoMouseClicked(evt);
@@ -416,7 +417,7 @@ public class JFCadastroVeiculo extends javax.swing.JFrame {
 
     void selecionaFoto() throws IOException {
         JFileChooser buscaFoto = new JFileChooser();
-        buscaFoto.setFileFilter(new FileNameExtensionFilter("Imagem", "bmp", "png", "jgp", "jpeg"));
+        buscaFoto.setFileFilter(new FileNameExtensionFilter("Imagem", "bmp", "png", "jpg", "jpeg"));
         buscaFoto.setAcceptAllFileFilterUsed(false);
         buscaFoto.setDialogTitle("Selecionar Imagem");
         buscaFoto.showOpenDialog(this);
