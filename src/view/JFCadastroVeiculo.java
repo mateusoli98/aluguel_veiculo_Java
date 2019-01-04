@@ -424,7 +424,7 @@ public class JFCadastroVeiculo extends javax.swing.JFrame {
         if (buscaFoto.getSelectedFile() != null) {
             String caminho = "" + buscaFoto.getSelectedFile().getAbsolutePath();
             imagemBuffer = ImageIO.read(new File(caminho));
-            Image imgRezise = imagemBuffer.getScaledInstance(100, 100, 0);
+            Image imgRezise = imagemBuffer.getScaledInstance(337, 250, 0);
             lblFoto.setText("");
             lblFoto.setIcon(new ImageIcon(imgRezise));
         }
@@ -444,7 +444,7 @@ public class JFCadastroVeiculo extends javax.swing.JFrame {
 
         try {
             imagemBuffer = ImageIO.read(new ByteArrayInputStream(veiculoDAO.retornaFotoVeiculo(veiculo.getCodigo())));
-            Image imgRezise = imagemBuffer.getScaledInstance(350, 250, 0);
+            Image imgRezise = imagemBuffer.getScaledInstance(337, 250, 0);
             lblFoto.setText("");
             lblFoto.setIcon(new ImageIcon(imgRezise));
 
