@@ -14,7 +14,7 @@ public class AvaliacaoDAO {
     String query;
     Connection conn;
     PreparedStatement ps;
-    ResultSet rs, rs2;
+    ResultSet rs;
 
     public boolean resgistarAvaliacao(Avaliacao a, HistoricoLocacao hl) {
         try {
