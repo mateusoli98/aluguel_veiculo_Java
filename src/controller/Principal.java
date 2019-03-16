@@ -1,6 +1,7 @@
 package controller;
 
 import view.JFAutenticacao;
+import view.JFMenu;
 
 public class Principal {
     public static void main(String[] args) {
@@ -15,6 +16,7 @@ public class Principal {
         }
         java.awt.EventQueue.invokeLater(() -> {
             JFAutenticacao frmLogin = new JFAutenticacao();
+           //JFMenu frmLogin = new JFMenu();
             frmLogin.setVisible(true);
             frmLogin.setLocationRelativeTo(null);
         });

@@ -41,6 +41,69 @@ public class AvaliacaoDAO {
         return false;
     }
 
+    public ArrayList<Avaliacao> melhorNota() {
+
+        ArrayList<Avaliacao> listAvaliacao = new ArrayList<>();
+
+        try {
+            conn = ConexaoDAO.abreConexao();
+ 
+            query = "SELECT COUNT(numAvaliacao) as qntNota, max(numAvaliacao) as maiorNota from avaliacao";
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Avaliacao avaliacao = new Avaliacao();
+                avaliacao.setQtdAvaliacao(rs.getInt("qntNota"));
+                avaliacao.setNumAvaliacao(rs.getInt("maiorNota"));
+                listAvaliacao.add(avaliacao);
+            }
+
+        } catch (SQLException e) {
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AvaliacaoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listAvaliacao;
+    }
+
+    public String comentariosMelhorNota() {
+        String comentarios = "";
+        try {
+            conn = ConexaoDAO.abreConexao();
+
+            query = "SELECT pessoa.nome, avaliacao.numAvaliacao, veiculo.nome, avaliacao.comentario FROM pessoa "
+                    + "JOIN avaliacao ON pessoa.codigo = avaliacao.codPessoa "
+                    + "JOIN veiculo ON veiculo.codigo = avaliacao.codVeiculo "
+                    + "WHERE avaliacao.numAvaliacao = (SELECT max(numAvaliacao) from avaliacao) AND avaliacao.status = 1";
+
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                comentarios += "<br>Cliente: <b>" + rs.getString("pessoa.nome") + "</b> avaliou o "
+                        + "veículo: <b>" + rs.getString("veiculo.nome") + "</b> com nota: <b>"
+                        + +rs.getInt("avaliacao.numAvaliacao")
+                        + "</b><br><br>"
+                        + "<b>Experiencia com nossos serviços:</b><br>"
+                        + "<i>\"" + rs.getString("avaliacao.comentario") + "\"</i>"
+                        + "<br><br><hr>";
+            }
+
+        } catch (SQLException | ClassNotFoundException e) {
+
+        } finally {
+            try {
+                query = "";
+                conn.close();
+                ps.close();
+                rs.close();
+            } catch (SQLException e) {
+            }
+        }
+
+        return comentarios;
+    }
+    
     public String comentarios(String veiculo) {
         String comentarios = "";
         try {
@@ -83,24 +146,24 @@ public class AvaliacaoDAO {
 
         return comentarios;
     }
-    
+
     public ArrayList<Avaliacao> notas() {
-     
+
         ArrayList<Avaliacao> listAvaliacao = new ArrayList<>();
 
         try {
             conn = ConexaoDAO.abreConexao();
-            
-                query = "SELECT COUNT(numAvaliacao) as nota, numAvaliacao from avaliacao GROUP BY numAvaliacao";
-                ps = conn.prepareStatement(query);
-                rs = ps.executeQuery();
-                while (rs.next()) {
-                    Avaliacao avaliacao = new Avaliacao();
-                    avaliacao.setQtdAvaliacao(rs.getInt("nota"));
-                    avaliacao.setNumAvaliacao(rs.getInt("numAvaliacao"));
-                    listAvaliacao.add(avaliacao);
-                }
-              
+
+            query = "SELECT COUNT(numAvaliacao) as nota, numAvaliacao from avaliacao GROUP BY numAvaliacao";
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Avaliacao avaliacao = new Avaliacao();
+                avaliacao.setQtdAvaliacao(rs.getInt("nota"));
+                avaliacao.setNumAvaliacao(rs.getInt("numAvaliacao"));
+                listAvaliacao.add(avaliacao);
+            }
+
         } catch (SQLException e) {
 
         } catch (ClassNotFoundException ex) {
@@ -110,24 +173,24 @@ public class AvaliacaoDAO {
     }
 
     public ArrayList<Avaliacao> notasVeiculo(String veiculo) {
-       
+
         ArrayList<Avaliacao> listAvaliacao = new ArrayList<>();
 
         try {
             conn = ConexaoDAO.abreConexao();
-           
-                query = "SELECT COUNT(avaliacao.numAvaliacao) as nota, avaliacao.numAvaliacao from avaliacao "
-                        + "join veiculo on veiculo.codigo = avaliacao.codVeiculo "
-                        + "where veiculo.nome = '" + veiculo + "' GROUP BY numAvaliacao ;";
-                ps = conn.prepareStatement(query);
-                rs = ps.executeQuery();
-                while (rs.next()) {
-                    Avaliacao avaliacao = new Avaliacao();
-                    avaliacao.setQtdAvaliacao(rs.getInt("nota"));
-                    avaliacao.setNumAvaliacao(rs.getInt("numAvaliacao"));
-                    listAvaliacao.add(avaliacao);
-                }
-              
+
+            query = "SELECT COUNT(avaliacao.numAvaliacao) as nota, avaliacao.numAvaliacao from avaliacao "
+                    + "join veiculo on veiculo.codigo = avaliacao.codVeiculo "
+                    + "where veiculo.nome = '" + veiculo + "' GROUP BY numAvaliacao ;";
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Avaliacao avaliacao = new Avaliacao();
+                avaliacao.setQtdAvaliacao(rs.getInt("nota"));
+                avaliacao.setNumAvaliacao(rs.getInt("numAvaliacao"));
+                listAvaliacao.add(avaliacao);
+            }
+
         } catch (SQLException e) {
 
         } catch (ClassNotFoundException ex) {
