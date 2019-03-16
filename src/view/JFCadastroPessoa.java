@@ -209,7 +209,7 @@ public class JFCadastroPessoa extends javax.swing.JFrame {
     void limpaCampos() {
         txtUsuario.setText("");
         txtNome.setText("");
-        txtCelular.setText("");
+        txtTelefone.setText("");
         txtCelular.setText("");
         txtEmail.setText("");
         txtSenha.setText("");
@@ -219,14 +219,15 @@ public class JFCadastroPessoa extends javax.swing.JFrame {
 
     boolean verificaCampos() {
         boolean retorno = false;
+
         if (!txtNome.getText().equals("") && !txtCelular.getText().equals("") && !txtCelular.getText().equals("") && !txtEmail.getText().equals("")
                 && !txtSenha.getText().equals("") && !txtUsuario.getText().equals("")) {
+            if (txtCelular.getText().trim().length() > 15 && txtTelefone.getText().trim().length() > 15) {
                 retorno = true;
-            
+            }
         }
         return retorno;
     }
-
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         try {
@@ -251,7 +252,7 @@ public class JFCadastroPessoa extends javax.swing.JFrame {
                 }
 
             } else {
-                JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos corretamente!");
             }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Telefone/Celular digite apenas numeros!");
@@ -298,8 +299,8 @@ public class JFCadastroPessoa extends javax.swing.JFrame {
         cliente.setCodigo(ConexaoDAO.getCliente().getCodigo());
         cliente.setNome(txtNome.getText());
         cliente.setEmail(txtEmail.getText());
-        cliente.setTelefone(Integer.parseInt(txtCelular.getText()));
-        cliente.setCelular(Integer.parseInt(txtCelular.getText()));
+        cliente.setTelefone(txtCelular.getText());
+        cliente.setCelular(txtCelular.getText());
         cliente.setUsuario(txtUsuario.getText());
         cliente.setSenha(txtSenha.getText());
     }
@@ -307,8 +308,8 @@ public class JFCadastroPessoa extends javax.swing.JFrame {
     void setaCamposAlteracao() {
         txtNome.setText(ConexaoDAO.getCliente().getNome());
         txtEmail.setText(ConexaoDAO.getCliente().getEmail());
-        txtCelular.setText(String.valueOf(ConexaoDAO.getCliente().getTelefone()));
-        txtCelular.setText(String.valueOf(ConexaoDAO.getCliente().getCelular()));
+        txtTelefone.setText(ConexaoDAO.getCliente().getTelefone());
+        txtCelular.setText(ConexaoDAO.getCliente().getCelular());
         txtUsuario.setText(ConexaoDAO.getCliente().getUsuario());
         lblSenha.setText("Digite sua nova senha");
     }
