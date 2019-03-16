@@ -14,7 +14,7 @@ public class JFSplashScreen extends javax.swing.JFrame {
         public void run() {
             try {
                 for (int i = 0; i <= 100; i++) {
-                    sleep(40);
+                    sleep(10);
                     lblPregresso.setText(i + " %");
                     jpbProgresso.setValue(i);
                     if (i == 100) {
