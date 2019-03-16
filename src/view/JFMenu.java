@@ -84,7 +84,7 @@ public class JFMenu extends javax.swing.JFrame {
         );
         panGraficoLayout.setVerticalGroup(
             panGraficoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 399, Short.MAX_VALUE)
+            .addGap(0, 405, Short.MAX_VALUE)
         );
 
         lblComentario.setVerticalAlignment(javax.swing.SwingConstants.TOP);
@@ -115,7 +115,7 @@ public class JFMenu extends javax.swing.JFrame {
         lblParametroGrafico2.setText("Notas:");
 
         cmbNota.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        cmbNota.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Melhor Nota", "Pior Nota" }));
+        cmbNota.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Maior Nota", "Menor Nota" }));
         cmbNota.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbNotaActionPerformed(evt);
@@ -146,17 +146,16 @@ public class JFMenu extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(cmbNota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblParametroGrafico)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblParametroGrafico1)
-                            .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(lblParametroGrafico2)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(lblParametroGrafico)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblParametroGrafico1)
+                    .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblParametroGrafico2)
+                    .addComponent(cmbNota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(290, Short.MAX_VALUE))
         );
 
         lblParametroGrafico.getAccessibleContext().setAccessibleName("");
@@ -272,7 +271,7 @@ public class JFMenu extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -294,7 +293,7 @@ public class JFMenu extends javax.swing.JFrame {
                     .addComponent(jspComentarios)
                     .addComponent(panGrafico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(30, 30, 30))
         );
@@ -372,18 +371,19 @@ public class JFMenu extends javax.swing.JFrame {
         escolhaNota = (String) cmbNota.getSelectedItem();
         if (escolhaNota.equals("Selecione")) {
             apresentarGraficoGeral("Geral");
-        } else if (escolhaNota.equals("Melhor Nota")) {
-            apresentarMelhorNota(escolhaNota);
-        } else if (escolhaGrafico.equals("Pior Nota")) {
-
+        } else if (escolhaNota.equals("Maior Nota")) {
+            apresentarMaiorNota(escolhaNota);
+        } else if (escolhaNota.equals("Menor Nota")) {
+            System.out.println("view.JFMenu.cmbNotaActionPerformed()");
+            apresentarMenorNota(escolhaNota);
         }
     }//GEN-LAST:event_cmbNotaActionPerformed
 
-    public void apresentarMelhorNota(String escolha) {
+    public void apresentarMaiorNota(String escolha) {
         panGrafico.removeAll();
         panGrafico.revalidate();
         DefaultCategoryDataset dpd = new DefaultCategoryDataset();
-        for (Avaliacao a : avaliacaoDAO.melhorNota()) {
+        for (Avaliacao a : avaliacaoDAO.maiorNota()) {
             dpd.setValue(a.getQtdAvaliacao(), "     " + a.getNumAvaliacao(), "");
 
         }
@@ -395,6 +395,24 @@ public class JFMenu extends javax.swing.JFrame {
         panGrafico.add(chartpanel);
 
         lblComentario.setText("<html>" + avaliacaoDAO.comentariosMelhorNota() + "</html>");
+    }
+    
+     public void apresentarMenorNota(String escolha) {
+        panGrafico.removeAll();
+        panGrafico.revalidate();
+        DefaultCategoryDataset dpd = new DefaultCategoryDataset();
+        for (Avaliacao a : avaliacaoDAO.menorNota()) {
+            dpd.setValue(a.getQtdAvaliacao(), "     " + a.getNumAvaliacao(), "");
+
+        }
+
+        JFreeChart grafico = ChartFactory.createBarChart3D("Todas as avaliações de nossos clientes", "Notas", "Quantidade de Avaliações", dpd, PlotOrientation.VERTICAL, true, true, false);
+        ChartPanel chartpanel = new ChartPanel(grafico);
+        chartpanel.setBackground(Color.BLACK);
+        panGrafico.setLayout(new BorderLayout(0, 0));
+        panGrafico.add(chartpanel);
+
+        lblComentario.setText("<html>" + avaliacaoDAO.comentariosMenorNota()+ "</html>");
     }
 
     public void apresentarGraficoGeral(String escolha) {

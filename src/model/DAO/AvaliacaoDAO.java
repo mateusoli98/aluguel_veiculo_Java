@@ -40,8 +40,8 @@ public class AvaliacaoDAO {
         }
         return false;
     }
-
-    public ArrayList<Avaliacao> melhorNota() {
+    
+    public ArrayList<Avaliacao> maiorNota() {
 
         ArrayList<Avaliacao> listAvaliacao = new ArrayList<>();
 
@@ -75,6 +75,70 @@ public class AvaliacaoDAO {
                     + "JOIN avaliacao ON pessoa.codigo = avaliacao.codPessoa "
                     + "JOIN veiculo ON veiculo.codigo = avaliacao.codVeiculo "
                     + "WHERE avaliacao.numAvaliacao = (SELECT max(numAvaliacao) from avaliacao) AND avaliacao.status = 1";
+
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                comentarios += "<br>Cliente: <b>" + rs.getString("pessoa.nome") + "</b> avaliou o "
+                        + "veículo: <b>" + rs.getString("veiculo.nome") + "</b> com nota: <b>"
+                        + +rs.getInt("avaliacao.numAvaliacao")
+                        + "</b><br><br>"
+                        + "<b>Experiencia com nossos serviços:</b><br>"
+                        + "<i>\"" + rs.getString("avaliacao.comentario") + "\"</i>"
+                        + "<br><br><hr>";
+            }
+
+        } catch (SQLException | ClassNotFoundException e) {
+
+        } finally {
+            try {
+                query = "";
+                conn.close();
+                ps.close();
+                rs.close();
+            } catch (SQLException e) {
+            }
+        }
+
+        return comentarios;
+    }
+    
+
+    public ArrayList<Avaliacao> menorNota() {
+
+        ArrayList<Avaliacao> listAvaliacao = new ArrayList<>();
+
+        try {
+            conn = ConexaoDAO.abreConexao();
+ 
+            query = "SELECT COUNT(numAvaliacao) as qntNota, min(numAvaliacao) as menorNota from avaliacao";
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Avaliacao avaliacao = new Avaliacao();
+                avaliacao.setQtdAvaliacao(rs.getInt("qntNota"));
+                avaliacao.setNumAvaliacao(rs.getInt("menorNota"));
+                listAvaliacao.add(avaliacao);
+            }
+
+        } catch (SQLException e) {
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AvaliacaoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listAvaliacao;
+    }
+
+    public String comentariosMenorNota() {
+        String comentarios = "";
+        try {
+            conn = ConexaoDAO.abreConexao();
+
+            query = "SELECT pessoa.nome, avaliacao.numAvaliacao, veiculo.nome, avaliacao.comentario FROM pessoa "
+                    + "JOIN avaliacao ON pessoa.codigo = avaliacao.codPessoa "
+                    + "JOIN veiculo ON veiculo.codigo = avaliacao.codVeiculo "
+                    + "WHERE avaliacao.numAvaliacao = (SELECT min(numAvaliacao) from avaliacao) AND avaliacao.status = 1";
 
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
