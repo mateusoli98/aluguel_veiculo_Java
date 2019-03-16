@@ -33,8 +33,6 @@ public class JFCadastroPessoa extends javax.swing.JFrame {
     private void initComponents() {
 
         txtNome = new javax.swing.JTextField();
-        txtTelefone = new javax.swing.JTextField();
-        txtCelular = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
         txtUsuario = new javax.swing.JTextField();
         btnCadastrar = new javax.swing.JButton();
@@ -47,16 +45,14 @@ public class JFCadastroPessoa extends javax.swing.JFrame {
         lblSenha = new javax.swing.JLabel();
         btnLimpar = new javax.swing.JButton();
         lblValidaUsuario = new javax.swing.JLabel();
+        txtCelular = new javax.swing.JFormattedTextField();
+        txtTelefone = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro Cliente");
         setResizable(false);
 
         txtNome.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-
-        txtTelefone.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-
-        txtCelular.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         txtEmail.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
@@ -106,6 +102,18 @@ public class JFCadastroPessoa extends javax.swing.JFrame {
         lblValidaUsuario.setFont(new java.awt.Font("Arial", 3, 12)); // NOI18N
         lblValidaUsuario.setText("Usuário disponível");
 
+        try {
+            txtCelular.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) ##### - ####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            txtTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #### - ####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -113,24 +121,10 @@ public class JFCadastroPessoa extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(64, 64, 64)
-                                .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(70, 70, 70)
-                                .addComponent(jLabel5))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(67, 67, 67)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(lblValidaUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE))))
-                        .addGap(63, 63, 63)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(lblSenha, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
-                                .addComponent(txtSenha, javax.swing.GroupLayout.Alignment.LEADING))))
+                        .addGap(184, 184, 184)
+                        .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(64, 64, 64)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,13 +139,26 @@ public class JFCadastroPessoa extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addGap(268, 268, 268)
-                                .addComponent(jLabel3))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(184, 184, 184)
-                        .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(82, Short.MAX_VALUE))
+                                .addComponent(jLabel3))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(3, 3, 3)
+                                        .addComponent(jLabel5))
+                                    .addComponent(lblValidaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtTelefone))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(69, 69, 69)
+                                        .addComponent(lblSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(63, 63, 63)
+                                        .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(63, 63, 63)
+                                        .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,21 +179,22 @@ public class JFCadastroPessoa extends javax.swing.JFrame {
                         .addGap(2, 2, 2)
                         .addComponent(jLabel4))
                     .addComponent(jLabel3))
-                .addGap(4, 4, 4)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(lblSenha))
-                .addGap(6, 6, 6)
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(lblSenha)
+                        .addGap(6, 6, 6)
+                        .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel5)
+                        .addGap(6, 6, 6)
                         .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblValidaUsuario))
-                    .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblValidaUsuario)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -211,48 +219,46 @@ public class JFCadastroPessoa extends javax.swing.JFrame {
 
     boolean verificaCampos() {
         boolean retorno = false;
-        if (!txtNome.getText().equals("") && !txtTelefone.getText().equals("") && !txtCelular.getText().equals("") && !txtEmail.getText().equals("")
+
+        if (!txtNome.getText().equals("") && !txtCelular.getText().equals("") && !txtCelular.getText().equals("") && !txtEmail.getText().equals("")
                 && !txtSenha.getText().equals("") && !txtUsuario.getText().equals("")) {
-            retorno = true;
+            if (txtCelular.getText().trim().length() > 15 && txtTelefone.getText().trim().length() > 15) {
+                retorno = true;
+            }
         }
         return retorno;
     }
-
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         try {
             setaObjeto();
             if (verificaCampos()) {
-                if (btnCadastrar.getText().equals("Cadastrar")) {
-                    try {
+
+                switch (btnCadastrar.getText()) {
+                    case "Cadastrar":
                         clienteDAO.cadastro(cliente);
                         JOptionPane.showMessageDialog(null, "Cadastro concluido com sucesso!");
                         dispose();
-
-                    } catch (SQLException ex) {
-                        ex.printStackTrace();
-                    } catch (ClassNotFoundException ex) {
-                        ex.printStackTrace();
-                    }
+                        break;
+                    case "Alterar":
+                        if (clienteDAO.alterar(cliente)) {
+                            JOptionPane.showMessageDialog(null, "Alteração realizada com sucesso!");
+                            ConexaoDAO.setCliente(cliente);
+                            dispose();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Não foi possível realizar a alteração!");
+                        }
+                        break;
                 }
 
-                if (btnCadastrar.getText().equals("Alterar")) {
-
-                    if (clienteDAO.alterar(cliente)) {
-                        JOptionPane.showMessageDialog(null, "Alteração realizada com sucesso!");
-
-                        ConexaoDAO.setCliente(cliente);
-
-                        dispose();
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Não foi possível realizar a alteração!");
-                    }
-                }
             } else {
-                JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos corretamente!");
             }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Telefone/Celular digite apenas numeros!");
+            System.out.println(e.getMessage());
+        } catch (SQLException | ClassNotFoundException ex) {
+            System.out.println(ex.getMessage());
         }
 
     }//GEN-LAST:event_btnCadastrarActionPerformed
@@ -293,8 +299,8 @@ public class JFCadastroPessoa extends javax.swing.JFrame {
         cliente.setCodigo(ConexaoDAO.getCliente().getCodigo());
         cliente.setNome(txtNome.getText());
         cliente.setEmail(txtEmail.getText());
-        cliente.setTelefone(Integer.parseInt(txtTelefone.getText()));
-        cliente.setCelular(Integer.parseInt(txtCelular.getText()));
+        cliente.setTelefone(txtCelular.getText());
+        cliente.setCelular(txtCelular.getText());
         cliente.setUsuario(txtUsuario.getText());
         cliente.setSenha(txtSenha.getText());
     }
@@ -302,8 +308,8 @@ public class JFCadastroPessoa extends javax.swing.JFrame {
     void setaCamposAlteracao() {
         txtNome.setText(ConexaoDAO.getCliente().getNome());
         txtEmail.setText(ConexaoDAO.getCliente().getEmail());
-        txtTelefone.setText(String.valueOf(ConexaoDAO.getCliente().getTelefone()));
-        txtCelular.setText(String.valueOf(ConexaoDAO.getCliente().getCelular()));
+        txtTelefone.setText(ConexaoDAO.getCliente().getTelefone());
+        txtCelular.setText(ConexaoDAO.getCliente().getCelular());
         txtUsuario.setText(ConexaoDAO.getCliente().getUsuario());
         lblSenha.setText("Digite sua nova senha");
     }
@@ -319,11 +325,11 @@ public class JFCadastroPessoa extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel lblSenha;
     private javax.swing.JLabel lblValidaUsuario;
-    private javax.swing.JTextField txtCelular;
+    private javax.swing.JFormattedTextField txtCelular;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtNome;
     private javax.swing.JPasswordField txtSenha;
-    private javax.swing.JTextField txtTelefone;
+    private javax.swing.JFormattedTextField txtTelefone;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

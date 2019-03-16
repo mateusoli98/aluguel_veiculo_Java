@@ -21,8 +21,8 @@ public class PessoaDAO {
         ps = conn.prepareCall(query);
         ps.setString(1, objCliente.getNome());
         ps.setString(2, objCliente.getEmail());
-        ps.setInt(3, objCliente.getTelefone());
-        ps.setInt(4, objCliente.getCelular());
+        ps.setString(3, objCliente.getTelefone());
+        ps.setString(4, objCliente.getCelular());
         ps.setString(5, objCliente.getUsuario());
         ps.setString(6, objCliente.getSenha());
         ps.execute();
@@ -59,8 +59,8 @@ public class PessoaDAO {
             ps = conn.prepareCall(query);
             ps.setString(1, c.getNome());
             ps.setString(2, c.getEmail());
-            ps.setInt(3, c.getTelefone());
-            ps.setInt(4, c.getCelular());
+            ps.setString(3, c.getTelefone());
+            ps.setString(4, c.getCelular());
             ps.setString(5, c.getUsuario());
             ps.setString(6, c.getSenha());
             ps.setInt(7, c.getCodigo());
@@ -113,8 +113,8 @@ public class PessoaDAO {
             cliente.setCodigo(rs.getInt("pessoa.codigo"));
             cliente.setNome(rs.getString("pessoa.nome"));
             cliente.setEmail(rs.getString("pessoa.email"));
-            cliente.setTelefone(rs.getInt("pessoa.telefone"));
-            cliente.setCelular(rs.getInt("pessoa.celular"));
+            cliente.setTelefone(rs.getString("pessoa.telefone"));
+            cliente.setCelular(rs.getString("pessoa.celular"));
             cliente.setUsuario(rs.getString("usuario.usuario"));
             cliente.setAcesso(rs.getInt("usuario.acesso"));
             ConexaoDAO.setCliente(cliente);
