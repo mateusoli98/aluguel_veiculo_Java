@@ -2,8 +2,8 @@
 package model;
 
 public class Pessoa {
-    private String nome, email, usuario, senha;
-    private int acesso, codigo,  telefone, celular;
+    private String nome, email, usuario, senha, telefone, celular;
+    private int acesso, codigo;
 
     public int getCodigo() {
         return codigo;
@@ -53,19 +53,19 @@ public class Pessoa {
         this.senha = senha;
     }
 
-    public int getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(int telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
 
-    public int getCelular() {
+    public String getCelular() {
         return celular;
     }
 
-    public void setCelular(int celular) {
+    public void setCelular(String celular) {
         this.celular = celular;
     } 
 }
