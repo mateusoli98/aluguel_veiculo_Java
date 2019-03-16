@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import model.Pessoa;
 
@@ -47,6 +49,24 @@ public class PessoaDAO {
 
         if (rs.next()) {
             return true;
+        }
+        return false;
+    }
+    public boolean buscaEmail(String usuario){
+        try {
+        conn = ConexaoDAO.abreConexao();
+        query = "SELECT email FROM usuario WHERE usuario = '" + usuario + "';";
+        ps = conn.prepareStatement(query);
+        ResultSet rs = ps.executeQuery(query);
+       
+            if (rs.next()) {
+                return true;
+            }
+           
+        } catch (SQLException ex) {
+            Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
