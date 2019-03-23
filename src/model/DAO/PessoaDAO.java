@@ -5,9 +5,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Properties;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
 import model.Pessoa;
 
 public class PessoaDAO {
@@ -52,17 +55,47 @@ public class PessoaDAO {
         }
         return false;
     }
-    public boolean buscaEmail(String usuario){
+     public boolean buscaEmail(String usuario) {
+        int codig = 0;
+        PreparedStatement ps = null;
         try {
-        conn = ConexaoDAO.abreConexao();
-        query = "SELECT email FROM usuario WHERE usuario = '" + usuario + "';";
-        ps = conn.prepareStatement(query);
-        ResultSet rs = ps.executeQuery(query);
-       
-            if (rs.next()) {
-                return true;
+            conn = ConexaoDAO.abreConexao();
+            query = "SELECT pessoa.email, usuario.codigo FROM usuario, pessoa WHERE  usuario.usuario= '" + usuario + "' and usuario.codigo=pessoa.codUsuario;";
+            ps = conn.prepareStatement(query);
+            ResultSet rs = ps.executeQuery(query);
+
+            while (rs.next()) {
+                codig = rs.getInt("codigo");
             }
-           
+
+            Random rpassword = new Random();
+
+            query = "UPDATE usuario SET senha= MD5('" + rpassword.nextInt() + "') WHERE codigo= " + codig;
+            ps = conn.prepareStatement(query);
+            ps.execute();
+            ps.close();
+            
+           Properties props = new Properties();
+    
+               props.put("mail.smtp.host", "smtp.gmail.com");
+               props.put("mail.smtp.socketFactory.port", 465);
+               props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+               props.put("mail.smtp.auth", true);
+               props.put("mail.smtp.port", 465);
+
+            Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication("seuemail@gmail.com", "suasenha");
+                }
+            });
+            session.setDebug(true);
+            
+           //compose    message
+         
+            
+            return true;
+
         } catch (SQLException ex) {
             Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {

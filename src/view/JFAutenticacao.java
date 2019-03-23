@@ -60,6 +60,11 @@ public class JFAutenticacao extends javax.swing.JFrame {
         });
 
         txtUsuario.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtUsuarioKeyReleased(evt);
+            }
+        });
 
         txtSenha.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
@@ -87,6 +92,11 @@ public class JFAutenticacao extends javax.swing.JFrame {
         btnEnviar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEnviarActionPerformed(evt);
+            }
+        });
+        btnEnviar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                btnEnviarKeyReleased(evt);
             }
         });
 
@@ -212,26 +222,38 @@ public class JFAutenticacao extends javax.swing.JFrame {
 
     private void lblresetpasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblresetpasswordMouseClicked
         validaCampos(true);
-        
+
     }//GEN-LAST:event_lblresetpasswordMouseClicked
 
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
-        if(btnEnviar.getText().equals("Enviar")){
-                if(clienteDAO.buscaEmail(txtUsuario.getText())){
-                    
-                }else{
-                    JOptionPane.showMessageDialog(null, "Username não encontrado.");
-                }
+        if (btnEnviar.getText().equals("Enviar")) {
+            if (clienteDAO.buscaEmail(txtUsuario.getText())) {
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Username não encontrado.");
+            }
             validaCampos(false);
         }
     }//GEN-LAST:event_btnEnviarActionPerformed
-void validaCampos(boolean op){
+
+    private void btnEnviarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnEnviarKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEnviarKeyReleased
+
+    private void txtUsuarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyReleased
+        btnEnviar.setText("Enviar");
+        if (txtUsuario.getText().isEmpty()) {
+            btnEnviar.setText("Cancelar");
+        }
+    }//GEN-LAST:event_txtUsuarioKeyReleased
+    void validaCampos(boolean op) {
         btnEnviar.setVisible(op);
         btnCadastrar.setVisible(!op);
         btnEntrar.setVisible(!op);
         txtSenha.setVisible(!op);
         lblsenha.setVisible(!op);
-}
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;

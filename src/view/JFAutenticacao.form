@@ -112,6 +112,9 @@
           <Font name="Arial" size="14" style="0"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtUsuarioKeyReleased"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JPasswordField" name="txtSenha">
       <Properties>
@@ -168,6 +171,7 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEnviarActionPerformed"/>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="btnEnviarKeyReleased"/>
       </Events>
     </Component>
   </SubComponents>
