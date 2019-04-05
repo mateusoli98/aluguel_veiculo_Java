@@ -24,8 +24,9 @@ public class JFMenu extends javax.swing.JFrame {
     AvaliacaoDAO avaliacaoDAO = new AvaliacaoDAO();
     VeiculoDAO veiculoDAO = new VeiculoDAO();
     LocacaoDAO locDAO = new LocacaoDAO();
-    String escolhaGrafico = "";
+    String escolhaGrafico = "", escolhaNota = "";
     PessoaDAO clienteDAO = new PessoaDAO();
+    Avaliacao a = new Avaliacao();
 
     public JFMenu() {
         initComponents();
@@ -46,12 +47,15 @@ public class JFMenu extends javax.swing.JFrame {
 
         lblUsuario = new javax.swing.JLabel();
         panGrafico = new javax.swing.JPanel();
-        lblParametroGrafico = new javax.swing.JLabel();
         jspComentarios = new javax.swing.JScrollPane();
         lblComentario = new javax.swing.JLabel();
-        cmbTipo = new javax.swing.JComboBox<>();
-        jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        lblParametroGrafico = new javax.swing.JLabel();
+        cmbTipo = new javax.swing.JComboBox<>();
+        lblParametroGrafico1 = new javax.swing.JLabel();
+        lblParametroGrafico2 = new javax.swing.JLabel();
+        cmbNota = new javax.swing.JComboBox<>();
         menuMain = new javax.swing.JMenuBar();
         menAlugar = new javax.swing.JMenu();
         itemVeiculos = new javax.swing.JMenuItem();
@@ -80,14 +84,21 @@ public class JFMenu extends javax.swing.JFrame {
         );
         panGraficoLayout.setVerticalGroup(
             panGraficoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 405, Short.MAX_VALUE)
         );
-
-        lblParametroGrafico.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lblParametroGrafico.setText("Informações de ");
 
         lblComentario.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jspComentarios.setViewportView(lblComentario);
+
+        jLabel1.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(51, 102, 255));
+        jLabel1.setText("Av. Brasil, 366 - Jardim Amanda - Hortolândia/SP - Locacões de Veiculos A&M - (19) 3897-3105 - Todos direitos reservados 2018");
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        lblParametroGrafico.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lblParametroGrafico.setText("Filtros");
 
         cmbTipo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         cmbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Geral" }));
@@ -97,12 +108,57 @@ public class JFMenu extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel2.setText("Comentários");
+        lblParametroGrafico1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblParametroGrafico1.setText("Exibição por:");
 
-        jLabel1.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(51, 102, 255));
-        jLabel1.setText("Av. Brasil, 366 - Jardim Amanda - Hortolândia/SP - Locacões de Veiculos A&M - (19) 3897-3105 - Todos direitos reservados 2018");
+        lblParametroGrafico2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblParametroGrafico2.setText("Notas:");
+
+        cmbNota.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        cmbNota.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Maior Nota", "Menor Nota" }));
+        cmbNota.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbNotaActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblParametroGrafico)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblParametroGrafico1)
+                            .addComponent(lblParametroGrafico2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cmbNota, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(53, 53, 53))))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(lblParametroGrafico)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblParametroGrafico1)
+                    .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblParametroGrafico2)
+                    .addComponent(cmbNota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(290, Short.MAX_VALUE))
+        );
+
+        lblParametroGrafico.getAccessibleContext().setAccessibleName("");
 
         menAlugar.setText("Locação");
         menAlugar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -213,48 +269,34 @@ public class JFMenu extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblParametroGrafico)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jspComentarios)
-                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 215, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
-                        .addGap(145, 145, 145))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1039, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                        .addComponent(panGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jspComentarios, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(99, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1039, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblParametroGrafico)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(58, 58, 58)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jspComentarios, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE)
-                    .addComponent(panGrafico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                    .addComponent(jspComentarios)
+                    .addComponent(panGrafico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(30, 30, 30))
         );
-
-        lblParametroGrafico.getAccessibleContext().setAccessibleName("");
 
         pack();
         setLocationRelativeTo(null);
@@ -324,6 +366,55 @@ public class JFMenu extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_itemExcluirActionPerformed
+
+    private void cmbNotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbNotaActionPerformed
+        escolhaNota = (String) cmbNota.getSelectedItem();
+        if (escolhaNota.equals("Selecione")) {
+            apresentarGraficoGeral("Geral");
+        } else if (escolhaNota.equals("Maior Nota")) {
+            apresentarMaiorNota(escolhaNota);
+        } else if (escolhaNota.equals("Menor Nota")) {
+            System.out.println("view.JFMenu.cmbNotaActionPerformed()");
+            apresentarMenorNota(escolhaNota);
+        }
+    }//GEN-LAST:event_cmbNotaActionPerformed
+
+    public void apresentarMaiorNota(String escolha) {
+        panGrafico.removeAll();
+        panGrafico.revalidate();
+        DefaultCategoryDataset dpd = new DefaultCategoryDataset();
+        for (Avaliacao a : avaliacaoDAO.maiorNota()) {
+            dpd.setValue(a.getQtdAvaliacao(), "     " + a.getNumAvaliacao(), "");
+
+        }
+
+        JFreeChart grafico = ChartFactory.createBarChart3D("Todas as avaliações de nossos clientes", "Notas", "Quantidade de Avaliações", dpd, PlotOrientation.VERTICAL, true, true, false);
+        ChartPanel chartpanel = new ChartPanel(grafico);
+        chartpanel.setBackground(Color.BLACK);
+        panGrafico.setLayout(new BorderLayout(0, 0));
+        panGrafico.add(chartpanel);
+
+        lblComentario.setText("<html>" + avaliacaoDAO.comentariosMelhorNota() + "</html>");
+    }
+    
+     public void apresentarMenorNota(String escolha) {
+        panGrafico.removeAll();
+        panGrafico.revalidate();
+        DefaultCategoryDataset dpd = new DefaultCategoryDataset();
+        for (Avaliacao a : avaliacaoDAO.menorNota()) {
+            dpd.setValue(a.getQtdAvaliacao(), "     " + a.getNumAvaliacao(), "");
+
+        }
+
+        JFreeChart grafico = ChartFactory.createBarChart3D("Todas as avaliações de nossos clientes", "Notas", "Quantidade de Avaliações", dpd, PlotOrientation.VERTICAL, true, true, false);
+        ChartPanel chartpanel = new ChartPanel(grafico);
+        chartpanel.setBackground(Color.BLACK);
+        panGrafico.setLayout(new BorderLayout(0, 0));
+        panGrafico.add(chartpanel);
+
+        lblComentario.setText("<html>" + avaliacaoDAO.comentariosMenorNota()+ "</html>");
+    }
+
     public void apresentarGraficoGeral(String escolha) {
         panGrafico.removeAll();
         panGrafico.revalidate();
@@ -353,7 +444,7 @@ public class JFMenu extends javax.swing.JFrame {
         chartpanel.setBackground(Color.BLACK);
         panGrafico.setLayout(new BorderLayout(0, 0));
         panGrafico.add(chartpanel);
-        lblComentario.setText("<html>" + avaliacaoDAO.comentarios(escolha) + "</html>");;
+        lblComentario.setText("<html>" + avaliacaoDAO.comentarios(escolha) + "</html>");
     }
 
     public void apresentarVeiculos() {
@@ -362,6 +453,7 @@ public class JFMenu extends javax.swing.JFrame {
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cmbNota;
     private javax.swing.JComboBox<String> cmbTipo;
     private javax.swing.JMenuItem itemEditar;
     private javax.swing.JMenuItem itemExcluir;
@@ -371,12 +463,14 @@ public class JFMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemVeiculo;
     private javax.swing.JMenuItem itemVeiculos;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JMenuItem jmHistoricoLocacoes;
     private javax.swing.JMenu jmPerfl;
     private javax.swing.JScrollPane jspComentarios;
     private javax.swing.JLabel lblComentario;
     private javax.swing.JLabel lblParametroGrafico;
+    private javax.swing.JLabel lblParametroGrafico1;
+    private javax.swing.JLabel lblParametroGrafico2;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JMenu menAlugar;
     private javax.swing.JMenu menCadastrar;
