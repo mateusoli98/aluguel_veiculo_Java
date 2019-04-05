@@ -9,6 +9,7 @@ import java.util.Properties;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import model.Pessoa;
 
 public class PessoaDAO {
@@ -53,6 +54,32 @@ public class PessoaDAO {
         }
         return false;
     }
+    public boolean buscaUsuarioNovaSenha(String usuario) throws SQLException, ClassNotFoundException {
+        conn = ConexaoDAO.abreConexao();
+        query = "SELECT * FROM usuario WHERE usuario ='"+ usuario+"' ";
+        ps = conn.prepareStatement(query);
+        ResultSet rs = ps.executeQuery(query);
+
+        while (rs.next()) {
+            return true;
+           
+        }
+        return false;
+    }
+    
+     public boolean atualizaSenha ( Pessoa p) throws SQLException, ClassNotFoundException {
+        conn = ConexaoDAO.abreConexao();
+        query = "UPDATE usuario SET senha= md5('"+ p.getSenha()+"') WHERE usuario = '"+p.getUsuario()+"'";
+        ps = conn.prepareStatement(query);
+        ResultSet rs = ps.executeQuery(query);
+
+        while (rs.next()) {
+            return true;
+        }
+        return false;
+    }
+    
+    
     
 
     public boolean alterar(Pessoa c) {
