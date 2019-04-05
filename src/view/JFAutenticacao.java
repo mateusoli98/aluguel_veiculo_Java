@@ -227,11 +227,7 @@ public class JFAutenticacao extends javax.swing.JFrame {
 
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
         if (btnEnviar.getText().equals("Enviar")) {
-            if (clienteDAO.buscaEmail(txtUsuario.getText())) {
-
-            } else {
-                JOptionPane.showMessageDialog(null, "Username não encontrado.");
-            }
+         
             validaCampos(false);
         }
     }//GEN-LAST:event_btnEnviarActionPerformed
