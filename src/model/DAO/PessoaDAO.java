@@ -5,7 +5,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.util.Properties;
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import model.Pessoa;
 
 public class PessoaDAO {
@@ -49,6 +53,13 @@ public class PessoaDAO {
             return true;
         }
         return false;
+    }
+
+    public void atualizaSenha(Pessoa p) throws SQLException, ClassNotFoundException {
+        conn = ConexaoDAO.abreConexao();
+        query = "UPDATE usuario SET senha= md5('" + p.getSenha() + "') WHERE usuario.usuario = '" + p.getUsuario() + "'";
+        ps = conn.prepareStatement(query);
+        ps.executeUpdate();
     }
 
     public boolean alterar(Pessoa c) {
