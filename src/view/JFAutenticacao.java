@@ -188,7 +188,15 @@ public class JFAutenticacao extends javax.swing.JFrame {
             try {
                 cliente.setUsuario(txtUsuario.getText());
                 cliente.setSenha(txtSenha.getText());
-                clienteDAO.atualizaSenha(cliente);
+                if (clienteDAO.buscaUsuario(txtUsuario.getText())) {
+                      clienteDAO.atualizaSenha(cliente);
+                      JOptionPane.showMessageDialog(null, "Deu certo");
+                      mudaEstado("Usuario", "Senha", "Entrar", true);
+                }else{
+                    JOptionPane.showMessageDialog(null, "Usuario inexistente");
+                    txtUsuario.requestFocus();
+                }
+              
 
             } catch (SQLException ex) {
                 Logger.getLogger(JFAutenticacao.class.getName()).log(Level.SEVERE, null, ex);
