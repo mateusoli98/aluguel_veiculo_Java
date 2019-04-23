@@ -1,6 +1,7 @@
 package controller;
 
 import view.JFAutenticacao;
+import view.JFSplashScreen;
 
 public class Principal {
     public static void main(String[] args) {
@@ -14,9 +15,10 @@ public class Principal {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
         }
         java.awt.EventQueue.invokeLater(() -> {
-            JFAutenticacao frmLogin = new JFAutenticacao();
-            frmLogin.setVisible(true);
-            frmLogin.setLocationRelativeTo(null);
+            JFSplashScreen frmScreenSplash = new JFSplashScreen();
+            frmScreenSplash.setVisible(true);
         });
+        
+        
     }
 }

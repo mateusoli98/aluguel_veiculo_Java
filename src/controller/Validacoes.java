@@ -9,6 +9,8 @@ public class Validacoes {
     public String converteDatasBanco(String dataPadrao) {
         Date data = null;
         String dataBanco;
+        String teste = "";
+        
         try {
             data = new SimpleDateFormat("dd/MM/yyyy").parse(dataPadrao);
         } catch (java.text.ParseException e) {
