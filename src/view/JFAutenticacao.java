@@ -186,17 +186,10 @@ public class JFAutenticacao extends javax.swing.JFrame {
             }
         } else {
             try {
-                if(clienteDAO.buscaUsuarioNovaSenha(usuario)){
-                    cliente.setUsuario(usuario);
-                    cliente.setSenha(senha);
-                    if(clienteDAO.atualizaSenha(cliente)){
-                        JOptionPane.showMessageDialog(null, "deu certo");
-                    }else{
-                        JOptionPane.showMessageDialog(null, "deu ruim");
-                    }
-                }else{
-                    JOptionPane.showMessageDialog(null, "user não existente");
-                }
+                cliente.setUsuario(txtUsuario.getText());
+                cliente.setSenha(txtSenha.getText());
+                clienteDAO.atualizaSenha(cliente);
+
             } catch (SQLException ex) {
                 Logger.getLogger(JFAutenticacao.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
@@ -238,7 +231,7 @@ public class JFAutenticacao extends javax.swing.JFrame {
     }//GEN-LAST:event_lblresetpasswordMouseClicked
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        mudaEstado("Usuario", "Senha", "Cadastrar", true);
+        mudaEstado("Usuario", "Senha", "Entrar", true);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     void mudaEstado(String a, String b, String c, boolean flag) {
