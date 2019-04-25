@@ -17,7 +17,6 @@ public class JFAutenticacao extends javax.swing.JFrame {
 
     public JFAutenticacao() {
         initComponents();
-        btnCancelar.setVisible(false);
 
     }
 
@@ -32,8 +31,7 @@ public class JFAutenticacao extends javax.swing.JFrame {
         lblsenha = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         lblUser = new javax.swing.JLabel();
-        lblresetpassword = new javax.swing.JLabel();
-        btnCancelar = new javax.swing.JButton();
+        lblReseteSenha = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Autenticação");
@@ -75,20 +73,13 @@ public class JFAutenticacao extends javax.swing.JFrame {
         lblUser.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblUser.setText("Usuário");
 
-        lblresetpassword.setForeground(new java.awt.Color(51, 204, 255));
-        lblresetpassword.setText("esqueceu sua senha?");
-        lblresetpassword.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblresetpassword.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblReseteSenha.setFont(new java.awt.Font("Arial", 3, 11)); // NOI18N
+        lblReseteSenha.setForeground(new java.awt.Color(0, 51, 255));
+        lblReseteSenha.setText("Esqueceu sua senha?");
+        lblReseteSenha.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblReseteSenha.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblresetpasswordMouseClicked(evt);
-            }
-        });
-
-        btnCancelar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        btnCancelar.setText("Cancelar");
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
+                lblReseteSenhaMouseClicked(evt);
             }
         });
 
@@ -97,49 +88,52 @@ public class JFAutenticacao extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap(81, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(btnEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblresetpassword)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(lblsenha)
-                                .addComponent(txtSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
-                                .addComponent(txtUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
-                                .addComponent(lblUser))
-                            .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(82, 82, 82)
-                        .addComponent(jLabel2)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(lblsenha)
+                            .addGap(193, 193, 193))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txtSenha)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(0, 0, Short.MAX_VALUE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lblUser)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(lblReseteSenha)))))
+                            .addGap(79, 79, 79)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(68, 68, 68))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(136, 136, 136))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(76, 76, 76)
                 .addComponent(jLabel2)
-                .addGap(34, 34, 34)
+                .addGap(37, 37, 37)
                 .addComponent(lblUser)
-                .addGap(9, 9, 9)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblresetpassword)
-                .addGap(5, 5, 5)
+                .addComponent(lblReseteSenha)
+                .addGap(13, 13, 13)
                 .addComponent(lblsenha)
-                .addGap(3, 3, 3)
+                .addGap(10, 10, 10)
                 .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(51, 51, 51))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
 
         pack();
@@ -158,9 +152,32 @@ public class JFAutenticacao extends javax.swing.JFrame {
 
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        JFCadastroPessoa frmCadastro = new JFCadastroPessoa();
-        frmCadastro.setVisible(true);
-        frmCadastro.setLocationRelativeTo(null);
+        if (btnCadastrar.getText().equals("Cadastrar-se")) {
+            JFCadastroPessoa frmCadastro = new JFCadastroPessoa();
+            frmCadastro.setVisible(true);
+            frmCadastro.setLocationRelativeTo(null);
+        } else if (btnCadastrar.getText().equals("Confirmar")) {
+            try {
+                cliente.setUsuario(txtUsuario.getText());
+                cliente.setSenha(txtSenha.getText());
+                if (clienteDAO.buscaUsuario(txtUsuario.getText())) {
+                    clienteDAO.atualizaSenha(cliente);
+                    JOptionPane.showMessageDialog(null, "Deu certo");
+                    mudaEstado("Usuario", "Senha", "Entrar", "Cadastrar-se", true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Usuario inexistente");
+                    txtUsuario.requestFocus();
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(JFAutenticacao.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(JFAutenticacao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+
+
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
@@ -184,81 +201,61 @@ public class JFAutenticacao extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Preecha todos os campos!");
             }
-        } else {
-            try {
-                cliente.setUsuario(txtUsuario.getText());
-                cliente.setSenha(txtSenha.getText());
-                if (clienteDAO.buscaUsuario(txtUsuario.getText())) {
-                      clienteDAO.atualizaSenha(cliente);
-                      JOptionPane.showMessageDialog(null, "Deu certo");
-                      mudaEstado("Usuario", "Senha", "Entrar", true);
-                }else{
-                    JOptionPane.showMessageDialog(null, "Usuario inexistente");
-                    txtUsuario.requestFocus();
-                }
-              
-
-            } catch (SQLException ex) {
-                Logger.getLogger(JFAutenticacao.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(JFAutenticacao.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        } else if (btnEntrar.getText().equals("Cancelar")) {
+            mudaEstado("Usuario", "Senha", "Entrar", "Cadastrar-se", true);
         }
 
 
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     private void btnEntrarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnEntrarKeyPressed
-
-        if (verificaCampos()) {
-            try {
-                if ((rs = clienteDAO.buscaLogin(usuario, senha)).next()) {
-                    clienteDAO.infoPessoa(rs);
-                    JFMenu frmMenu = new JFMenu();
-                    frmMenu.setVisible(true);
-                    frmMenu.setLocationRelativeTo(null);
-                    dispose();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Usuário e/ou Senha incorretos!");
+        if (btnEntrar.getText().equals("Entrar")) {
+            if (verificaCampos()) {
+                try {
+                    if ((rs = clienteDAO.buscaLogin(usuario, senha)).next()) {
+                        clienteDAO.infoPessoa(rs);
+                        JFMenu frmMenu = new JFMenu();
+                        frmMenu.setVisible(true);
+                        frmMenu.setLocationRelativeTo(null);
+                        dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Usuário e/ou Senha incorretos!");
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(JFAutenticacao.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(JFAutenticacao.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } catch (SQLException ex) {
-                Logger.getLogger(JFAutenticacao.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(JFAutenticacao.class.getName()).log(Level.SEVERE, null, ex);
+            } else {
+                JOptionPane.showMessageDialog(null, "Preecha todos os campos!");
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Preecha todos os campos!");
+            mudaEstado("Usuario", "Senha", "Entrar", "Cadastrar-se", true);
         }
 
 
     }//GEN-LAST:event_btnEntrarKeyPressed
 
-    private void lblresetpasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblresetpasswordMouseClicked
+    private void lblReseteSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReseteSenhaMouseClicked
+        mudaEstado("Insira seu Usuario", "Nova senha", "Cancelar", "Confirmar", true);
 
-        mudaEstado("Insira seu Usuario", "Nova senha", "Confirmar", false);
-    }//GEN-LAST:event_lblresetpasswordMouseClicked
+    }//GEN-LAST:event_lblReseteSenhaMouseClicked
 
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        mudaEstado("Usuario", "Senha", "Entrar", true);
-    }//GEN-LAST:event_btnCancelarActionPerformed
-
-    void mudaEstado(String a, String b, String c, boolean flag) {
+    void mudaEstado(String a, String b, String c, String d, boolean flag) {
         lblUser.setText(a);
         lblsenha.setText(b);
         btnEntrar.setText(c);
-        btnCadastrar.setVisible(flag);
-        btnCancelar.setVisible(!flag);
-        lblresetpassword.setVisible(flag);
+        btnCadastrar.setText(d);
+        lblReseteSenha.setVisible(flag);
     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;
-    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEntrar;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel lblReseteSenha;
     private javax.swing.JLabel lblUser;
-    private javax.swing.JLabel lblresetpassword;
     private javax.swing.JLabel lblsenha;
     private javax.swing.JPasswordField txtSenha;
     private javax.swing.JTextField txtUsuario;
