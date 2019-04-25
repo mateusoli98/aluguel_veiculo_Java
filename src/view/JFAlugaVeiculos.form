@@ -88,7 +88,7 @@
                   <Component id="panFormaPagamentio" max="32767" attributes="0"/>
                   <Component id="panDetalhesPedido" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="38" max="32767" attributes="0"/>
+              <EmptySpace pref="33" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -136,7 +136,7 @@
                       <Component id="panFormaPagamentio" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="51" max="32767" attributes="0"/>
+              <EmptySpace pref="42" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -488,13 +488,15 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="txtValorTotal" min="-2" pref="73" max="-2" attributes="0"/>
                       </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="239" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="btnConfirmarPagamento" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblSemPedidos" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="0" pref="259" max="32767" attributes="0"/>
-                  <Component id="btnConfirmarPagamento" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="170" max="-2" attributes="0"/>
+                  <EmptySpace pref="230" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -511,9 +513,11 @@
                       <Component id="txtValorTotal" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtTotalTaxas" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="181" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                  <Component id="lblSemPedidos" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="168" max="32767" attributes="0"/>
                   <Component id="btnConfirmarPagamento" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -568,6 +572,14 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnConfirmarPagamentoActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblSemPedidos">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="24" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Sem pedidos"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

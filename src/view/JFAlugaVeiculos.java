@@ -38,9 +38,10 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         lblVerFotos.setVisible(false);
 
         panDetalhesPedido.setBorder(tituloPanel("Detalhes Pedido"));
-        panFormaPagamentio.setBorder(tituloPanel("Forma de Pagamento"));
+        panFormaPagamentio.setBorder(tituloPanel(""));
 
         habilitaPanels(false);
+        panFormaPagamentio.setVisible(true);
 
     }
 
@@ -224,6 +225,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         txtValorTotal = new javax.swing.JLabel();
         txtTotalTaxas = new javax.swing.JLabel();
         btnConfirmarPagamento = new javax.swing.JButton();
+        lblSemPedidos = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Locação Veiculo");
@@ -428,6 +430,9 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
             }
         });
 
+        lblSemPedidos.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        lblSemPedidos.setText("Sem pedidos");
+
         javax.swing.GroupLayout panFormaPagamentioLayout = new javax.swing.GroupLayout(panFormaPagamentio);
         panFormaPagamentio.setLayout(panFormaPagamentioLayout);
         panFormaPagamentioLayout.setHorizontalGroup(
@@ -443,12 +448,13 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                         .addGap(19, 19, 19)
                         .addComponent(txtTotalTaxas)
                         .addGap(18, 18, 18)
-                        .addComponent(txtValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panFormaPagamentioLayout.createSequentialGroup()
-                .addGap(0, 259, Short.MAX_VALUE)
-                .addComponent(btnConfirmarPagamento)
-                .addGap(170, 170, 170))
+                        .addComponent(txtValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panFormaPagamentioLayout.createSequentialGroup()
+                        .addGap(239, 239, 239)
+                        .addGroup(panFormaPagamentioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnConfirmarPagamento)
+                            .addComponent(lblSemPedidos))))
+                .addContainerGap(230, Short.MAX_VALUE))
         );
         panFormaPagamentioLayout.setVerticalGroup(
             panFormaPagamentioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -461,9 +467,11 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                 .addGroup(panFormaPagamentioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtValorTotal)
                     .addComponent(txtTotalTaxas))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 181, Short.MAX_VALUE)
+                .addGap(26, 26, 26)
+                .addComponent(lblSemPedidos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
                 .addComponent(btnConfirmarPagamento)
-                .addGap(36, 36, 36))
+                .addGap(39, 39, 39))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -517,7 +525,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(panFormaPagamentio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panDetalhesPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -556,7 +564,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                         .addComponent(panDetalhesPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(panFormaPagamentio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         pack();
@@ -592,12 +600,11 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
     }//GEN-LAST:event_tableVeiculosMouseClicked
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-//        desabilitaCamposContratacao();;
-//        desabilitaCamposCotacao();
-//        objLoc = null;
+        lblSemPedidos.setVisible(false);
         habilitaPanels(false);
         btnConfirmarPedido.setEnabled(true);
         removeInfoPanels();
+        panFormaPagamentio.setBorder(tituloPanel(""));
 
     }//GEN-LAST:event_btnCancelarActionPerformed
 
@@ -609,10 +616,12 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCalcularActionPerformed
 
     private void btnConfirmarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarPedidoActionPerformed
+        lblSemPedidos.setVisible(false);
         preencheObjeto();
         btnConfirmarPedido.setEnabled(false);
         habilitaPanels(true);
         insereInfoPanels();
+        panFormaPagamentio.setBorder(tituloPanel("Forma de pagamento"));
 
 //        if (objVeiculoDAO.realizaLocacao(objLoc)) {
 //            desabilitaCamposContratacao();
@@ -663,6 +672,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
     private javax.swing.JLabel lblMoeda;
     private javax.swing.JLabel lblNomeVeiculo;
     private javax.swing.JLabel lblPedido;
+    private javax.swing.JLabel lblSemPedidos;
     private javax.swing.JLabel lblValorAluguel;
     private javax.swing.JLabel lblValorDataLocacao;
     private javax.swing.JLabel lblValorPedido;
