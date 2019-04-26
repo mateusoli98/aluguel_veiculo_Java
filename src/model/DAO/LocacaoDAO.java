@@ -22,7 +22,7 @@ public class LocacaoDAO {
     ;
     boolean retorno = false;
 
-    public ArrayList<Locacao> exibeVeiculos() {
+    public ArrayList<Locacao> exibeLocacao() {
         ArrayList<Locacao> listVeiculos = new ArrayList<>();
         try {
             conn = ConexaoDAO.abreConexao();
