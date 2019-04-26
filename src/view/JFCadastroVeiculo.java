@@ -353,7 +353,7 @@ public class JFCadastroVeiculo extends javax.swing.JFrame {
         cmbTipo.setSelectedItem("" + tableVeiculos.getValueAt(tableVeiculos.getSelectedRow(), 2));
         cmbModelo.setSelectedItem("" + tableVeiculos.getValueAt(tableVeiculos.getSelectedRow(), 3));
         txtMarca.setText("" + tableVeiculos.getValueAt(tableVeiculos.getSelectedRow(), 4));
-        cmbCombustivel.setSelectedItem("" + tableVeiculos.getValueAt(tableVeiculos.getSelectedRow(), 5));
+        cmbCombustivel.setSelectedItem("" + tableVeiculos.getValueAt(tableVeiculos.getSelectedRow(), 5)) ;
         txtAno.setText("" + tableVeiculos.getValueAt(tableVeiculos.getSelectedRow(), 6));
         buscaFotoVeiculo();
     }//GEN-LAST:event_tableVeiculosMouseClicked
