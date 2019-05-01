@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -59,6 +60,11 @@ public class JFAutenticacao extends javax.swing.JFrame {
         });
 
         txtUsuario.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtUsuarioKeyReleased(evt);
+            }
+        });
 
         txtSenha.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
@@ -157,24 +163,23 @@ public class JFAutenticacao extends javax.swing.JFrame {
             frmCadastro.setVisible(true);
             frmCadastro.setLocationRelativeTo(null);
         } else if (btnCadastrar.getText().equals("Confirmar")) {
-            try {
-                cliente.setUsuario(txtUsuario.getText());
-                cliente.setSenha(txtSenha.getText());
-                if (clienteDAO.buscaUsuario(txtUsuario.getText())) {
-                    clienteDAO.atualizaSenha(cliente);
-                    JOptionPane.showMessageDialog(null, "Deu certo");
-                    mudaEstado("Usuario", "Senha", "Entrar", "Cadastrar-se", true);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Usuario inexistente");
-                    txtUsuario.requestFocus();
-                }
+//            try {
+//                cliente.setUsuario(txtUsuario.getText());
+//                cliente.setSenha(txtSenha.getText());
+//                if (clienteDAO.buscaUsuario(txtUsuario.getText())) {
+//                    clienteDAO.atualizaSenha(cliente);
+//                    JOptionPane.showMessageDialog(null, "Deu certo");
+//                mudaEstado("Usuario", "Senha", "Entrar", "Cadastrar-se", true);
+//                } else {
+//                    JOptionPane.showMessageDialog(null, "Usuario inexistente");
+//                    txtUsuario.requestFocus();
+//                }
 
-            } catch (SQLException ex) {
-                Logger.getLogger(JFAutenticacao.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(JFAutenticacao.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
+//            } catch (SQLException ex) {;
+//                Logger.getLogger(JFAutenticacao.class.getName()).log(Level.SEVERE, null, ex);
+//            } catch (ClassNotFoundException ex) {
+//                Logger.getLogger(JFAutenticacao.class.getName()).log(Level.SEVERE, null, ex);
+//            }
         }
 
 
@@ -203,6 +208,10 @@ public class JFAutenticacao extends javax.swing.JFrame {
             }
         } else if (btnEntrar.getText().equals("Cancelar")) {
             mudaEstado("Usuario", "Senha", "Entrar", "Cadastrar-se", true);
+            txtSenha.setEnabled(true);
+            lblReseteSenha.setForeground(new Color(0, 51, 255));
+            lblReseteSenha.setText("Esqueceu sua senha?");
+            limpaCampos();
         }
 
 
@@ -231,6 +240,8 @@ public class JFAutenticacao extends javax.swing.JFrame {
             }
         } else {
             mudaEstado("Usuario", "Senha", "Entrar", "Cadastrar-se", true);
+            txtSenha.setEnabled(true);
+            lblReseteSenha.setForeground(new Color(0, 51, 255));
         }
 
 
@@ -238,8 +249,41 @@ public class JFAutenticacao extends javax.swing.JFrame {
 
     private void lblReseteSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReseteSenhaMouseClicked
         mudaEstado("Insira seu Usuario", "Nova senha", "Cancelar", "Confirmar", true);
+        lblReseteSenha.setText("");
+        txtSenha.setEnabled(false);
+        limpaCampos();
 
     }//GEN-LAST:event_lblReseteSenhaMouseClicked
+
+    private void txtUsuarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyReleased
+        if (!lblReseteSenha.getText().equals("Esqueceu sua senha?")) {
+            
+            try {
+                if (clienteDAO.buscaUsuario(txtUsuario.getText())) {
+                    lblReseteSenha.setText("Usuário encontrado!");
+                    lblReseteSenha.setForeground(new Color(0, 153, 12));
+                    txtSenha.setEnabled(true);
+                } else {
+                    txtSenha.setEnabled(false);
+
+                    lblReseteSenha.setText("Usuário não encontrado!");
+                    lblReseteSenha.setForeground(new Color(237, 16, 16));
+
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            } catch (ClassNotFoundException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+    }//GEN-LAST:event_txtUsuarioKeyReleased
+
+    void limpaCampos() {
+        txtUsuario.setText("");
+        txtSenha.setText("");
+        txtUsuario.requestFocus();
+    }
 
     void mudaEstado(String a, String b, String c, String d, boolean flag) {
         lblUser.setText(a);
