@@ -163,23 +163,24 @@ public class JFAutenticacao extends javax.swing.JFrame {
             frmCadastro.setVisible(true);
             frmCadastro.setLocationRelativeTo(null);
         } else if (btnCadastrar.getText().equals("Confirmar")) {
-//            try {
-//                cliente.setUsuario(txtUsuario.getText());
-//                cliente.setSenha(txtSenha.getText());
-//                if (clienteDAO.buscaUsuario(txtUsuario.getText())) {
-//                    clienteDAO.atualizaSenha(cliente);
-//                    JOptionPane.showMessageDialog(null, "Deu certo");
-//                mudaEstado("Usuario", "Senha", "Entrar", "Cadastrar-se", true);
-//                } else {
-//                    JOptionPane.showMessageDialog(null, "Usuario inexistente");
-//                    txtUsuario.requestFocus();
-//                }
+            try {
+                cliente.setUsuario(txtUsuario.getText());
+                cliente.setSenha(txtSenha.getText());
+                if (!cliente.getUsuario().isEmpty() && !cliente.getSenha().isEmpty()) {
+                    clienteDAO.atualizaSenha(cliente);
+                    JOptionPane.showMessageDialog(null, "Nova senha cadastrada", "sucesso", JOptionPane.INFORMATION_MESSAGE);
+                    mudaEstado("Usuario", "Senha", "Entrar", "Cadastrar-se", true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Preencha todos os campos", "erro", JOptionPane.ERROR);
+                    
+                    txtUsuario.requestFocus();
+                }
 
-//            } catch (SQLException ex) {;
-//                Logger.getLogger(JFAutenticacao.class.getName()).log(Level.SEVERE, null, ex);
-//            } catch (ClassNotFoundException ex) {
-//                Logger.getLogger(JFAutenticacao.class.getName()).log(Level.SEVERE, null, ex);
-//            }
+            } catch (SQLException ex) {;
+                Logger.getLogger(JFAutenticacao.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(JFAutenticacao.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
 
@@ -248,16 +249,19 @@ public class JFAutenticacao extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEntrarKeyPressed
 
     private void lblReseteSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReseteSenhaMouseClicked
-        mudaEstado("Insira seu Usuario", "Nova senha", "Cancelar", "Confirmar", true);
-        lblReseteSenha.setText("");
-        txtSenha.setEnabled(false);
-        limpaCampos();
+        if (lblReseteSenha.getText().equals("Esqueceu sua senha?")) {
+            mudaEstado("Insira seu Usuario", "Nova senha", "Cancelar", "Confirmar", true);
+            lblReseteSenha.setText("");
+            txtSenha.setEnabled(false);
+            limpaCampos();
+
+        }
 
     }//GEN-LAST:event_lblReseteSenhaMouseClicked
 
     private void txtUsuarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyReleased
         if (!lblReseteSenha.getText().equals("Esqueceu sua senha?")) {
-            
+
             try {
                 if (clienteDAO.buscaUsuario(txtUsuario.getText())) {
                     lblReseteSenha.setText("Usuário encontrado!");

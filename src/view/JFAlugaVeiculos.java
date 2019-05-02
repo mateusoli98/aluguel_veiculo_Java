@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
@@ -31,6 +32,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
     DefaultTableModel dtmDefault = new DefaultTableModel();
     int diaInicio, diaFim, anoVeiculo;
     Validacoes objValidacao = new Validacoes();
+    Random numberRandom = new Random();
 
     public JFAlugaVeiculos() {
         initComponents();
@@ -42,6 +44,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         lblVerFotos.setVisible(false);
         preencheCartoes();
         camposCartao(false);
+        consisteRadios(false);
 
         panDetalhesPedido.setBorder(tituloPanel("Detalhes Pedido"));
         panFormaPagamentio.setBorder(tituloPanel(""));
@@ -127,6 +130,12 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
     void consisteRadios(boolean te) {
         radBoleto.setSelected(!te);
         radCartao.setSelected(te);
+        radNovo.setEnabled(te);
+        radExistente.setEnabled(te);
+        cmbCartoes.setEnabled(te);
+        txtNumero.setEnabled(te);
+        txtCVV.setEnabled(te);
+        txtDataVencimento.setEnabled(te);
     }
 
     void desabilitaCamposCotacao() {
@@ -200,6 +209,20 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         return valor;
     }
 
+    void setaVezes() {
+        int i;
+        double result;
+        cmbVezes.removeAllItems();
+        cmbVezes.addItem("**Selecione um cartao**");
+
+        for (i = 1; i <=5; i++) {
+            result =  Double.parseDouble(calcAluguel()) / i ;
+            cmbVezes.addItem("(" + i + ") " + Math.round(result));
+
+        }
+
+    }
+
     void preencheObjeto() {
         objLoc.setCodCliente(ConexaoDAO.getCliente().getCodigo());
         objLoc.setCodVeiculo((int) tableVeiculos.getValueAt(tableVeiculos.getSelectedRow(), 0));
@@ -268,6 +291,8 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         btnConfirmarPagamento1 = new javax.swing.JButton();
         btnCancelarPag = new javax.swing.JButton();
         txtDataVencimento = new javax.swing.JFormattedTextField();
+        lblVeiculo5 = new javax.swing.JLabel();
+        cmbVezes = new javax.swing.JComboBox<>();
         lblSemPedidos = new javax.swing.JLabel();
         lblValorTotal = new javax.swing.JLabel();
         lblTaxas = new javax.swing.JLabel();
@@ -553,6 +578,16 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
+        lblVeiculo5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lblVeiculo5.setText("Numero de Parcelas");
+
+        cmbVezes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "*Selecione*", "1", "2", "3", "4", "5" }));
+        cmbVezes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbVezesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panFormaPagamentioLayout = new javax.swing.GroupLayout(panFormaPagamentio);
         panFormaPagamentio.setLayout(panFormaPagamentioLayout);
         panFormaPagamentioLayout.setHorizontalGroup(
@@ -573,8 +608,10 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                         .addGap(30, 30, 30)
                         .addGroup(panFormaPagamentioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblVeiculo4)
+                            .addComponent(lblVeiculo5)
                             .addGroup(panFormaPagamentioLayout.createSequentialGroup()
                                 .addGroup(panFormaPagamentioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(cmbVezes, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(lblVeiculo1, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtNumero, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
                                     .addComponent(cmbCartoes, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -592,7 +629,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                         .addGap(32, 32, 32)
                         .addComponent(radNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panFormaPagamentioLayout.createSequentialGroup()
-                        .addGap(76, 76, 76)
+                        .addGap(85, 85, 85)
                         .addComponent(btnConfirmarPagamento1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(50, 50, 50)
                         .addComponent(btnCancelarPag, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -627,11 +664,15 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                             .addComponent(lblVeiculo3)
                             .addComponent(lblVeiculo2))
                         .addGap(26, 26, 26)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(lblVeiculo5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cmbVezes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
                 .addGroup(panFormaPagamentioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConfirmarPagamento1)
                     .addComponent(btnCancelarPag))
-                .addGap(53, 53, 53)
+                .addGap(28, 28, 28)
                 .addComponent(btnConfirmarPagamento)
                 .addGap(24, 24, 24))
         );
@@ -677,18 +718,18 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(47, 47, 47)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnCalcular)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(lblMoeda, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblValorAluguel, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(btnCalcular)))
+                                        .addComponent(lblValorAluguel, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(16, 16, 16)
                                 .addComponent(btnConfirmarPedido))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(44, 44, 44)
                                 .addComponent(btnCancelar)))
-                        .addGap(71, 71, 71)
+                        .addGap(130, 130, 130)
                         .addComponent(lblSemPedidos))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(310, 310, 310)
@@ -748,7 +789,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                         .addComponent(panDetalhesPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(panFormaPagamentio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         pack();
@@ -844,7 +885,14 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
     }//GEN-LAST:event_lblVerFotosMouseClicked
 
     private void btnConfirmarPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarPagamentoActionPerformed
-        // TODO add your handling code here:
+        if (radBoleto.isSelected()) {
+
+        } else {
+            int valor = cmbVezes.getSelectedIndex();
+
+            JOptionPane.showMessageDialog(null, numberRandom.hashCode());
+        }
+
     }//GEN-LAST:event_btnConfirmarPagamentoActionPerformed
 
     private void txtNumeroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroKeyReleased
@@ -897,13 +945,12 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         radNovo.setSelected(false);
         camposCartao(false);
         preencheCartoes();
+        setaVezes();
 
     }//GEN-LAST:event_radExistenteActionPerformed
 
     private void radBoletoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radBoletoActionPerformed
         consisteRadios(false);
-        radExistente.disable();
-        radNovo.disable();
     }//GEN-LAST:event_radBoletoActionPerformed
 
     private void radCartaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radCartaoActionPerformed
@@ -921,6 +968,10 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_cmbCartoesActionPerformed
 
+    private void cmbVezesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbVezesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbVezesActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCalcular;
@@ -931,6 +982,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
     private javax.swing.JButton btnConfirmarPedido;
     private javax.swing.JComboBox<String> cmbCartoes;
     private javax.swing.JComboBox<String> cmbTipoVeiculo;
+    private javax.swing.JComboBox<String> cmbVezes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -951,6 +1003,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
     private javax.swing.JLabel lblVeiculo2;
     private javax.swing.JLabel lblVeiculo3;
     private javax.swing.JLabel lblVeiculo4;
+    private javax.swing.JLabel lblVeiculo5;
     private javax.swing.JLabel lblVerFotos;
     private javax.swing.JPanel panDetalhesPedido;
     private javax.swing.JPanel panFormaPagamentio;
