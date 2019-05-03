@@ -1,5 +1,6 @@
 package controller;
 
+import view.JFAlugaVeiculos;
 import view.JFAutenticacao;
 import view.JFSplashScreen;
 
@@ -15,7 +16,7 @@ public class Principal {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
         }
         java.awt.EventQueue.invokeLater(() -> {
-            JFAutenticacao frmScreenSplash = new JFAutenticacao();
+            JFAlugaVeiculos frmScreenSplash = new JFAlugaVeiculos();
             frmScreenSplash.setVisible(true);
         });
         

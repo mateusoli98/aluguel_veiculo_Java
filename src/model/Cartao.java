@@ -2,7 +2,15 @@ package model;
 
 public class Cartao {
 
-    private int codigo, numero, cvv, codPessoa;
+    private int codigo, numero, cvv, codPessoa, nmrParcela;
+
+    public int getNmrParcela() {
+        return nmrParcela;
+    }
+
+    public void setNmrParcela(int nmrParcela) {
+        this.nmrParcela = nmrParcela;
+    }
     private String dataVencimento, bandeira;
     
     public int getCodigo() {
