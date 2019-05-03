@@ -128,6 +128,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
 
     void consisteRadios(boolean te) {
         radBoleto.setSelected(!te);
+        btnGerarBoleto.setEnabled(!te);
         radCartao.setSelected(te);
         radNovo.setEnabled(te);
         radExistente.setEnabled(te);
@@ -295,6 +296,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         txtDataVencimento = new javax.swing.JFormattedTextField();
         lblVeiculo5 = new javax.swing.JLabel();
         cmbVezes = new javax.swing.JComboBox<>();
+        btnGerarBoleto = new javax.swing.JButton();
         lblValorTotal = new javax.swing.JLabel();
         lblTaxas = new javax.swing.JLabel();
 
@@ -612,6 +614,13 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
             }
         });
 
+        btnGerarBoleto.setText("GerarBoleto");
+        btnGerarBoleto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGerarBoletoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panFormaPagamentioLayout = new javax.swing.GroupLayout(panFormaPagamentio);
         panFormaPagamentio.setLayout(panFormaPagamentioLayout);
         panFormaPagamentioLayout.setHorizontalGroup(
@@ -621,16 +630,23 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                     .addGroup(panFormaPagamentioLayout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addGroup(panFormaPagamentioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblVeiculo5)
                             .addGroup(panFormaPagamentioLayout.createSequentialGroup()
                                 .addGroup(panFormaPagamentioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblVeiculo5)
                                     .addGroup(panFormaPagamentioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(cmbVezes, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(lblVeiculo1, javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(txtNumero, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
-                                        .addComponent(cmbCartoes, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addComponent(lblVeiculo4))
+                                        .addComponent(cmbCartoes, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(panFormaPagamentioLayout.createSequentialGroup()
+                                .addComponent(lblVeiculo4)
                                 .addGroup(panFormaPagamentioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(panFormaPagamentioLayout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnCancelarCadastoCartao, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(panFormaPagamentioLayout.createSequentialGroup()
                                         .addGap(16, 16, 16)
                                         .addComponent(lblVeiculo3)
@@ -638,11 +654,9 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                                         .addGroup(panFormaPagamentioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(lblVeiculo2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(txtCVV, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(panFormaPagamentioLayout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnCancelarCadastoCartao, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panFormaPagamentioLayout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 351, Short.MAX_VALUE)
+                                        .addComponent(btnGerarBoleto, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                     .addGroup(panFormaPagamentioLayout.createSequentialGroup()
                         .addGap(234, 234, 234)
                         .addComponent(txtDataVencimento, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -656,7 +670,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                                 .addComponent(radNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addComponent(radBoleto, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(223, Short.MAX_VALUE))
+                .addContainerGap(171, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panFormaPagamentioLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnConfirmarPagamento)
@@ -676,10 +690,12 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                 .addGap(10, 10, 10)
                 .addGroup(panFormaPagamentioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panFormaPagamentioLayout.createSequentialGroup()
-                        .addComponent(lblVeiculo4)
+                        .addGroup(panFormaPagamentioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblVeiculo4)
+                            .addComponent(btnGerarBoleto, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cmbCartoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(22, 22, 22)
                         .addGroup(panFormaPagamentioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtCVV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(panFormaPagamentioLayout.createSequentialGroup()
@@ -884,6 +900,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
 
     private void radBoletoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radBoletoActionPerformed
         consisteRadios(false);
+        
     }//GEN-LAST:event_radBoletoActionPerformed
 
     private void radCartaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radCartaoActionPerformed
@@ -906,6 +923,12 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbVezesActionPerformed
 
+    private void btnGerarBoletoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerarBoletoActionPerformed
+        JFBoleto boleto= new JFBoleto();
+        dispose();
+        boleto.setVisible(true);
+    }//GEN-LAST:event_btnGerarBoletoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCalcular;
@@ -913,6 +936,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
     private javax.swing.JButton btnCancelarCadastoCartao;
     private javax.swing.JButton btnConfirmarPagamento;
     private javax.swing.JButton btnConfirmarPedido;
+    private javax.swing.JButton btnGerarBoleto;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JComboBox<String> cmbCartoes;
     private javax.swing.JComboBox<String> cmbTipoVeiculo;
