@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+import model.Boleto;
 import model.Cartao;
 import model.DAO.CartaoDAO;
 import model.Locacao;
@@ -46,8 +47,9 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         preencheCartoes();
         camposCartao(false);
         consisteRadios(false);
+
         panDetalhesPedido.setBorder(tituloPanel("Detalhes Pedido"));
-        panFormaPagamentio.setBorder(tituloPanel(""));
+        panFormaPagamentio.setBorder(tituloPanel("Formas de Pagamento"));
         habilitaPanels(false);
         radNovo.setSelected(true);
         radExistente.setSelected(false);
@@ -75,7 +77,6 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
     void removeInfoPanels() {
         lblNomeVeiculo.setText("");
         lblValorDataLocacao.setText("");
-        lblValorAluguel.setText("");
     }
 
     TitledBorder tituloPanel(String titulo) {
@@ -230,7 +231,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         for (i = 1; i <= 5; i++) {
             c.setNmrParcela(cmbVezes.getSelectedIndex());
             result = Double.parseDouble(calcAluguel()) / i;
-            cmbVezes.addItem("(" + i + ") " + Math.round(result));
+            cmbVezes.addItem(i + " x " + Math.round(result));
 
         }
 
@@ -853,7 +854,10 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         habilitaPanels(false);
         btnConfirmarPedido.setEnabled(true);
         removeInfoPanels();
-        panFormaPagamentio.setBorder(tituloPanel(""));;
+        lblMoeda.setVisible(false);
+        lblValorAluguel.setVisible(false);
+        btnConfirmarPedido.setVisible(false);
+        btnCancelar.setVisible(false);
 
 
     }//GEN-LAST:event_btnCancelarActionPerformed
@@ -871,21 +875,8 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         btnConfirmarPedido.setEnabled(false);
         habilitaPanels(true);
         insereInfoPanels();
-        panFormaPagamentio.setBorder(tituloPanel("Forma de pagamento"));
-
         panFormaPagamentio.setVisible(true);
         lblSemPedidos.setVisible(false);
-//        if (objVeiculoDAO.realizaLocacao(objLoc)) {
-//            desabilitaCamposContratacao();
-//            desabilitaCamposCotacao();
-//            carregaDadosTable();
-//            JFNotaPedido frmPedidoConfirmado = new JFNotaPedido(objLoc);
-//            frmPedidoConfirmado.setVisible(true);
-//            frmPedidoConfirmado.setLocationRelativeTo(null);
-//        } else {
-//            JOptionPane.showMessageDialog(null, "Locação não finalizada, tente novamente!");
-//        }
-
     }//GEN-LAST:event_btnConfirmarPedidoActionPerformed
 
     boolean verificaCampos() {
@@ -913,15 +904,29 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
 
     private void btnConfirmarPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarPagamentoActionPerformed
         if (radBoleto.isSelected()) {
-            JFBoleto boleto = new JFBoleto();
-            boleto.setVisible(true);
-        } else {
-            if (cmbCartoes.getSelectedItem().equals("*Selecione um cartao*") && cmbVezes.getSelectedItem().equals("*Selecione*")) {
+            Boleto boleto = new Boleto();
+            boleto.setDataVencimento(dataAtual());
+            boleto.setNumPedido(numberRandom.hashCode());
+            boleto.setTotalPedido(Double.parseDouble(calcAluguel()));
+            JFBoleto frmBoleto = new JFBoleto(boleto);
+            frmBoleto.setVisible(true);
 
+        } else if (radCartao.isSelected()) {
+
+            if (!cmbCartoes.getSelectedItem().equals("*Selecione um cartao*") && !cmbVezes.getSelectedItem().equals("*Selecione*")
+                    && !txtNumero.getText().isEmpty() && !txtDataVencimento.getText().isEmpty() && !txtCVV.getText().isEmpty()) {
+                if (objVeiculoDAO.realizaLocacao(objLoc)) {
+                    JOptionPane.showMessageDialog(null, "Pagamento realizado com sucesso!");
+                    dispose();
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Locação não finalizada, tente novamente!");
+                }
+
+                dispose();
             } else {
-                JOptionPane.showMessageDialog(null, numberRandom.hashCode() + "  " + c.getNmrParcela());
+                JOptionPane.showMessageDialog(null, "Preencha TODOS os campos!");
             }
-
         }
 
     }//GEN-LAST:event_btnConfirmarPagamentoActionPerformed
