@@ -16,7 +16,7 @@ public class Principal {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
         }
         java.awt.EventQueue.invokeLater(() -> {
-            JFAlugaVeiculos frmScreenSplash = new JFAlugaVeiculos();
+            JFAutenticacao frmScreenSplash = new JFAutenticacao();
             frmScreenSplash.setVisible(true);
         });
         
