@@ -45,15 +45,27 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         desabilitaCamposContratacao();
         lblVerFotos.setVisible(false);
         preencheCartoes();
-        camposCartao(false);
-        consisteRadios(false);
-
         panDetalhesPedido.setBorder(tituloPanel("Detalhes Pedido"));
         panFormaPagamentio.setBorder(tituloPanel("Formas de Pagamento"));
         habilitaPanels(false);
-        radNovo.setSelected(true);
-        radExistente.setSelected(false);
-        Date data = new Date();
+        mudaEstadoCampos(false);
+
+        btnSalvar.setEnabled(false);
+        btnCancelarCadastoCartao.setEnabled(false);
+    }
+
+    void novoCartao() {
+        cmbCartoes.removeAllItems();
+        cmbCartoes.addItem("**Selcione**");
+        cmbCartoes.addItem("MASTERCARD");
+        cmbCartoes.addItem("VISA");
+        cmbCartoes.addItem("ELO");
+        txtNumero.setText("");
+        txtCVV.setText("");
+        txtDataVencimento.setText("");
+        radBoleto.setSelected(false);
+        btnConfirmarPagamento.setEnabled(false);
+        cmbVezes.setEnabled(false);
 
     }
 
@@ -136,18 +148,15 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         chkDataAtual.setVisible(true);
     }
 
-    void consisteRadios(boolean te) {
-        radBoleto.setSelected(!te);
-        radCartao.setSelected(te);
-        radNovo.setEnabled(te);
-        radExistente.setEnabled(te);
-        cmbCartoes.setEnabled(te);
-        txtNumero.setEnabled(te);
-        txtCVV.setEnabled(te);
-        txtDataVencimento.setEnabled(te);
-        btnSalvar.setEnabled(te);
-        btnCancelarCadastoCartao.setEnabled(te);
-        cmbVezes.setEnabled(te);
+    void mudaEstadoCampos(boolean flag) {
+        radNovo.setEnabled(flag);
+        radExistente.setEnabled(flag);
+        cmbCartoes.setEnabled(flag);
+        txtNumero.setEnabled(flag);
+        txtCVV.setEnabled(flag);
+        txtDataVencimento.setEnabled(flag);
+
+        cmbVezes.setEnabled(flag);
     }
 
     void desabilitaCamposCotacao() {
@@ -200,12 +209,6 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
             Logger.getLogger(JFAlugaVeiculos.class.getName()).log(Level.SEVERE, null, ex);
         }
         return i;
-    }
-
-    void camposCartao(boolean flag) {
-        txtNumero.setEnabled(flag);
-        txtCVV.setEnabled(flag);
-        txtDataVencimento.setEnabled(flag);
     }
 
     String calcAluguel() {
@@ -523,7 +526,6 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
 
         radExistente.setBackground(new java.awt.Color(255, 255, 255));
         radExistente.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        radExistente.setSelected(true);
         radExistente.setText("Existente");
         radExistente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -533,6 +535,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
 
         radNovo.setBackground(new java.awt.Color(255, 255, 255));
         radNovo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        radNovo.setSelected(true);
         radNovo.setText("Novo");
         radNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -783,11 +786,10 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(3, 3, 3)
                                         .addComponent(jLabel1))))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtNomeVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(3, 3, 3)
-                                    .addComponent(jLabel2))))
+                            .addComponent(txtNomeVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addComponent(jLabel2)))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -902,12 +904,18 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
 
     private void btnConfirmarPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarPagamentoActionPerformed
         if (radBoleto.isSelected()) {
-            Boleto boleto = new Boleto();
-            boleto.setDataVencimento(dataAtual());
-            boleto.setNumPedido(numberRandom.hashCode());
-            boleto.setTotalPedido(Double.parseDouble(calcAluguel()));
-            JFBoleto frmBoleto = new JFBoleto(boleto);
-            frmBoleto.setVisible(true);
+
+            if (objVeiculoDAO.realizaLocacao(objLoc)) {
+                Boleto boleto = new Boleto();
+                boleto.setDataVencimento(dataAtual());
+                boleto.setNumPedido(numberRandom.hashCode());
+                boleto.setTotalPedido(Double.parseDouble(calcAluguel()));
+                JFBoleto frmBoleto = new JFBoleto(boleto);
+                frmBoleto.setVisible(true);
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Locação não finalizada, tente novamente!");
+            }
 
         } else if (radCartao.isSelected()) {
 
@@ -915,13 +923,13 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                     && !txtNumero.getText().isEmpty() && !txtDataVencimento.getText().isEmpty() && !txtCVV.getText().isEmpty()) {
                 if (objVeiculoDAO.realizaLocacao(objLoc)) {
                     JOptionPane.showMessageDialog(null, "Pagamento realizado com sucesso!");
+
                     dispose();
 
                 } else {
                     JOptionPane.showMessageDialog(null, "Locação não finalizada, tente novamente!");
                 }
 
-                dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "Preencha TODOS os campos!");
             }
@@ -946,6 +954,8 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                 radNovo.setSelected(false);
                 radExistente.setSelected(true);
                 cmbCartoes.setSelectedItem(cartao.exibeUltimoCartao() + " - " + c.getBandeira());
+                btnSalvar.setEnabled(false);
+                btnCancelarCadastoCartao.setEnabled(false);
 
             } else {
                 JOptionPane.showMessageDialog(null, "Deu errado");
@@ -960,51 +970,50 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarCadastoCartaoActionPerformed
 
     private void radNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radNovoActionPerformed
-        cmbCartoes.removeAllItems();
-        cmbCartoes.addItem("**Selcione**");
-        cmbCartoes.addItem("MASTERCARD");
-        cmbCartoes.addItem("VISA");
-        cmbCartoes.addItem("ELO");
+        novoCartao();
         radExistente.setSelected(false);
-        txtNumero.setText("");
-        txtCVV.setText("");
-        txtDataVencimento.setText("");
-        camposCartao(true);
+
         btnSalvar.setEnabled(true);
         btnCancelarCadastoCartao.setEnabled(true);
-
-
     }//GEN-LAST:event_radNovoActionPerformed
 
     private void radExistenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radExistenteActionPerformed
         cmbCartoes.removeAllItems();
-        radNovo.setSelected(false);
-        camposCartao(false);
         preencheCartoes();
         setaVezes();
+        radNovo.setSelected(false);
         btnSalvar.setEnabled(false);
         btnCancelarCadastoCartao.setEnabled(false);
-
+        cmbVezes.setEnabled(true);
+        btnConfirmarPagamento.setEnabled(true);
     }//GEN-LAST:event_radExistenteActionPerformed
 
     private void radBoletoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radBoletoActionPerformed
-        consisteRadios(false);
-
+        mudaEstadoCampos(false);
+        radCartao.setSelected(false);
+        btnSalvar.setEnabled(false);
+        btnCancelarCadastoCartao.setEnabled(false);
     }//GEN-LAST:event_radBoletoActionPerformed
 
     private void radCartaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radCartaoActionPerformed
-        consisteRadios(true);
-        radExistente.enable();
-        radNovo.enable();
+        mudaEstadoCampos(true);
+        novoCartao();
+        btnSalvar.setEnabled(true);
+        btnCancelarCadastoCartao.setEnabled(true);
+
+
     }//GEN-LAST:event_radCartaoActionPerformed
 
     private void cmbCartoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCartoesActionPerformed
-        cartao.exibeCartaoId(cmbCartoes.getSelectedIndex()).forEach((c) -> {
-            txtNumero.setText("" + c.getNumero());
-            txtDataVencimento.setText(c.getDataVencimento());
-            txtCVV.setText("" + c.getCvv());
+        if (radExistente.isSelected()) {
+            cartao.exibeCartaoId(cmbCartoes.getSelectedIndex()).forEach((c) -> {
+                txtNumero.setText("" + c.getNumero());
+                txtDataVencimento.setText(c.getDataVencimento());
+                txtCVV.setText("" + c.getCvv());
 
-        });
+            });
+        }
+
 
     }//GEN-LAST:event_cmbCartoesActionPerformed
 
