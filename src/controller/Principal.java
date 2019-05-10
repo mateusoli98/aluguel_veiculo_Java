@@ -5,10 +5,11 @@ import view.JFAutenticacao;
 import view.JFSplashScreen;
 
 public class Principal {
+
     public static void main(String[] args) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
+                if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -18,8 +19,8 @@ public class Principal {
         java.awt.EventQueue.invokeLater(() -> {
             JFAutenticacao frmScreenSplash = new JFAutenticacao();
             frmScreenSplash.setVisible(true);
+
         });
-        
-        
+
     }
 }

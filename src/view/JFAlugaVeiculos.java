@@ -95,6 +95,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         TitledBorder border = new TitledBorder(titulo);
         border.setTitleJustification(TitledBorder.CENTER);
         border.setTitlePosition(TitledBorder.TOP);
+        
 
         return border;
     }
@@ -147,6 +148,8 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         btnCalcular.setVisible(true);
         chkDataAtual.setVisible(true);
     }
+
+
 
     void mudaEstadoCampos(boolean flag) {
         radNovo.setEnabled(flag);
@@ -270,22 +273,9 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tableVeiculos = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        cmbTipoVeiculo = new javax.swing.JComboBox<>();
-        jLabel2 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         txtNomeVeiculo = new javax.swing.JTextField();
-        lblDataInicio = new javax.swing.JLabel();
-        lblDataFim = new javax.swing.JLabel();
-        btnConfirmarPedido = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
-        lblMoeda = new javax.swing.JLabel();
-        btnCalcular = new javax.swing.JButton();
-        txtDataInicio = new javax.swing.JFormattedTextField();
-        txtDataTermino = new javax.swing.JFormattedTextField();
-        lblValorAluguel = new javax.swing.JLabel();
-        lblVerFotos = new javax.swing.JLabel();
+        lblSemPedidos = new javax.swing.JLabel();
         panDetalhesPedido = new javax.swing.JPanel();
         lblNomeVeiculo = new javax.swing.JLabel();
         lblValorDataLocacao = new javax.swing.JLabel();
@@ -293,7 +283,20 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         lblVeiculo = new javax.swing.JLabel();
         lblDataLocacao = new javax.swing.JLabel();
         lblPedido = new javax.swing.JLabel();
-        lblSemPedidos = new javax.swing.JLabel();
+        txtDataInicio = new javax.swing.JFormattedTextField();
+        chkDataAtual = new javax.swing.JCheckBox();
+        btnCancelar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableVeiculos = new javax.swing.JTable();
+        txtDataTermino = new javax.swing.JFormattedTextField();
+        jLabel1 = new javax.swing.JLabel();
+        lblVerFotos = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        lblDataInicio = new javax.swing.JLabel();
+        lblDataFim = new javax.swing.JLabel();
+        btnConfirmarPedido = new javax.swing.JButton();
+        btnCalcular = new javax.swing.JButton();
+        lblValorAluguel = new javax.swing.JLabel();
         panFormaPagamentio = new javax.swing.JPanel();
         radBoleto = new javax.swing.JRadioButton();
         radCartao = new javax.swing.JRadioButton();
@@ -312,13 +315,95 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         txtDataVencimento = new javax.swing.JFormattedTextField();
         lblVeiculo5 = new javax.swing.JLabel();
         cmbVezes = new javax.swing.JComboBox<>();
-        chkDataAtual = new javax.swing.JCheckBox();
+        cmbTipoVeiculo = new javax.swing.JComboBox<>();
+        lblMoeda = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Locação Veiculo");
         setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(new java.awt.Color(217, 217, 217));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txtNomeVeiculo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtNomeVeiculo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNomeVeiculoKeyReleased(evt);
+            }
+        });
+        jPanel1.add(txtNomeVeiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(542, 37, 185, -1));
+
+        lblSemPedidos.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        lblSemPedidos.setForeground(new java.awt.Color(102, 102, 102));
+        lblSemPedidos.setText("Nenhum pedido confirmado");
+        jPanel1.add(lblSemPedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 150, -1, -1));
+
+        panDetalhesPedido.setBackground(new java.awt.Color(255, 255, 255));
+        panDetalhesPedido.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblNomeVeiculo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblNomeVeiculo.setText("...");
+        panDetalhesPedido.add(lblNomeVeiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(113, 11, 280, -1));
+
+        lblValorDataLocacao.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblValorDataLocacao.setText("...");
+        panDetalhesPedido.add(lblValorDataLocacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(113, 39, 280, -1));
+
+        lblValorPedido.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblValorPedido.setText("...");
+        panDetalhesPedido.add(lblValorPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(113, 67, 270, -1));
+
+        lblVeiculo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lblVeiculo.setText("Veiculo:");
+        panDetalhesPedido.add(lblVeiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, -1, -1));
+
+        lblDataLocacao.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lblDataLocacao.setText("Data locação:");
+        panDetalhesPedido.add(lblDataLocacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 39, -1, -1));
+
+        lblPedido.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lblPedido.setText("Valor pedido");
+        panDetalhesPedido.add(lblPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 67, -1, -1));
+
+        jPanel1.add(panDetalhesPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 37, 600, 100));
+
+        try {
+            txtDataInicio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        txtDataInicio.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtDataInicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtDataInicioMouseClicked(evt);
+            }
+        });
+        jPanel1.add(txtDataInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, 130, -1));
+
+        chkDataAtual.setBackground(new java.awt.Color(217, 217, 217));
+        chkDataAtual.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        chkDataAtual.setText("Usar Data Atual");
+        chkDataAtual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkDataAtualActionPerformed(evt);
+            }
+        });
+        jPanel1.add(chkDataAtual, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, -1, -1));
+
+        btnCancelar.setBackground(new java.awt.Color(197, 36, 39));
+        btnCancelar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 460, 130, 40));
 
         tableVeiculos.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        tableVeiculos.setForeground(new java.awt.Color(102, 102, 102));
         tableVeiculos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -335,83 +420,16 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tableVeiculos.setGridColor(new java.awt.Color(255, 255, 255));
+        tableVeiculos.setSelectionBackground(new java.awt.Color(1, 111, 185));
         tableVeiculos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableVeiculosMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tableVeiculos);
-        if (tableVeiculos.getColumnModel().getColumnCount() > 0) {
-            tableVeiculos.getColumnModel().getColumn(0).setResizable(false);
-        }
 
-        jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel1.setText("Tipo de Veiculo");
-
-        cmbTipoVeiculo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        cmbTipoVeiculo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "**Selecione**", "Carro", "Moto" }));
-        cmbTipoVeiculo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbTipoVeiculoActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel2.setText("Veiculo");
-
-        txtNomeVeiculo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        txtNomeVeiculo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtNomeVeiculoKeyReleased(evt);
-            }
-        });
-
-        lblDataInicio.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lblDataInicio.setText("Data Inicio");
-
-        lblDataFim.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lblDataFim.setText("Data Terminio");
-
-        btnConfirmarPedido.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        btnConfirmarPedido.setText("Confirmar Pedido");
-        btnConfirmarPedido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConfirmarPedidoActionPerformed(evt);
-            }
-        });
-
-        btnCancelar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        btnCancelar.setText("Cancelar");
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
-            }
-        });
-
-        lblMoeda.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        lblMoeda.setForeground(new java.awt.Color(0, 153, 0));
-        lblMoeda.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblMoeda.setText("R$");
-
-        btnCalcular.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        btnCalcular.setText("Calcular");
-        btnCalcular.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCalcularActionPerformed(evt);
-            }
-        });
-
-        try {
-            txtDataInicio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        txtDataInicio.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        txtDataInicio.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtDataInicioMouseClicked(evt);
-            }
-        });
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 89, 706, 255));
 
         try {
             txtDataTermino.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
@@ -424,10 +442,11 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                 txtDataTerminoMouseClicked(evt);
             }
         });
+        jPanel1.add(txtDataTermino, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 410, 130, -1));
 
-        lblValorAluguel.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        lblValorAluguel.setForeground(new java.awt.Color(0, 153, 0));
-        lblValorAluguel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel1.setText("Tipo de Veiculo");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 42, -1, -1));
 
         lblVerFotos.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblVerFotos.setText("Foto do Veiculo");
@@ -436,66 +455,51 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                 lblVerFotosMouseClicked(evt);
             }
         });
+        jPanel1.add(lblVerFotos, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 360, -1, -1));
 
-        panDetalhesPedido.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel4.setText("Veiculo");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(486, 40, -1, -1));
 
-        lblNomeVeiculo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lblNomeVeiculo.setText("...");
+        lblDataInicio.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblDataInicio.setText("Data Inicio");
+        jPanel1.add(lblDataInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, -1, -1));
 
-        lblValorDataLocacao.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lblValorDataLocacao.setText("...");
+        lblDataFim.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblDataFim.setText("Data Terminio");
+        jPanel1.add(lblDataFim, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 390, -1, -1));
 
-        lblValorPedido.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lblValorPedido.setText("...");
+        btnConfirmarPedido.setBackground(new java.awt.Color(1, 111, 185));
+        btnConfirmarPedido.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        btnConfirmarPedido.setForeground(new java.awt.Color(255, 255, 255));
+        btnConfirmarPedido.setText("Confirmar Pedido");
+        btnConfirmarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmarPedidoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnConfirmarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 460, 150, 40));
 
-        lblVeiculo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lblVeiculo.setText("Veiculo:");
+        btnCalcular.setBackground(new java.awt.Color(19, 138, 54));
+        btnCalcular.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        btnCalcular.setForeground(new java.awt.Color(255, 255, 255));
+        btnCalcular.setText("Calcular");
+        btnCalcular.setBorder(null);
+        btnCalcular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCalcularActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnCalcular, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 410, 130, 40));
 
-        lblDataLocacao.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lblDataLocacao.setText("Data locação:");
-
-        lblPedido.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lblPedido.setText("Valor pedido");
-
-        javax.swing.GroupLayout panDetalhesPedidoLayout = new javax.swing.GroupLayout(panDetalhesPedido);
-        panDetalhesPedido.setLayout(panDetalhesPedidoLayout);
-        panDetalhesPedidoLayout.setHorizontalGroup(
-            panDetalhesPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panDetalhesPedidoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panDetalhesPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblPedido)
-                    .addComponent(lblDataLocacao)
-                    .addComponent(lblVeiculo))
-                .addGap(10, 10, 10)
-                .addGroup(panDetalhesPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblNomeVeiculo, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
-                    .addComponent(lblValorDataLocacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblValorPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panDetalhesPedidoLayout.setVerticalGroup(
-            panDetalhesPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panDetalhesPedidoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panDetalhesPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNomeVeiculo)
-                    .addComponent(lblVeiculo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panDetalhesPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblValorDataLocacao)
-                    .addComponent(lblDataLocacao))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panDetalhesPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblValorPedido)
-                    .addComponent(lblPedido))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        lblSemPedidos.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        lblSemPedidos.setText("Sem pedidos");
+        lblValorAluguel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        lblValorAluguel.setForeground(new java.awt.Color(102, 102, 102));
+        lblValorAluguel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jPanel1.add(lblValorAluguel, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 400, 80, 42));
 
         panFormaPagamentio.setBackground(new java.awt.Color(255, 255, 255));
+        panFormaPagamentio.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        panFormaPagamentio.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         radBoleto.setBackground(new java.awt.Color(255, 255, 255));
         radBoleto.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -506,6 +510,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                 radBoletoActionPerformed(evt);
             }
         });
+        panFormaPagamentio.add(radBoleto, new org.netbeans.lib.awtextra.AbsoluteConstraints(322, 29, 126, -1));
 
         radCartao.setBackground(new java.awt.Color(255, 255, 255));
         radCartao.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -515,6 +520,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                 radCartaoActionPerformed(evt);
             }
         });
+        panFormaPagamentio.add(radCartao, new org.netbeans.lib.awtextra.AbsoluteConstraints(178, 29, 126, -1));
 
         btnConfirmarPagamento.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnConfirmarPagamento.setText("Confirmar Pagamento");
@@ -523,6 +529,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                 btnConfirmarPagamentoActionPerformed(evt);
             }
         });
+        panFormaPagamentio.add(btnConfirmarPagamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(232, 371, -1, -1));
 
         radExistente.setBackground(new java.awt.Color(255, 255, 255));
         radExistente.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -532,6 +539,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                 radExistenteActionPerformed(evt);
             }
         });
+        panFormaPagamentio.add(radExistente, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 72, 126, -1));
 
         radNovo.setBackground(new java.awt.Color(255, 255, 255));
         radNovo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -542,6 +550,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                 radNovoActionPerformed(evt);
             }
         });
+        panFormaPagamentio.add(radNovo, new org.netbeans.lib.awtextra.AbsoluteConstraints(188, 72, 126, -1));
 
         txtNumero.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         txtNumero.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -549,9 +558,11 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                 txtNumeroKeyReleased(evt);
             }
         });
+        panFormaPagamentio.add(txtNumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 185, -1));
 
         lblVeiculo1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblVeiculo1.setText("Numero");
+        panFormaPagamentio.add(lblVeiculo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 177, -1, -1));
 
         txtCVV.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         txtCVV.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -559,12 +570,15 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                 txtCVVKeyReleased(evt);
             }
         });
+        panFormaPagamentio.add(txtCVV, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 200, 39, -1));
 
         lblVeiculo2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblVeiculo2.setText("CVV");
+        panFormaPagamentio.add(lblVeiculo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(337, 180, -1, -1));
 
         lblVeiculo3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblVeiculo3.setText("Vencimento");
+        panFormaPagamentio.add(lblVeiculo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(234, 180, -1, -1));
 
         cmbCartoes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "*Selecione um cartao*", " " }));
         cmbCartoes.addActionListener(new java.awt.event.ActionListener() {
@@ -572,9 +586,11 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                 cmbCartoesActionPerformed(evt);
             }
         });
+        panFormaPagamentio.add(cmbCartoes, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 138, 185, -1));
 
         lblVeiculo4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblVeiculo4.setText("Cartao");
+        panFormaPagamentio.add(lblVeiculo4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 115, -1, -1));
 
         btnSalvar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnSalvar.setText("Salvar");
@@ -583,6 +599,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                 btnSalvarActionPerformed(evt);
             }
         });
+        panFormaPagamentio.add(btnSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(101, 313, 99, -1));
 
         btnCancelarCadastoCartao.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnCancelarCadastoCartao.setText("Cancelar");
@@ -591,247 +608,43 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                 btnCancelarCadastoCartaoActionPerformed(evt);
             }
         });
+        panFormaPagamentio.add(btnCancelarCadastoCartao, new org.netbeans.lib.awtextra.AbsoluteConstraints(218, 313, 99, -1));
 
         try {
             txtDataVencimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        panFormaPagamentio.add(txtDataVencimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(233, 202, 55, -1));
 
         lblVeiculo5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblVeiculo5.setText("Numero de Parcelas");
+        panFormaPagamentio.add(lblVeiculo5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 241, -1, -1));
 
         cmbVezes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "*Selecione*", "1", "2", "3", "4", "5" }));
+        panFormaPagamentio.add(cmbVezes, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 264, 185, -1));
 
-        javax.swing.GroupLayout panFormaPagamentioLayout = new javax.swing.GroupLayout(panFormaPagamentio);
-        panFormaPagamentio.setLayout(panFormaPagamentioLayout);
-        panFormaPagamentioLayout.setHorizontalGroup(
-            panFormaPagamentioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panFormaPagamentioLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(panFormaPagamentioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panFormaPagamentioLayout.createSequentialGroup()
-                        .addGap(69, 69, 69)
-                        .addComponent(radExistente, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
-                        .addComponent(radNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panFormaPagamentioLayout.createSequentialGroup()
-                        .addGroup(panFormaPagamentioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panFormaPagamentioLayout.createSequentialGroup()
-                                .addGap(73, 73, 73)
-                                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnCancelarCadastoCartao, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panFormaPagamentioLayout.createSequentialGroup()
-                                .addComponent(lblVeiculo1)
-                                .addGap(149, 149, 149)
-                                .addComponent(lblVeiculo3))
-                            .addGroup(panFormaPagamentioLayout.createSequentialGroup()
-                                .addGap(203, 203, 203)
-                                .addComponent(txtDataVencimento, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(panFormaPagamentioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panFormaPagamentioLayout.createSequentialGroup()
-                                .addGap(3, 3, 3)
-                                .addComponent(txtCVV, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lblVeiculo2)))
-                    .addGroup(panFormaPagamentioLayout.createSequentialGroup()
-                        .addGap(190, 190, 190)
-                        .addComponent(btnConfirmarPagamento))
-                    .addGroup(panFormaPagamentioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(cmbVezes, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtNumero, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(cmbCartoes, javax.swing.GroupLayout.Alignment.LEADING, 0, 185, Short.MAX_VALUE))
-                    .addComponent(lblVeiculo5)
-                    .addComponent(lblVeiculo4))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panFormaPagamentioLayout.createSequentialGroup()
-                .addContainerGap(178, Short.MAX_VALUE)
-                .addComponent(radCartao, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(radBoleto, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(150, 150, 150))
-        );
-        panFormaPagamentioLayout.setVerticalGroup(
-            panFormaPagamentioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panFormaPagamentioLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addGroup(panFormaPagamentioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(radBoleto)
-                    .addComponent(radCartao))
-                .addGap(34, 34, 34)
-                .addGroup(panFormaPagamentioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(radExistente)
-                    .addComponent(radNovo))
-                .addGap(28, 28, 28)
-                .addGroup(panFormaPagamentioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(panFormaPagamentioLayout.createSequentialGroup()
-                        .addComponent(lblVeiculo4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmbCartoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(22, 22, 22)
-                        .addGroup(panFormaPagamentioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panFormaPagamentioLayout.createSequentialGroup()
-                                .addComponent(lblVeiculo3)
-                                .addGap(26, 26, 26))
-                            .addGroup(panFormaPagamentioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(panFormaPagamentioLayout.createSequentialGroup()
-                                    .addComponent(lblVeiculo2)
-                                    .addGap(26, 26, 26))
-                                .addComponent(txtCVV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(panFormaPagamentioLayout.createSequentialGroup()
-                        .addComponent(lblVeiculo1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panFormaPagamentioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDataVencimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
-                .addComponent(lblVeiculo5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cmbVezes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                .addGroup(panFormaPagamentioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSalvar)
-                    .addComponent(btnCancelarCadastoCartao))
-                .addGap(35, 35, 35)
-                .addComponent(btnConfirmarPagamento)
-                .addGap(23, 23, 23))
-        );
+        jPanel1.add(panFormaPagamentio, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 190, 600, 430));
 
-        chkDataAtual.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        chkDataAtual.setText("Usar Data Atual");
-        chkDataAtual.addActionListener(new java.awt.event.ActionListener() {
+        cmbTipoVeiculo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        cmbTipoVeiculo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "**Selecione**", "Carro", "Moto" }));
+        cmbTipoVeiculo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkDataAtualActionPerformed(evt);
+                cmbTipoVeiculoActionPerformed(evt);
             }
         });
+        jPanel1.add(cmbTipoVeiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(123, 39, 138, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(289, 289, 289)
-                                .addComponent(lblVerFotos))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel1)
-                                    .addGap(4, 4, 4)
-                                    .addComponent(cmbTipoVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel2)
-                                    .addGap(10, 10, 10)
-                                    .addComponent(txtNomeVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 706, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(233, 233, 233)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblDataInicio)
-                                    .addComponent(txtDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(58, 58, 58)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblDataFim)
-                                    .addComponent(txtDataTermino, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(chkDataAtual)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(31, 31, 31)
-                                        .addComponent(btnCalcular))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(31, 31, 31)
-                                        .addComponent(lblMoeda, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(6, 6, 6)
-                                        .addComponent(lblValorAluguel, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(btnConfirmarPedido)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(28, 28, 28)
-                                        .addComponent(btnCancelar)))
-                                .addGap(37, 37, 37)))))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(43, 43, 43)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(panFormaPagamentio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(panDetalhesPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(261, 261, 261)
-                        .addComponent(lblSemPedidos)))
-                .addContainerGap(61, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(panDetalhesPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblSemPedidos)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(panFormaPagamentio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(2, 2, 2)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cmbTipoVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(3, 3, 3)
-                                        .addComponent(jLabel1))))
-                            .addComponent(txtNomeVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(3, 3, 3)
-                                .addComponent(jLabel2)))
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblVerFotos)
-                        .addGap(33, 33, 33)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblDataInicio)
-                            .addComponent(lblDataFim))
-                        .addGap(5, 5, 5)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDataTermino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(chkDataAtual)
-                        .addGap(28, 28, 28)
-                        .addComponent(btnCalcular, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblMoeda, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblValorAluguel, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(1, 1, 1)
-                        .addComponent(btnConfirmarPedido)
-                        .addGap(11, 11, 11)
-                        .addComponent(btnCancelar)))
-                .addContainerGap(63, Short.MAX_VALUE))
-        );
+        lblMoeda.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        lblMoeda.setForeground(new java.awt.Color(102, 102, 102));
+        lblMoeda.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblMoeda.setText("Valor atual:");
+        jPanel1.add(lblMoeda, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 400, 120, 42));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1390, 650));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void cmbTipoVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoVeiculoActionPerformed
-        tipoVeiculo = (String) cmbTipoVeiculo.getSelectedItem();
-        if (tipoVeiculo.equals("Carro")) {
-            dadosTableTipoVeiculo(tipoVeiculo);
-        }
-        if (tipoVeiculo.equals("Moto")) {
-            dadosTableTipoVeiculo(tipoVeiculo);
-        }
-        if (tipoVeiculo.equals("**Selecione**")) {
-            carregaDadosTable();
-        }
-    }//GEN-LAST:event_cmbTipoVeiculoActionPerformed
 
     private void txtNomeVeiculoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeVeiculoKeyReleased
         nomeVeiculo = txtNomeVeiculo.getText();
@@ -840,14 +653,22 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         } else {
             carregaDadosTable();
         }
-
     }//GEN-LAST:event_txtNomeVeiculoKeyReleased
 
-    private void tableVeiculosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableVeiculosMouseClicked
-        lblVerFotos.setVisible(true);
-        lblVerFotos.setText("<html><u>Ver foto do veiculo</u></html>");
-        habilitaCamposCotacao();
-    }//GEN-LAST:event_tableVeiculosMouseClicked
+    private void txtDataInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDataInicioMouseClicked
+        //Posiciona cursor no inicio do campo, evitando escrever no meio da data
+        txtDataInicio.setCaretPosition(0);
+    }//GEN-LAST:event_txtDataInicioMouseClicked
+
+    private void chkDataAtualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkDataAtualActionPerformed
+        if (chkDataAtual.isSelected()) {
+            txtDataInicio.setEnabled(false);
+            txtDataInicio.setText(dataAtual());
+        } else {
+            txtDataInicio.setEnabled(true);
+            txtDataInicio.setText("");
+        }
+    }//GEN-LAST:event_chkDataAtualActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         lblSemPedidos.setVisible(true);
@@ -858,38 +679,13 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         lblValorAluguel.setVisible(false);
         btnConfirmarPedido.setVisible(false);
         btnCancelar.setVisible(false);
-
-
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
-        if (objValidacao.validaData(txtDataInicio.getText(), txtDataTermino.getText())) {;
-            habilitaCamposContratacao();
-            lblValorAluguel.setText(calcAluguel());
-        }
-    }//GEN-LAST:event_btnCalcularActionPerformed
-
-    private void btnConfirmarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarPedidoActionPerformed
-        lblSemPedidos.setVisible(false);
-        preencheObjeto();
-        btnConfirmarPedido.setEnabled(false);
-        habilitaPanels(true);
-        insereInfoPanels();
-        panFormaPagamentio.setVisible(true);
-        lblSemPedidos.setVisible(false);
-    }//GEN-LAST:event_btnConfirmarPedidoActionPerformed
-
-    boolean verificaCampos() {
-        if (txtCVV.getText().isEmpty() || txtDataVencimento.getText().isEmpty() || txtNumero.getText().isEmpty()) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-    private void txtDataInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDataInicioMouseClicked
-        //Posiciona cursor no inicio do campo, evitando escrever no meio da data
-        txtDataInicio.setCaretPosition(0);
-    }//GEN-LAST:event_txtDataInicioMouseClicked
+    private void tableVeiculosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableVeiculosMouseClicked
+        lblVerFotos.setVisible(true);
+        lblVerFotos.setText("<html><u>Ver foto do veiculo</u></html>");
+        habilitaCamposCotacao();
+    }//GEN-LAST:event_tableVeiculosMouseClicked
 
     private void txtDataTerminoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDataTerminoMouseClicked
         //Posiciona cursor no inicio do campo, evitando escrever no meio da data
@@ -902,10 +698,43 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         fotos.setVisible(true);
     }//GEN-LAST:event_lblVerFotosMouseClicked
 
+    private void btnConfirmarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarPedidoActionPerformed
+        lblSemPedidos.setVisible(false);
+        preencheObjeto();
+        btnConfirmarPedido.setEnabled(false);
+        habilitaPanels(true);
+        insereInfoPanels();
+        panFormaPagamentio.setVisible(true);
+        lblSemPedidos.setVisible(false);
+    }//GEN-LAST:event_btnConfirmarPedidoActionPerformed
+
+    private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
+        if (objValidacao.validaData(txtDataInicio.getText(), txtDataTermino.getText())) {;
+            habilitaCamposContratacao();
+            lblValorAluguel.setText(calcAluguel());
+        }
+    }//GEN-LAST:event_btnCalcularActionPerformed
+
+    private void radBoletoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radBoletoActionPerformed
+        mudaEstadoCampos(false);
+        radCartao.setSelected(false);
+        btnSalvar.setEnabled(false);
+        btnCancelarCadastoCartao.setEnabled(false);
+        btnConfirmarPagamento.setEnabled(true);
+    }//GEN-LAST:event_radBoletoActionPerformed
+
+    private void radCartaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radCartaoActionPerformed
+        mudaEstadoCampos(true);
+        novoCartao();
+        btnSalvar.setEnabled(true);
+        btnCancelarCadastoCartao.setEnabled(true);
+    }//GEN-LAST:event_radCartaoActionPerformed
+
     private void btnConfirmarPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarPagamentoActionPerformed
         if (radBoleto.isSelected()) {
 
             if (objVeiculoDAO.realizaLocacao(objLoc)) {
+
                 Boleto boleto = new Boleto();
                 boleto.setDataVencimento(dataAtual());
                 boleto.setNumPedido(numberRandom.hashCode());
@@ -920,11 +749,9 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         } else if (radCartao.isSelected()) {
 
             if (!cmbCartoes.getSelectedItem().equals("*Selecione um cartao*") && !cmbVezes.getSelectedItem().equals("*Selecione*")
-                    && !txtNumero.getText().isEmpty() && !txtDataVencimento.getText().isEmpty() && !txtCVV.getText().isEmpty()) {
+                && !txtNumero.getText().isEmpty() && !txtDataVencimento.getText().isEmpty() && !txtCVV.getText().isEmpty()) {
                 if (objVeiculoDAO.realizaLocacao(objLoc)) {
                     JOptionPane.showMessageDialog(null, "Pagamento realizado com sucesso!");
-
-                    dispose();
 
                 } else {
                     JOptionPane.showMessageDialog(null, "Locação não finalizada, tente novamente!");
@@ -934,8 +761,26 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Preencha TODOS os campos!");
             }
         }
-
     }//GEN-LAST:event_btnConfirmarPagamentoActionPerformed
+
+    private void radExistenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radExistenteActionPerformed
+        cmbCartoes.removeAllItems();
+        preencheCartoes();
+        setaVezes();
+        radNovo.setSelected(false);
+        btnSalvar.setEnabled(false);
+        btnCancelarCadastoCartao.setEnabled(false);
+        cmbVezes.setEnabled(true);
+        btnConfirmarPagamento.setEnabled(true);
+    }//GEN-LAST:event_radExistenteActionPerformed
+
+    private void radNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radNovoActionPerformed
+        novoCartao();
+        radExistente.setSelected(false);
+
+        btnSalvar.setEnabled(true);
+        btnCancelarCadastoCartao.setEnabled(true);
+    }//GEN-LAST:event_radNovoActionPerformed
 
     private void txtNumeroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroKeyReleased
         // TODO add your handling code here:
@@ -944,6 +789,17 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
     private void txtCVVKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCVVKeyReleased
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCVVKeyReleased
+
+    private void cmbCartoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCartoesActionPerformed
+        if (radExistente.isSelected()) {
+            cartao.exibeCartaoId(cmbCartoes.getSelectedIndex()).forEach((c) -> {
+                txtNumero.setText("" + c.getNumero());
+                txtDataVencimento.setText(c.getDataVencimento());
+                txtCVV.setText("" + c.getCvv());
+
+            });
+        }
+    }//GEN-LAST:event_cmbCartoesActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         if (verificaCampos()) {
@@ -956,6 +812,8 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                 cmbCartoes.setSelectedItem(cartao.exibeUltimoCartao() + " - " + c.getBandeira());
                 btnSalvar.setEnabled(false);
                 btnCancelarCadastoCartao.setEnabled(false);
+                cmbVezes.setEnabled(true);
+                btnConfirmarPagamento.setEnabled(true);
 
             } else {
                 JOptionPane.showMessageDialog(null, "Deu errado");
@@ -969,65 +827,26 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnCancelarCadastoCartaoActionPerformed
 
-    private void radNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radNovoActionPerformed
-        novoCartao();
-        radExistente.setSelected(false);
-
-        btnSalvar.setEnabled(true);
-        btnCancelarCadastoCartao.setEnabled(true);
-    }//GEN-LAST:event_radNovoActionPerformed
-
-    private void radExistenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radExistenteActionPerformed
-        cmbCartoes.removeAllItems();
-        preencheCartoes();
-        setaVezes();
-        radNovo.setSelected(false);
-        btnSalvar.setEnabled(false);
-        btnCancelarCadastoCartao.setEnabled(false);
-        cmbVezes.setEnabled(true);
-        btnConfirmarPagamento.setEnabled(true);
-    }//GEN-LAST:event_radExistenteActionPerformed
-
-    private void radBoletoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radBoletoActionPerformed
-        mudaEstadoCampos(false);
-        radCartao.setSelected(false);
-        btnSalvar.setEnabled(false);
-        btnCancelarCadastoCartao.setEnabled(false);
-    }//GEN-LAST:event_radBoletoActionPerformed
-
-    private void radCartaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radCartaoActionPerformed
-        mudaEstadoCampos(true);
-        novoCartao();
-        btnSalvar.setEnabled(true);
-        btnCancelarCadastoCartao.setEnabled(true);
-
-
-    }//GEN-LAST:event_radCartaoActionPerformed
-
-    private void cmbCartoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCartoesActionPerformed
-        if (radExistente.isSelected()) {
-            cartao.exibeCartaoId(cmbCartoes.getSelectedIndex()).forEach((c) -> {
-                txtNumero.setText("" + c.getNumero());
-                txtDataVencimento.setText(c.getDataVencimento());
-                txtCVV.setText("" + c.getCvv());
-
-            });
+    private void cmbTipoVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoVeiculoActionPerformed
+        tipoVeiculo = (String) cmbTipoVeiculo.getSelectedItem();
+        if (tipoVeiculo.equals("Carro")) {
+            dadosTableTipoVeiculo(tipoVeiculo);
         }
+        if (tipoVeiculo.equals("Moto")) {
+            dadosTableTipoVeiculo(tipoVeiculo);
+        }
+        if (tipoVeiculo.equals("**Selecione**")) {
+            carregaDadosTable();
+        }
+    }//GEN-LAST:event_cmbTipoVeiculoActionPerformed
 
-
-    }//GEN-LAST:event_cmbCartoesActionPerformed
-
-    private void chkDataAtualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkDataAtualActionPerformed
-        if (chkDataAtual.isSelected()) {
-            txtDataInicio.setEnabled(false);
-            txtDataInicio.setText(dataAtual());
+    boolean verificaCampos() {
+        if (txtCVV.getText().isEmpty() || txtDataVencimento.getText().isEmpty() || txtNumero.getText().isEmpty()) {
+            return false;
         } else {
-            txtDataInicio.setEnabled(true);
-            txtDataInicio.setText("");
+            return true;
         }
-
-    }//GEN-LAST:event_chkDataAtualActionPerformed
-
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCalcular;
@@ -1041,7 +860,8 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmbTipoVeiculo;
     private javax.swing.JComboBox<String> cmbVezes;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblDataFim;
     private javax.swing.JLabel lblDataInicio;
