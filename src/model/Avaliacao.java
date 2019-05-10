@@ -4,6 +4,8 @@ public class Avaliacao {
 
     private String comentario;
     private int codigo, numAvaliacao, status, qtdAvaliacao;
+    
+    
 
     public int getQtdAvaliacao() {
         return qtdAvaliacao;

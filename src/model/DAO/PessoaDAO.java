@@ -121,7 +121,7 @@ public class PessoaDAO {
     public void infoPessoa(ResultSet rs) {
         Pessoa cliente = new Pessoa();
         try {
-            cliente.setCodigo(rs.getInt("pessoa.codigo"));
+            cliente.setCodigo(1);
             cliente.setNome(rs.getString("pessoa.nome"));
             cliente.setEmail(rs.getString("pessoa.email"));
             cliente.setTelefone(rs.getString("pessoa.telefone"));

@@ -1,9 +1,11 @@
 package controller;
 
+import view.JFAlugaVeiculos;
 import view.JFAutenticacao;
 import view.JFSplashScreen;
 
 public class Principal {
+
     public static void main(String[] args) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -15,10 +17,10 @@ public class Principal {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
         }
         java.awt.EventQueue.invokeLater(() -> {
-            JFSplashScreen frmScreenSplash = new JFSplashScreen();
+            JFAutenticacao frmScreenSplash = new JFAutenticacao();
             frmScreenSplash.setVisible(true);
+
         });
-        
-        
+
     }
 }

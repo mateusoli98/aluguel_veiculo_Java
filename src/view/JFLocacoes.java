@@ -26,14 +26,14 @@ public class JFLocacoes extends javax.swing.JFrame {
 
     void carregaDadosTable() {
         inicializaModel();
-        for (Locacao objLoc : objLocDAO.exibeVeiculos()) {
+        objLocDAO.exibeLocacao().forEach((objLoc) -> {
             dtmDefault.addRow(new Object[]{
                 objLoc.getCodLocacao(),
                 objLoc.getNomeVeiculo(),
                 objValidacao.converteDatasTable(objLoc.getDtInicio()),
                 objValidacao.converteDatasTable(objLoc.getDtTermino()),
                 objLoc.getTotal(),});
-        }
+        });
     }
 
     void inicializaModel() {
