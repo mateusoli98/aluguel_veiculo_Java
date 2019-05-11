@@ -70,7 +70,6 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
 
     }
 
-  
     void habilitaPanels(boolean flag) {
         panDetalhesPedido.setVisible(flag);
         panFormaPagamentio.setVisible(flag);
@@ -254,6 +253,11 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         cartao.exibeCartoes().forEach((c) -> {
             cmbCartoes.addItem(c.getCodigo() + " - " + c.getBandeira());
         });
+    }
+
+    int dialogoConfirmacao(String texto) {
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        return JOptionPane.showConfirmDialog(null, texto, "Confirmação", dialogButton);
     }
 
     @SuppressWarnings("unchecked")
@@ -719,31 +723,36 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
     }//GEN-LAST:event_radCartaoActionPerformed
 
     private void btnConfirmarPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarPagamentoActionPerformed
+
         if (radBoleto.isSelected()) {
+            if (dialogoConfirmacao("Confirma pagamento em boleto") == JOptionPane.YES_OPTION) {
+                if (objVeiculoDAO.realizaLocacao(objLoc)) {
+                    dispose();
+                    Boleto boleto = new Boleto();
+                    boleto.setDataVencimento(objValidacao.dataAtual());
+                    boleto.setNumPedido(numberRandom.hashCode());
+                    boleto.setTotalPedido(Double.parseDouble(calcAluguel()));
+                    JFBoleto frmBoleto = new JFBoleto(boleto);
+                    frmBoleto.setVisible(true);
 
-            if (objVeiculoDAO.realizaLocacao(objLoc)) {
-                dispose();
-                Boleto boleto = new Boleto();
-                boleto.setDataVencimento(objValidacao.dataAtual());
-                boleto.setNumPedido(numberRandom.hashCode());
-                boleto.setTotalPedido(Double.parseDouble(calcAluguel()));
-//                JFBoleto frmBoleto = new JFBoleto(boleto);
-//                frmBoleto.setVisible(true);
-
-            } else {
-                JOptionPane.showMessageDialog(null, "Locação não finalizada, tente novamente!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Locação não finalizada, tente novamente!");
+                }
             }
 
         } else if (radCartao.isSelected()) {
 
             if (!cmbCartoes.getSelectedItem().equals("*Selecione um cartao*") && !cmbVezes.getSelectedItem().equals("*Selecione*")
                     && !txtNumero.getText().isEmpty() && !txtDataVencimento.getText().isEmpty() && !txtCVV.getText().isEmpty()) {
-                if (objVeiculoDAO.realizaLocacao(objLoc)) {
-                    JOptionPane.showMessageDialog(null, "Pagamento realizado com sucesso!");
-                    dispose();
+                if (dialogoConfirmacao("Confirma pagamento com cartão de crédito " + cmbCartoes.getSelectedItem()) == JOptionPane.YES_OPTION) {
+                    if (objVeiculoDAO.realizaLocacao(objLoc)) {
+                        JOptionPane.showMessageDialog(null, "Pagamento realizado com sucesso! \n*Dica: Para consultar suas locações, abra o menu de Locações e em seguida o sub-menu de Minhas Locações", "Confirmação de Pagamenro", JOptionPane.INFORMATION_MESSAGE);
+                        dispose();
 
-                } else {
-                    JOptionPane.showMessageDialog(null, "Locação não finalizada, tente novamente!");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Locação não finalizada, tente novamente!");
+                    }
+
                 }
 
             } else {
@@ -794,7 +803,6 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         if (verificaCampos()) {
             preencheCartao();
             if (cartao.cadastroCartao(c)) {
-                JOptionPane.showMessageDialog(null, "Deu certo");
                 preencheCartoes();
                 radNovo.setSelected(false);
                 radExistente.setSelected(true);
@@ -803,9 +811,9 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                 btnCancelarCadastoCartao.setEnabled(false);
                 cmbVezes.setEnabled(true);
                 btnConfirmarPagamento.setEnabled(true);
-
+                JOptionPane.showMessageDialog(null, "Cartão cadastrado com sucesso!");
             } else {
-                JOptionPane.showMessageDialog(null, "Deu errado");
+                JOptionPane.showMessageDialog(null, "Ocorreu algum erro insperado. \nPor favor, tente mais tarde!");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Esta faltando campos");
