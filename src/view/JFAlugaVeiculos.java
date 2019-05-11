@@ -23,6 +23,7 @@ import model.Veiculo;
 import model.DAO.ConexaoDAO;
 import model.DAO.VeiculoDAO;
 
+
 public class JFAlugaVeiculos extends javax.swing.JFrame {
 
     Veiculo objVeiculo = new Veiculo();
@@ -215,8 +216,11 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
 
     String calcAluguel() {
         String valor = "";
+        int dias;
+        dias= retornaDias();
         valorVeiculo = (Double) tableVeiculos.getValueAt(tableVeiculos.getSelectedRow(), 6);
-        valor = "" + valorVeiculo * retornaDias();
+        valorVeiculo = valorVeiculo * dias;
+        valor= Double.toString(valorVeiculo);
         return valor;
     }
 
