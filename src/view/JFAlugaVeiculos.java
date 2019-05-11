@@ -22,9 +22,7 @@ import model.Locacao;
 import model.Veiculo;
 import model.DAO.ConexaoDAO;
 import model.DAO.VeiculoDAO;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+
 
 public class JFAlugaVeiculos extends javax.swing.JFrame {
 
@@ -35,7 +33,8 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
     Cartao c = new Cartao();
     String operacao = "", tipoVeiculo = "", nomeVeiculo, dtInicio, dtTermino;
     DefaultTableModel dtmDefault = new DefaultTableModel();
-    int diaInicio, diaFim, valorVeiculo;
+    int diaInicio, diaFim;
+    double valorVeiculo;
     Validacoes objValidacao = new Validacoes();
     Random numberRandom = new Random();
 
@@ -217,21 +216,11 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
 
     String calcAluguel() {
         String valor = "";
-        
-        valorVeiculo = (int) tableVeiculos.getValueAt(tableVeiculos.getSelectedRow(), 7);
-        SimpleDateFormat sdf= new SimpleDateFormat("dd/mm/yyyy");
-        Calendar data1 = Calendar.getInstance();
-        Calendar data2 = Calendar.getInstance();
-        try {
-            data1.setTime(sdf.parse(txtDataInicio.getText()));
-            data2.setTime(sdf.parse(txtDataTermino.getText()));
-        }catch(java.text.ParseException e){
-        }
-        int dias= data2.get(Calendar.DAY_OF_YEAR);
-        data1.get(Calendar.DAY_OF_YEAR);
-        valor= String.valueOf(dias);
-        valorVeiculo = valorVeiculo * Integer.parseInt(valor);
-        valor= Integer.toString(valorVeiculo);
+        int dias;
+        dias= retornaDias();
+        valorVeiculo = (Double) tableVeiculos.getValueAt(tableVeiculos.getSelectedRow(), 6);
+        valorVeiculo = valorVeiculo * dias;
+        valor= Double.toString(valorVeiculo);
         return valor;
     }
 

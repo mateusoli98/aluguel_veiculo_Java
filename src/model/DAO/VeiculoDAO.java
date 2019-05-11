@@ -205,8 +205,8 @@ public class VeiculoDAO {
                     + "modelo = '" + v.getModelo() + "',"
                     + "marca = '" + v.getMarca() + "', "
                     + "ano = '" + v.getAno() + "', "
-                    + "foto = ? "
                     + "valor = '" + v.getValor() + "',"
+                    + "foto = ? "
                     + "WHERE codigo = " + v.getCodigo() + ";";
 
             ps = conn.prepareStatement(query);
