@@ -34,6 +34,7 @@ public class VeiculoDAO {
                 objVeiculo.setModelo(rs.getString("modelo"));
                 objVeiculo.setMarca(rs.getString("marca"));
                 objVeiculo.setAno(rs.getInt("ano"));
+                objVeiculo.setValor(rs.getDouble("valor"));
                 listVeiculos.add(objVeiculo);
                 objVeiculo = null;
                 query = "";
@@ -125,6 +126,7 @@ public class VeiculoDAO {
                 objVeiculo.setModelo(rs.getString("modelo"));
                 objVeiculo.setMarca(rs.getString("marca"));
                 objVeiculo.setAno(rs.getInt("ano"));
+                objVeiculo.setValor(rs.getDouble("valor"));
                 listVeiculos.add(objVeiculo);
                 objVeiculo = null;
                 query = "";
@@ -165,7 +167,7 @@ public class VeiculoDAO {
     public boolean cadastro(Veiculo v) {
         try {
             conn = ConexaoDAO.abreConexao();
-            query = " INSERT INTO veiculo (`nome`, `tipo`, `combustivel`, `modelo`, `marca`, `ano`,`alugado`, foto) VALUES ( ?, ?, ?, ?, ?, ?, 0, ?)";
+            query = " INSERT INTO veiculo (`nome`, `tipo`, `combustivel`, `modelo`, `marca`, `ano`,`alugado`, foto,`valor`) VALUES ( ?, ?, ?, ?, ?, ?, 0, ?, ?)";
             ps = conn.prepareStatement(query);
             ps.setString(1, v.getNome());
             ps.setString(2, v.getTipo());
@@ -174,6 +176,7 @@ public class VeiculoDAO {
             ps.setString(5, v.getMarca());
             ps.setInt(6, v.getAno());
             ps.setBytes(7, v.getFoto());
+            ps.setDouble(8, v.getValor());
             ps.executeUpdate();
             return retorno = true;
         } catch (SQLException e) {
@@ -203,8 +206,9 @@ public class VeiculoDAO {
                     + "marca = '" + v.getMarca() + "', "
                     + "ano = '" + v.getAno() + "', "
                     + "foto = ? "
+                    + "valor = '" + v.getValor() + "',"
                     + "WHERE codigo = " + v.getCodigo() + ";";
-            
+
             ps = conn.prepareStatement(query);
             ps.setBytes(1, v.getFoto());
             ps.executeUpdate();

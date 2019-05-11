@@ -5,6 +5,15 @@ public class Veiculo {
     private String nome, marca, modelo, tipo, combustivel;
     private int ano, codigo;
     private byte[] foto;
+    private double valor;
+
+    public double getValor() {
+        return valor;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
+    }
 
     public byte[] getFoto() {
         return foto;

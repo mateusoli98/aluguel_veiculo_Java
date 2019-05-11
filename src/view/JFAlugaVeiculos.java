@@ -22,6 +22,9 @@ import model.Locacao;
 import model.Veiculo;
 import model.DAO.ConexaoDAO;
 import model.DAO.VeiculoDAO;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class JFAlugaVeiculos extends javax.swing.JFrame {
 
@@ -32,7 +35,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
     Cartao c = new Cartao();
     String operacao = "", tipoVeiculo = "", nomeVeiculo, dtInicio, dtTermino;
     DefaultTableModel dtmDefault = new DefaultTableModel();
-    int diaInicio, diaFim, anoVeiculo;
+    int diaInicio, diaFim, valorVeiculo;
     Validacoes objValidacao = new Validacoes();
     Random numberRandom = new Random();
 
@@ -95,7 +98,6 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         TitledBorder border = new TitledBorder(titulo);
         border.setTitleJustification(TitledBorder.CENTER);
         border.setTitlePosition(TitledBorder.TOP);
-        
 
         return border;
     }
@@ -109,7 +111,8 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                 objVeiculo.getModelo(),
                 objVeiculo.getMarca(),
                 objVeiculo.getCombustivel(),
-                objVeiculo.getAno(),});
+                objVeiculo.getAno(),
+                objVeiculo.getValor(),});
         }
     }
 
@@ -148,8 +151,6 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         btnCalcular.setVisible(true);
         chkDataAtual.setVisible(true);
     }
-
-
 
     void mudaEstadoCampos(boolean flag) {
         radNovo.setEnabled(flag);
@@ -216,15 +217,21 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
 
     String calcAluguel() {
         String valor = "";
-        anoVeiculo = (int) tableVeiculos.getValueAt(tableVeiculos.getSelectedRow(), 5);
-        if (anoVeiculo <= 2005) {
-            valor = "" + retornaDias() * 50.00;
+        
+        valorVeiculo = (int) tableVeiculos.getValueAt(tableVeiculos.getSelectedRow(), 7);
+        SimpleDateFormat sdf= new SimpleDateFormat("dd/mm/yyyy");
+        Calendar data1 = Calendar.getInstance();
+        Calendar data2 = Calendar.getInstance();
+        try {
+            data1.setTime(sdf.parse(txtDataInicio.getText()));
+            data2.setTime(sdf.parse(txtDataTermino.getText()));
+        }catch(java.text.ParseException e){
         }
-
-        if (anoVeiculo > 2005) {
-            valor = "" + retornaDias() * 100.00;
-
-        }
+        int dias= data2.get(Calendar.DAY_OF_YEAR);
+        data1.get(Calendar.DAY_OF_YEAR);
+        valor= String.valueOf(dias);
+        valorVeiculo = valorVeiculo * Integer.parseInt(valor);
+        valor= Integer.toString(valorVeiculo);
         return valor;
     }
 
@@ -409,11 +416,11 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Chassi", "Nome", "Modelo", "Marca", "Combustivel", "Ano"
+                "Chassi", "Nome", "Modelo", "Marca", "Combustivel", "Ano", "valor"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -711,6 +718,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
     private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
         if (objValidacao.validaData(txtDataInicio.getText(), txtDataTermino.getText())) {;
             habilitaCamposContratacao();
+
             lblValorAluguel.setText(calcAluguel());
         }
     }//GEN-LAST:event_btnCalcularActionPerformed
@@ -749,7 +757,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         } else if (radCartao.isSelected()) {
 
             if (!cmbCartoes.getSelectedItem().equals("*Selecione um cartao*") && !cmbVezes.getSelectedItem().equals("*Selecione*")
-                && !txtNumero.getText().isEmpty() && !txtDataVencimento.getText().isEmpty() && !txtCVV.getText().isEmpty()) {
+                    && !txtNumero.getText().isEmpty() && !txtDataVencimento.getText().isEmpty() && !txtCVV.getText().isEmpty()) {
                 if (objVeiculoDAO.realizaLocacao(objLoc)) {
                     JOptionPane.showMessageDialog(null, "Pagamento realizado com sucesso!");
 
