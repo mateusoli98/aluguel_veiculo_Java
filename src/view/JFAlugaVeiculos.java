@@ -216,11 +216,8 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
 
     String calcAluguel() {
         String valor = "";
-        int dias;
-        dias= retornaDias();
         valorVeiculo = (Double) tableVeiculos.getValueAt(tableVeiculos.getSelectedRow(), 6);
-        valorVeiculo = valorVeiculo * dias;
-        valor= Double.toString(valorVeiculo);
+        valor = ""+valorVeiculo * retornaDias();
         return valor;
     }
 
