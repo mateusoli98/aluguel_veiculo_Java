@@ -34,7 +34,7 @@
                       <EmptySpace min="-2" pref="147" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="btnSair" min="-2" pref="107" max="-2" attributes="0"/>
-                          <Component id="btnImprimir" min="-2" pref="107" max="-2" attributes="0"/>
+                          <Component id="btnPDF" min="-2" pref="107" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -48,7 +48,7 @@
               <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
               <Component id="lblTexto" min="-2" pref="374" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
-              <Component id="btnImprimir" min="-2" pref="41" max="-2" attributes="0"/>
+              <Component id="btnPDF" min="-2" pref="41" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnSair" min="-2" pref="41" max="-2" attributes="0"/>
               <EmptySpace pref="25" max="32767" attributes="0"/>
@@ -57,12 +57,12 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="btnImprimir">
+    <Component class="javax.swing.JButton" name="btnPDF">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Imprimir"/>
+        <Property name="text" type="java.lang.String" value="Imprimir PDF"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnImprimirActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPDFActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblTexto">

@@ -2,6 +2,7 @@ package controller;
 
 import view.JFAlugaVeiculos;
 import view.JFAutenticacao;
+import view.JFBoleto;
 import view.JFSplashScreen;
 
 public class Principal {
@@ -17,7 +18,7 @@ public class Principal {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
         }
         java.awt.EventQueue.invokeLater(() -> {
-            JFAutenticacao frmScreenSplash = new JFAutenticacao();
+            JFBoleto frmScreenSplash = new JFBoleto();
             frmScreenSplash.setVisible(true);
 
         });

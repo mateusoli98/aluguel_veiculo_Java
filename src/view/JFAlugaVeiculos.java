@@ -23,7 +23,6 @@ import model.Veiculo;
 import model.DAO.ConexaoDAO;
 import model.DAO.VeiculoDAO;
 
-
 public class JFAlugaVeiculos extends javax.swing.JFrame {
 
     Veiculo objVeiculo = new Veiculo();
@@ -71,12 +70,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
 
     }
 
-    String dataAtual() {
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Date date = new Date();
-        return dateFormat.format(date);
-    }
-
+  
     void habilitaPanels(boolean flag) {
         panDetalhesPedido.setVisible(flag);
         panFormaPagamentio.setVisible(flag);
@@ -217,7 +211,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
     String calcAluguel() {
         String valor = "";
         valorVeiculo = (Double) tableVeiculos.getValueAt(tableVeiculos.getSelectedRow(), 6);
-        valor = ""+valorVeiculo * retornaDias();
+        valor = "" + valorVeiculo * retornaDias();
         return valor;
     }
 
@@ -656,7 +650,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
     private void chkDataAtualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkDataAtualActionPerformed
         if (chkDataAtual.isSelected()) {
             txtDataInicio.setEnabled(false);
-            txtDataInicio.setText(dataAtual());
+            txtDataInicio.setText(objValidacao.dataAtual());
         } else {
             txtDataInicio.setEnabled(true);
             txtDataInicio.setText("");
@@ -728,13 +722,13 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         if (radBoleto.isSelected()) {
 
             if (objVeiculoDAO.realizaLocacao(objLoc)) {
-
+                dispose();
                 Boleto boleto = new Boleto();
-                boleto.setDataVencimento(dataAtual());
+                boleto.setDataVencimento(objValidacao.dataAtual());
                 boleto.setNumPedido(numberRandom.hashCode());
                 boleto.setTotalPedido(Double.parseDouble(calcAluguel()));
-                JFBoleto frmBoleto = new JFBoleto(boleto);
-                frmBoleto.setVisible(true);
+//                JFBoleto frmBoleto = new JFBoleto(boleto);
+//                frmBoleto.setVisible(true);
 
             } else {
                 JOptionPane.showMessageDialog(null, "Locação não finalizada, tente novamente!");
@@ -746,6 +740,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                     && !txtNumero.getText().isEmpty() && !txtDataVencimento.getText().isEmpty() && !txtCVV.getText().isEmpty()) {
                 if (objVeiculoDAO.realizaLocacao(objLoc)) {
                     JOptionPane.showMessageDialog(null, "Pagamento realizado com sucesso!");
+                    dispose();
 
                 } else {
                     JOptionPane.showMessageDialog(null, "Locação não finalizada, tente novamente!");
