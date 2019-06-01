@@ -22,9 +22,10 @@ import model.Locacao;
 import model.Veiculo;
 import model.DAO.ConexaoDAO;
 import model.DAO.VeiculoDAO;
+import model.Pagamento;
 
 public class JFAlugaVeiculos extends javax.swing.JFrame {
-
+    
     Veiculo objVeiculo = new Veiculo();
     VeiculoDAO objVeiculoDAO = new VeiculoDAO();
     Locacao objLoc = new Locacao();
@@ -36,7 +37,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
     double valorVeiculo;
     Validacoes objValidacao = new Validacoes();
     Random numberRandom = new Random();
-
+    
     public JFAlugaVeiculos() {
         initComponents();
         dtmDefault = (DefaultTableModel) tableVeiculos.getModel();
@@ -50,11 +51,11 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         panFormaPagamentio.setBorder(tituloPanel("Formas de Pagamento"));
         habilitaPanels(false);
         mudaEstadoCampos(false);
-
+        
         btnSalvar.setEnabled(false);
         btnCancelarCadastoCartao.setEnabled(false);
     }
-
+    
     void novoCartao() {
         cmbCartoes.removeAllItems();
         cmbCartoes.addItem("**Selcione**");
@@ -67,33 +68,33 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         radBoleto.setSelected(false);
         btnConfirmarPagamento.setEnabled(false);
         cmbVezes.setEnabled(false);
-
+        
     }
-
+    
     void habilitaPanels(boolean flag) {
         panDetalhesPedido.setVisible(flag);
         panFormaPagamentio.setVisible(flag);
     }
-
+    
     void insereInfoPanels() {
         lblNomeVeiculo.setText(objLoc.getNomeVeiculo());
         lblValorDataLocacao.setText(objValidacao.converteDatasTable(objLoc.getDtInicio()) + " - " + objValidacao.converteDatasTable(objLoc.getDtTermino()) + " - " + retornaDias() + " dias.");
         lblValorPedido.setText(calcAluguel() + " reais.");
     }
-
+    
     void removeInfoPanels() {
         lblNomeVeiculo.setText("");
         lblValorDataLocacao.setText("");
     }
-
+    
     TitledBorder tituloPanel(String titulo) {
         TitledBorder border = new TitledBorder(titulo);
         border.setTitleJustification(TitledBorder.CENTER);
         border.setTitlePosition(TitledBorder.TOP);
-
+        
         return border;
     }
-
+    
     void carregaDadosTable() {
         inicializaModel();
         for (Veiculo objVeiculo : objVeiculoDAO.exibeVeiculos()) {
@@ -107,7 +108,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                 objVeiculo.getValor(),});
         }
     }
-
+    
     void dadosTableTipoVeiculo(String tipo) {
         inicializaModel();
         for (Veiculo objVeiculo : objVeiculoDAO.exibeTipoVeiculos(tipo)) {
@@ -120,7 +121,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                 objVeiculo.getAno(),});
         }
     }
-
+    
     void dadosTabelNomeVeiculo(String nome) {
         inicializaModel();
         for (Veiculo objVeiculo : objVeiculoDAO.exibeVeiculoNome(nome)) {
@@ -133,7 +134,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                 objVeiculo.getAno(),});
         }
     }
-
+    
     void habilitaCamposCotacao() {
         txtDataInicio.setVisible(true);
         txtDataTermino.setVisible(true);
@@ -143,7 +144,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         btnCalcular.setVisible(true);
         chkDataAtual.setVisible(true);
     }
-
+    
     void mudaEstadoCampos(boolean flag) {
         radNovo.setEnabled(flag);
         radExistente.setEnabled(flag);
@@ -151,10 +152,10 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         txtNumero.setEnabled(flag);
         txtCVV.setEnabled(flag);
         txtDataVencimento.setEnabled(flag);
-
+        
         cmbVezes.setEnabled(flag);
     }
-
+    
     void desabilitaCamposCotacao() {
         txtDataInicio.setVisible(false);
         txtDataTermino.setVisible(false);
@@ -165,26 +166,26 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         chkDataAtual.setVisible(false);
         btnCalcular.setVisible(false);
     }
-
+    
     void habilitaCamposContratacao() {
         lblMoeda.setVisible(true);
         lblValorAluguel.setVisible(true);
         btnConfirmarPedido.setVisible(true);
         btnCancelar.setVisible(true);
     }
-
+    
     void desabilitaCamposContratacao() {
         lblMoeda.setVisible(false);
         lblValorAluguel.setVisible(false);
         btnConfirmarPedido.setVisible(false);
         btnCancelar.setVisible(false);
     }
-
+    
     void inicializaModel() {
         dtmDefault = (DefaultTableModel) tableVeiculos.getModel();
         dtmDefault.setNumRows(0);
     }
-
+    
     int retornaDias() {
         dtInicio = txtDataInicio.getText();
         dtTermino = txtDataTermino.getText();
@@ -206,29 +207,29 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         }
         return i;
     }
-
+    
     String calcAluguel() {
         String valor = "";
         valorVeiculo = (Double) tableVeiculos.getValueAt(tableVeiculos.getSelectedRow(), 6);
         valor = "" + valorVeiculo * retornaDias();
         return valor;
     }
-
+    
     void setaVezes() {
         int i;
         double result;
         cmbVezes.removeAllItems();
         cmbVezes.addItem("**Selecione um cartao**");
-
+        
         for (i = 1; i <= 5; i++) {
             c.setNmrParcela(cmbVezes.getSelectedIndex());
             result = Double.parseDouble(calcAluguel()) / i;
             cmbVezes.addItem(i + " x " + Math.round(result));
-
+            
         }
-
+        
     }
-
+    
     void preencheObjeto() {
         objLoc.setCodCliente(ConexaoDAO.getCliente().getCodigo());
         objLoc.setCodVeiculo((int) tableVeiculos.getValueAt(tableVeiculos.getSelectedRow(), 0));
@@ -237,16 +238,16 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         objLoc.setTotal(Double.parseDouble(lblValorAluguel.getText()));
         objLoc.setNomeVeiculo("" + tableVeiculos.getValueAt(tableVeiculos.getSelectedRow(), 1));
     }
-
+    
     void preencheCartao() {
         c.setNumero(Integer.parseInt(txtNumero.getText()));
         c.setBandeira("" + cmbCartoes.getSelectedItem());
         c.setCvv(Integer.parseInt(txtCVV.getText()));
         c.setDataVencimento(txtDataVencimento.getText());
         c.setCodPessoa(ConexaoDAO.getCliente().getCodigo());
-
+        
     }
-
+    
     void preencheCartoes() {
         cmbCartoes.removeAllItems();
         cmbCartoes.addItem("**Selecione um cartao**");
@@ -254,12 +255,12 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
             cmbCartoes.addItem(c.getCodigo() + " - " + c.getBandeira());
         });
     }
-
+    
     int dialogoConfirmacao(String texto) {
         int dialogButton = JOptionPane.YES_NO_OPTION;
         return JOptionPane.showConfirmDialog(null, texto, "Confirmação", dialogButton);
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -702,7 +703,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
     private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
         if (objValidacao.validaData(txtDataInicio.getText(), txtDataTermino.getText())) {;
             habilitaCamposContratacao();
-
+            
             lblValorAluguel.setText(calcAluguel());
         }
     }//GEN-LAST:event_btnCalcularActionPerformed
@@ -723,38 +724,40 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
     }//GEN-LAST:event_radCartaoActionPerformed
 
     private void btnConfirmarPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarPagamentoActionPerformed
-
+        
         if (radBoleto.isSelected()) {
             if (dialogoConfirmacao("Confirma pagamento em boleto") == JOptionPane.YES_OPTION) {
                 if (objVeiculoDAO.realizaLocacao(objLoc)) {
                     dispose();
                     Boleto boleto = new Boleto();
-                    boleto.setDataVencimento(objValidacao.dataAtual());
-                    boleto.setNumPedido(numberRandom.hashCode());
-                    boleto.setTotalPedido(Double.parseDouble(calcAluguel()));
-                    JFBoleto frmBoleto = new JFBoleto(boleto);
-                    frmBoleto.setVisible(true);
-
+                    Pagamento pag = new Pagamento();
+                    concluiLocacao(boleto, pag, "Boleto");
+                    JFFichaPedido frmFichaPedido = new JFFichaPedido(boleto, pag);
+                    frmFichaPedido.setVisible(true);
+                    
                 } else {
                     JOptionPane.showMessageDialog(null, "Locação não finalizada, tente novamente!");
                 }
             }
-
+            
         } else if (radCartao.isSelected()) {
-
+            
             if (!cmbCartoes.getSelectedItem().equals("*Selecione um cartao*") && !cmbVezes.getSelectedItem().equals("*Selecione*")
                     && !txtNumero.getText().isEmpty() && !txtDataVencimento.getText().isEmpty() && !txtCVV.getText().isEmpty()) {
                 if (dialogoConfirmacao("Confirma pagamento com cartão de crédito " + cmbCartoes.getSelectedItem()) == JOptionPane.YES_OPTION) {
                     if (objVeiculoDAO.realizaLocacao(objLoc)) {
-                        JOptionPane.showMessageDialog(null, "Pagamento realizado com sucesso! \n*Dica: Para consultar suas locações, abra o menu de Locações e em seguida o sub-menu de Minhas Locações", "Confirmação de Pagamenro", JOptionPane.INFORMATION_MESSAGE);
                         dispose();
-
+                        Boleto boleto = new Boleto();
+                        Pagamento pag = new Pagamento();
+                        concluiLocacao(boleto, pag, "Cartao");
+                        JFFichaPedido frmFichaPedido = new JFFichaPedido(boleto, pag);
+                        frmFichaPedido.setVisible(true);
                     } else {
                         JOptionPane.showMessageDialog(null, "Locação não finalizada, tente novamente!");
                     }
-
+                    
                 }
-
+                
             } else {
                 JOptionPane.showMessageDialog(null, "Preencha TODOS os campos!");
             }
@@ -775,7 +778,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
     private void radNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radNovoActionPerformed
         novoCartao();
         radExistente.setSelected(false);
-
+        
         btnSalvar.setEnabled(true);
         btnCancelarCadastoCartao.setEnabled(true);
     }//GEN-LAST:event_radNovoActionPerformed
@@ -794,7 +797,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                 txtNumero.setText("" + c.getNumero());
                 txtDataVencimento.setText(c.getDataVencimento());
                 txtCVV.setText("" + c.getCvv());
-
+                
             });
         }
     }//GEN-LAST:event_cmbCartoesActionPerformed
@@ -836,13 +839,20 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
             carregaDadosTable();
         }
     }//GEN-LAST:event_cmbTipoVeiculoActionPerformed
-
+    
     boolean verificaCampos() {
         if (txtCVV.getText().isEmpty() || txtDataVencimento.getText().isEmpty() || txtNumero.getText().isEmpty()) {
             return false;
         } else {
             return true;
         }
+    }
+    
+    void concluiLocacao(Boleto boleto, Pagamento pag, String tipoPag) {
+        boleto.setDataVencimento(objValidacao.dataAtual());
+        pag.setNumPedido(numberRandom.hashCode());
+        pag.setTotalPedido(Double.parseDouble(calcAluguel()));
+        pag.setTipoPag(tipoPag);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

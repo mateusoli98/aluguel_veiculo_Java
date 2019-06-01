@@ -1,6 +1,5 @@
 package controller;
 
-import view.JFBoleto;
 import view.JFSplashScreen;
 
 public class Principal {
