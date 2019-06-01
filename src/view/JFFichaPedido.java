@@ -3,13 +3,11 @@ package view;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
-import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
-import com.itextpdf.text.Image;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
 
+import com.itextpdf.text.pdf.PdfWriter;
 import controller.Validacoes;
 
 import java.awt.*;
@@ -17,23 +15,18 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
+import java.util.Random;
 import model.Boleto;
+import model.Pagamento;
 
-public class JFBoleto extends javax.swing.JFrame {
+public class JFFichaPedido extends javax.swing.JFrame {
 
     Validacoes objValidacao = new Validacoes();
     double vPedido;
 
-    public JFBoleto(Boleto objBoleto) {
+    public JFFichaPedido(Boleto objBoleto, Pagamento objPagamento) {
         initComponents();
-        lblTexto.setText("<html><b>Numero: </b>" + objBoleto.getNumPedido() + ""
-                + "<br><b>Data Vencimento: </b>" + objBoleto.getDataVencimento() + ""
-                + "<br><b>Total: </b>" + objBoleto.getTotalPedido() + ""
-                + "<br><b>*Dica: </b> Para consultar suas locações, abra o menu de Locações e em seguida o sub-menu de Minhas Locações"
-                + "</html>");
-
-        vPedido = objBoleto.getTotalPedido();
+        mostraConteudo(objBoleto, objPagamento);
     }
 
     @SuppressWarnings("unchecked")
@@ -45,12 +38,12 @@ public class JFBoleto extends javax.swing.JFrame {
         btnSair = new javax.swing.JButton();
         lblTexto = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Resumo Pedido");
-        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(217, 217, 217));
+        jPanel1.setToolTipText("");
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnPDF.setBackground(new java.awt.Color(1, 111, 185));
@@ -62,7 +55,7 @@ public class JFBoleto extends javax.swing.JFrame {
                 btnPDFActionPerformed(evt);
             }
         });
-        jPanel1.add(btnPDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, 107, 41));
+        jPanel1.add(btnPDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 190, 107, 41));
 
         btnSair.setBackground(new java.awt.Color(197, 36, 39));
         btnSair.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -73,26 +66,46 @@ public class JFBoleto extends javax.swing.JFrame {
                 btnSairActionPerformed(evt);
             }
         });
-        jPanel1.add(btnSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 130, 107, 41));
+        jPanel1.add(btnSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 240, 107, 41));
 
         lblTexto.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblTexto.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(lblTexto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 355, 110));
+        jPanel1.add(lblTexto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 355, 160));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 370, 200));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 380, 300));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-        dispose();
-    }//GEN-LAST:event_btnSairActionPerformed
+    void mostraConteudo(Boleto objBoleto, Pagamento objPagamento) {
+        if (objPagamento.getTipoPag().equals("Boleto")) {
+            lblTexto.setText("<html><b>Numero: </b>" + objPagamento.getNumPedido() + ""
+                    + "<br><b>Data Pagamento: </b>" + objPagamento.getDataPagamento() + ""
+                    + "<br><b>Data Vencimento: </b>" + objBoleto.getDataVencimento() + ""
+                    + "<br><b>Total: </b>" + objPagamento.getTotalPedido() + ""
+                    + "<br><b>*Dica: </b> Para consultar suas locações, abra o menu de Locações e em seguida o sub-menu de Minhas Locações"
+                    + "<br><b>*Dica: </b> Seu boleto será salvo em seu desktop."
+                    + "</html>");
+
+            vPedido = objPagamento.getTotalPedido();
+        } else if (objPagamento.getTipoPag().equals("Cartao")) {
+            btnPDF.setVisible(false);
+            lblTexto.setText("<html><b>Numero: </b>" + objPagamento.getNumPedido() + ""
+                    + "<br><b>Data Pagamento: </b>" + objPagamento.getDataPagamento() + ""
+                    + "<br><b>Total: </b>" + objPagamento.getTotalPedido() + ""
+                    + "<br><b>*Dica: </b> Para consultar suas locações, abra o menu de Locações e em seguida o sub-menu de Minhas Locações"
+                    + "</html>");
+
+        }
+
+    }
 
     private void btnPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPDFActionPerformed
         Document document = new Document();
+        String caminho = System.getProperty("user.home") + "\\Desktop\\boleto.pdf";
         try {
-            PdfWriter.getInstance(document, new FileOutputStream("boleto.pdf"));
+            PdfWriter.getInstance(document, new FileOutputStream(caminho));
             document.open();
             document.add(geraDadosTabela());
         } catch (DocumentException ex) {
@@ -104,13 +117,16 @@ public class JFBoleto extends javax.swing.JFrame {
         }
 
         try {
-            Desktop.getDesktop().open(new File("boleto.pdf"));
+            Desktop.getDesktop().open(new File(caminho));
             dispose();
         } catch (IOException ex) {
             System.out.println("Error:" + ex);
         }
-
     }//GEN-LAST:event_btnPDFActionPerformed
+
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnSairActionPerformed
 
     Element geraDadosTabela() {
         PdfPTable table = new PdfPTable(3);
@@ -124,7 +140,7 @@ public class JFBoleto extends javax.swing.JFrame {
         c1.setBorderWidthLeft(0);
         table.addCell(c1);
 
-        c1 = new PdfPCell(new Phrase("92073072623903973171"));
+        c1 = new PdfPCell(new Phrase("" + objValidacao.codigoBarra()));
         c1.setHorizontalAlignment(Element.ALIGN_LEFT);
         c1.setBorderWidthLeft(0);
         table.addCell(c1);
@@ -137,7 +153,7 @@ public class JFBoleto extends javax.swing.JFrame {
         c2.setHorizontalAlignment(Element.ALIGN_LEFT);
         table.addCell(c2);
 
-        c2 = new PdfPCell(new Phrase("Vencimento: " + objValidacao.dataAtual()));
+        c2 = new PdfPCell(new Phrase("Vencimento: " + objValidacao.dataVencimento()));
         c2.setHorizontalAlignment(Element.ALIGN_LEFT);
         c2.setBorderWidthTop(0);
         c2.setBorderWidthLeft(0);
@@ -194,7 +210,6 @@ public class JFBoleto extends javax.swing.JFrame {
 
         return table;
     }
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

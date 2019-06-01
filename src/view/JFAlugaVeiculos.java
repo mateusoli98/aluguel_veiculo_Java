@@ -22,6 +22,7 @@ import model.Locacao;
 import model.Veiculo;
 import model.DAO.ConexaoDAO;
 import model.DAO.VeiculoDAO;
+import model.Pagamento;
 
 public class JFAlugaVeiculos extends javax.swing.JFrame {
 
@@ -729,11 +730,10 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                 if (objVeiculoDAO.realizaLocacao(objLoc)) {
                     dispose();
                     Boleto boleto = new Boleto();
-                    boleto.setDataVencimento(objValidacao.dataAtual());
-                    boleto.setNumPedido(numberRandom.hashCode());
-                    boleto.setTotalPedido(Double.parseDouble(calcAluguel()));
-                    JFBoleto frmBoleto = new JFBoleto(boleto);
-                    frmBoleto.setVisible(true);
+                    Pagamento pag = new Pagamento();
+                    concluiLocacao(boleto, pag, "Boleto");
+                    JFFichaPedido frmFichaPedido = new JFFichaPedido(boleto, pag);
+                    frmFichaPedido.setVisible(true);
 
                 } else {
                     JOptionPane.showMessageDialog(null, "Locação não finalizada, tente novamente!");
@@ -746,9 +746,12 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
                     && !txtNumero.getText().isEmpty() && !txtDataVencimento.getText().isEmpty() && !txtCVV.getText().isEmpty()) {
                 if (dialogoConfirmacao("Confirma pagamento com cartão de crédito " + cmbCartoes.getSelectedItem()) == JOptionPane.YES_OPTION) {
                     if (objVeiculoDAO.realizaLocacao(objLoc)) {
-                        JOptionPane.showMessageDialog(null, "Pagamento realizado com sucesso! \n*Dica: Para consultar suas locações, abra o menu de Locações e em seguida o sub-menu de Minhas Locações", "Confirmação de Pagamenro", JOptionPane.INFORMATION_MESSAGE);
                         dispose();
-
+                        Boleto boleto = new Boleto();
+                        Pagamento pag = new Pagamento();
+                        concluiLocacao(boleto, pag, "Cartao");
+                        JFFichaPedido frmFichaPedido = new JFFichaPedido(boleto, pag);
+                        frmFichaPedido.setVisible(true);
                     } else {
                         JOptionPane.showMessageDialog(null, "Locação não finalizada, tente novamente!");
                     }
@@ -843,6 +846,14 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         } else {
             return true;
         }
+    }
+
+    void concluiLocacao(Boleto boleto, Pagamento pag, String tipoPag) {
+        boleto.setDataVencimento(objValidacao.dataVencimento());
+        pag.setNumPedido(numberRandom.hashCode());
+        pag.setDataPagamento(objValidacao.dataAtual());
+        pag.setTotalPedido(Double.parseDouble(calcAluguel()));
+        pag.setTipoPag(tipoPag);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

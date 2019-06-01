@@ -2,7 +2,9 @@ package controller;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 import javax.swing.JOptionPane;
 
 public class Validacoes {
@@ -13,10 +15,18 @@ public class Validacoes {
         return dateFormat.format(date);
     }
 
+    public long codigoBarra() {
+        Random num = new Random();
+        long numAleatorio = 0;
+        while (num.nextLong() < 0) {
+            numAleatorio = num.nextLong();
+        }
+        return numAleatorio;
+    }
+
     public String converteDatasBanco(String dataPadrao) {
         Date data = null;
         String dataBanco;
-        String teste = "";
 
         try {
             data = new SimpleDateFormat("dd/MM/yyyy").parse(dataPadrao);
@@ -37,6 +47,16 @@ public class Validacoes {
         }
         dataBanco = new SimpleDateFormat("dd/MM/yyyy").format(data);
         return dataBanco;
+    }
+
+    public String dataVencimento() {
+        Date data = new Date();
+        DateFormat dataF = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar c = Calendar.getInstance();
+        c.setTime(data);
+        c.add(Calendar.DATE, +3);
+        data = c.getTime();
+        return dataF.format(data);
     }
 
     public int anoAtual() {
