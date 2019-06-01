@@ -6,6 +6,16 @@ public class Pagamento {
     private double totalPedido;
     private String tipoPag;
 
+    private String dataPagamento;
+
+    public String getDataPagamento() {
+        return dataPagamento;
+    }
+
+    public void setDataPagamento(String dataPagamento) {
+        this.dataPagamento = dataPagamento;
+    }
+
     public String getTipoPag() {
         return tipoPag;
     }
