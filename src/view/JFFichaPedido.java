@@ -117,7 +117,7 @@ public class JFFichaPedido extends javax.swing.JFrame {
         }
 
         try {
-            Desktop.getDesktop().open(new File("boleto.pdf"));
+            Desktop.getDesktop().open(new File(caminho));
             dispose();
         } catch (IOException ex) {
             System.out.println("Error:" + ex);
