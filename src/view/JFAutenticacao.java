@@ -44,7 +44,8 @@ public class JFAutenticacao extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        panelLogo.setBackground(new java.awt.Color(34, 47, 62));
+        panelLogo.setBackground(new java.awt.Color(33, 112, 146));
+        panelLogo.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(51, 51, 51)));
         panelLogo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
@@ -57,9 +58,12 @@ public class JFAutenticacao extends javax.swing.JFrame {
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(403, 134, 34, 22));
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(405, 260, 34, -1));
 
+        panelAcesso.setBackground(new java.awt.Color(217, 217, 217));
         panelAcesso.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        txtUsuario.setBackground(new java.awt.Color(217, 217, 217));
         txtUsuario.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtUsuario.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         txtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtUsuarioKeyReleased(evt);
@@ -68,18 +72,23 @@ public class JFAutenticacao extends javax.swing.JFrame {
         panelAcesso.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 400, 33));
 
         lblUser.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lblUser.setForeground(new java.awt.Color(51, 51, 51));
         lblUser.setText("Usuário");
         panelAcesso.add(lblUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, -1, -1));
 
         lblsenha.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lblsenha.setForeground(new java.awt.Color(51, 51, 51));
         lblsenha.setText("Senha");
         panelAcesso.add(lblsenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 210, -1, -1));
 
+        txtSenha.setBackground(new java.awt.Color(217, 217, 217));
         txtSenha.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtSenha.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         panelAcesso.add(txtSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 400, 32));
 
-        btnEntrar.setBackground(new java.awt.Color(255, 255, 255));
+        btnEntrar.setBackground(new java.awt.Color(0, 100, 148));
         btnEntrar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        btnEntrar.setForeground(new java.awt.Color(255, 255, 255));
         btnEntrar.setText("Entrar");
         btnEntrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,20 +100,22 @@ public class JFAutenticacao extends javax.swing.JFrame {
                 btnEntrarKeyPressed(evt);
             }
         });
-        panelAcesso.add(btnEntrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, 158, 47));
+        panelAcesso.add(btnEntrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 360, 158, 47));
 
-        btnCadastrar.setBackground(new java.awt.Color(255, 255, 255));
+        btnCadastrar.setBackground(new java.awt.Color(48, 114, 71));
         btnCadastrar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        btnCadastrar.setForeground(new java.awt.Color(255, 255, 255));
         btnCadastrar.setText("Cadastrar-se");
         btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadastrarActionPerformed(evt);
             }
         });
-        panelAcesso.add(btnCadastrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 320, 151, 47));
+        panelAcesso.add(btnCadastrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 360, 151, 47));
 
         lblReseteSenha.setFont(new java.awt.Font("Arial", 3, 11)); // NOI18N
-        lblReseteSenha.setForeground(new java.awt.Color(0, 51, 255));
+        lblReseteSenha.setForeground(new java.awt.Color(102, 102, 102));
+        lblReseteSenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-bloqueio-de-verificação-30.png"))); // NOI18N
         lblReseteSenha.setText("Esqueceu sua senha?");
         lblReseteSenha.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblReseteSenha.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -112,7 +123,7 @@ public class JFAutenticacao extends javax.swing.JFrame {
                 lblReseteSenhaMouseClicked(evt);
             }
         });
-        panelAcesso.add(lblReseteSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 280, -1, -1));
+        panelAcesso.add(lblReseteSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 280, -1, -1));
 
         getContentPane().add(panelAcesso, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 0, 440, 470));
 

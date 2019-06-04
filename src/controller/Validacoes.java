@@ -17,8 +17,8 @@ public class Validacoes {
 
     public long codigoBarra() {
         Random num = new Random();
-        long numAleatorio = 0;
-        while (num.nextLong() < 0) {
+        long numAleatorio = num.nextLong();
+        while (numAleatorio <= 0) {
             numAleatorio = num.nextLong();
         }
         return numAleatorio;
