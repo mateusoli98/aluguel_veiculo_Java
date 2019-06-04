@@ -13,6 +13,7 @@ public class Principal {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+            System.out.println(ex.getMessage());
         }
         java.awt.EventQueue.invokeLater(() -> {
             JFSplashScreen frmScreenSplash = new JFSplashScreen();
