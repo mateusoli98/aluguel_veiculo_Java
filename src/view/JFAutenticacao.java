@@ -1,5 +1,6 @@
 package view;
 
+import controller.Validacoes;
 import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,7 +17,10 @@ public class JFAutenticacao extends javax.swing.JFrame {
     ResultSet rs = null;
     String usuario, senha, user;
 
+    Validacoes objValidacao = new Validacoes();
+
     public JFAutenticacao() {
+        
         initComponents();
 
     }
@@ -27,8 +31,6 @@ public class JFAutenticacao extends javax.swing.JFrame {
 
         panelLogo = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         panelAcesso = new javax.swing.JPanel();
         txtUsuario = new javax.swing.JTextField();
         lblUser = new javax.swing.JLabel();
@@ -37,10 +39,12 @@ public class JFAutenticacao extends javax.swing.JFrame {
         btnEntrar = new javax.swing.JButton();
         btnCadastrar = new javax.swing.JButton();
         lblReseteSenha = new javax.swing.JLabel();
+        lblClose = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Autenticação");
         setBackground(new java.awt.Color(255, 255, 255));
+        setUndecorated(true);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -55,8 +59,6 @@ public class JFAutenticacao extends javax.swing.JFrame {
         panelLogo.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, -1, -1));
 
         getContentPane().add(panelLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 330, 470));
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(403, 134, 34, 22));
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(405, 260, 34, -1));
 
         panelAcesso.setBackground(new java.awt.Color(217, 217, 217));
         panelAcesso.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -125,6 +127,17 @@ public class JFAutenticacao extends javax.swing.JFrame {
         });
         panelAcesso.add(lblReseteSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 280, -1, -1));
 
+        lblClose.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        lblClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/close.png"))); // NOI18N
+        lblClose.setToolTipText("Fechar");
+        lblClose.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblClose.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCloseMouseClicked(evt);
+            }
+        });
+        panelAcesso.add(lblClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, 30, 30));
+
         getContentPane().add(panelAcesso, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 0, 440, 470));
 
         pack();
@@ -157,7 +170,7 @@ public class JFAutenticacao extends javax.swing.JFrame {
                     mudaEstado("Usuario", "Senha", "Entrar", "Cadastrar-se", true);
                 } else {
                     JOptionPane.showMessageDialog(null, "Preencha todos os campos", "erro", JOptionPane.ERROR);
-                    
+
                     txtUsuario.requestFocus();
                 }
 
@@ -268,6 +281,12 @@ public class JFAutenticacao extends javax.swing.JFrame {
 
     }//GEN-LAST:event_txtUsuarioKeyReleased
 
+    private void lblCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCloseMouseClicked
+        if (objValidacao.dialogoConfirmacao("Deseja realmente sair?") == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_lblCloseMouseClicked
+
     void limpaCampos() {
         txtUsuario.setText("");
         txtSenha.setText("");
@@ -286,9 +305,8 @@ public class JFAutenticacao extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnEntrar;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel lblClose;
     private javax.swing.JLabel lblReseteSenha;
     private javax.swing.JLabel lblUser;
     private javax.swing.JLabel lblsenha;

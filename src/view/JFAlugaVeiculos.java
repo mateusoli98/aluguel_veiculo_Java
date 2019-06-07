@@ -256,11 +256,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
         });
     }
 
-    int dialogoConfirmacao(String texto) {
-        int dialogButton = JOptionPane.YES_NO_OPTION;
-        return JOptionPane.showConfirmDialog(null, texto, "Confirmação", dialogButton);
-    }
-
+   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -726,7 +722,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
     private void btnConfirmarPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarPagamentoActionPerformed
 
         if (radBoleto.isSelected()) {
-            if (dialogoConfirmacao("Confirma pagamento em boleto") == JOptionPane.YES_OPTION) {
+            if (objValidacao.dialogoConfirmacao("Confirma pagamento em boleto") == JOptionPane.YES_OPTION) {
                 if (objVeiculoDAO.realizaLocacao(objLoc)) {
                     dispose();
                     Boleto boleto = new Boleto();
@@ -744,7 +740,7 @@ public class JFAlugaVeiculos extends javax.swing.JFrame {
 
             if (!cmbCartoes.getSelectedItem().equals("*Selecione um cartao*") && !cmbVezes.getSelectedItem().equals("*Selecione*")
                     && !txtNumero.getText().isEmpty() && !txtDataVencimento.getText().isEmpty() && !txtCVV.getText().isEmpty()) {
-                if (dialogoConfirmacao("Confirma pagamento com cartão de crédito " + cmbCartoes.getSelectedItem()) == JOptionPane.YES_OPTION) {
+                if (objValidacao.dialogoConfirmacao("Confirma pagamento com cartão de crédito " + cmbCartoes.getSelectedItem()) == JOptionPane.YES_OPTION) {
                     if (objVeiculoDAO.realizaLocacao(objLoc)) {
                         dispose();
                         Boleto boleto = new Boleto();
