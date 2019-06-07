@@ -1,5 +1,6 @@
 package view;
 
+import controller.Validacoes;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -14,8 +15,10 @@ public class JFCadastroPessoa extends javax.swing.JFrame {
 
     Pessoa cliente = new Pessoa();
     PessoaDAO clienteDAO = new PessoaDAO();
+    Validacoes objValidacao = new Validacoes();
 
     public JFCadastroPessoa() {
+        
         initComponents();
         lblValidaUsuario.setVisible(false);
         if (ConexaoDAO.getCliente().getCodigo() <= 0) {
@@ -32,174 +35,165 @@ public class JFCadastroPessoa extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        panCadastro = new javax.swing.JPanel();
+        lblNome = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
-        txtEmail = new javax.swing.JTextField();
+        lblTelefone = new javax.swing.JLabel();
+        txtTelefone = new javax.swing.JFormattedTextField();
+        lblUsuario = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JTextField();
+        lblValidaUsuario = new javax.swing.JLabel();
         btnCadastrar = new javax.swing.JButton();
         txtSenha = new javax.swing.JPasswordField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        lblEmail = new javax.swing.JLabel();
+        lblCelular = new javax.swing.JLabel();
         lblSenha = new javax.swing.JLabel();
         btnLimpar = new javax.swing.JButton();
-        lblValidaUsuario = new javax.swing.JLabel();
         txtCelular = new javax.swing.JFormattedTextField();
-        txtTelefone = new javax.swing.JFormattedTextField();
+        txtEmail = new javax.swing.JTextField();
+        lblClose = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro Cliente");
+        setUndecorated(true);
         setResizable(false);
 
+        panCadastro.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblNome.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        lblNome.setForeground(new java.awt.Color(51, 51, 51));
+        lblNome.setText("Nome");
+        panCadastro.add(lblNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, -1, -1));
+
+        txtNome.setBackground(new java.awt.Color(240, 240, 240));
         txtNome.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtNome.setForeground(new java.awt.Color(51, 51, 51));
+        txtNome.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(51, 51, 51)));
+        panCadastro.add(txtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 247, 30));
 
-        txtEmail.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        lblTelefone.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        lblTelefone.setForeground(new java.awt.Color(51, 51, 51));
+        lblTelefone.setText("Telefone");
+        panCadastro.add(lblTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, -1, -1));
 
-        txtUsuario.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        txtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtUsuarioKeyReleased(evt);
-            }
-        });
-
-        btnCadastrar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        btnCadastrar.setText("Cadastrar");
-        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCadastrarActionPerformed(evt);
-            }
-        });
-
-        txtSenha.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-
-        jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel1.setText("Nome");
-
-        jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel2.setText("Email");
-
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel3.setText("Celular");
-
-        jLabel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel4.setText("Telefone");
-
-        jLabel5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel5.setText("Usuário");
-
-        lblSenha.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        lblSenha.setText("Senha");
-
-        btnLimpar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        btnLimpar.setText("Limpar ");
-        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimparActionPerformed(evt);
-            }
-        });
-
-        lblValidaUsuario.setFont(new java.awt.Font("Arial", 3, 12)); // NOI18N
-        lblValidaUsuario.setText("Usuário disponível");
-
-        try {
-            txtCelular.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) ##### - ####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
+        txtTelefone.setBackground(new java.awt.Color(240, 240, 240));
+        txtTelefone.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(51, 51, 51)));
+        txtTelefone.setForeground(new java.awt.Color(51, 51, 51));
         try {
             txtTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #### - ####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        panCadastro.add(txtTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 247, 36));
+
+        lblUsuario.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        lblUsuario.setForeground(new java.awt.Color(51, 51, 51));
+        lblUsuario.setText("Usuário");
+        panCadastro.add(lblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, -1, -1));
+
+        txtUsuario.setBackground(new java.awt.Color(240, 240, 240));
+        txtUsuario.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtUsuario.setForeground(new java.awt.Color(51, 51, 51));
+        txtUsuario.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(51, 51, 51)));
+        txtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtUsuarioKeyReleased(evt);
+            }
+        });
+        panCadastro.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 216, 247, 30));
+
+        lblValidaUsuario.setFont(new java.awt.Font("Arial", 3, 12)); // NOI18N
+        lblValidaUsuario.setForeground(new java.awt.Color(51, 51, 51));
+        lblValidaUsuario.setText("Usuário disponível");
+        panCadastro.add(lblValidaUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 240, -1));
+
+        btnCadastrar.setBackground(new java.awt.Color(33, 112, 146));
+        btnCadastrar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        btnCadastrar.setForeground(new java.awt.Color(255, 255, 255));
+        btnCadastrar.setText("Cadastrar");
+        btnCadastrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarActionPerformed(evt);
+            }
+        });
+        panCadastro.add(btnCadastrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 314, 153, 50));
+
+        txtSenha.setBackground(new java.awt.Color(240, 240, 240));
+        txtSenha.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtSenha.setForeground(new java.awt.Color(51, 51, 51));
+        txtSenha.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(51, 51, 51)));
+        panCadastro.add(txtSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 218, 250, 30));
+
+        lblEmail.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        lblEmail.setForeground(new java.awt.Color(51, 51, 51));
+        lblEmail.setText("Email");
+        panCadastro.add(lblEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 50, -1, -1));
+
+        lblCelular.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        lblCelular.setForeground(new java.awt.Color(51, 51, 51));
+        lblCelular.setText("Celular");
+        panCadastro.add(lblCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 120, -1, -1));
+
+        lblSenha.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        lblSenha.setForeground(new java.awt.Color(51, 51, 51));
+        lblSenha.setText("Senha");
+        panCadastro.add(lblSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 200, 235, -1));
+
+        btnLimpar.setBackground(new java.awt.Color(197, 36, 39));
+        btnLimpar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        btnLimpar.setForeground(new java.awt.Color(255, 255, 255));
+        btnLimpar.setText("Limpar ");
+        btnLimpar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparActionPerformed(evt);
+            }
+        });
+        panCadastro.add(btnLimpar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 310, 154, 50));
+
+        txtCelular.setBackground(new java.awt.Color(240, 240, 240));
+        txtCelular.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(51, 51, 51)));
+        txtCelular.setForeground(new java.awt.Color(51, 51, 51));
+        try {
+            txtCelular.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) ##### - ####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        panCadastro.add(txtCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 140, 250, 36));
+
+        txtEmail.setBackground(new java.awt.Color(240, 240, 240));
+        txtEmail.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtEmail.setForeground(new java.awt.Color(51, 51, 51));
+        txtEmail.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(51, 51, 51)));
+        txtEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEmailActionPerformed(evt);
+            }
+        });
+        panCadastro.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 60, 250, 30));
+
+        lblClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/close.png"))); // NOI18N
+        lblClose.setToolTipText("Fechar");
+        lblClose.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblClose.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCloseMouseClicked(evt);
+            }
+        });
+        panCadastro.add(lblClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 10, 30, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(184, 184, 184)
-                        .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(64, 64, 64)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(283, 283, 283)
-                                .addComponent(jLabel2))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(63, 63, 63)
-                                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(268, 268, 268)
-                                .addComponent(jLabel3))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(3, 3, 3)
-                                        .addComponent(jLabel5))
-                                    .addComponent(lblValidaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtTelefone))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(69, 69, 69)
-                                        .addComponent(lblSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(63, 63, 63)
-                                        .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(63, 63, 63)
-                                        .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                .addContainerGap(73, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(panCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 669, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addComponent(jLabel2)))
-                .addGap(4, 4, 4)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addComponent(jLabel4))
-                    .addComponent(jLabel3))
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(lblSenha)
-                        .addGap(6, 6, 6)
-                        .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel5)
-                        .addGap(6, 6, 6)
-                        .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblValidaUsuario)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(46, 46, 46))
+            .addComponent(panCadastro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
         );
 
         pack();
@@ -295,6 +289,16 @@ public class JFCadastroPessoa extends javax.swing.JFrame {
 
     }//GEN-LAST:event_txtUsuarioKeyReleased
 
+    private void lblCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCloseMouseClicked
+         if (objValidacao.dialogoConfirmacao("Deseja realmente sair?") == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_lblCloseMouseClicked
+
+    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
+         // TODO add your handling code here:
+    }//GEN-LAST:event_txtEmailActionPerformed
+
     void setaObjeto() {
         cliente.setCodigo(ConexaoDAO.getCliente().getCodigo());
         cliente.setNome(txtNome.getText());
@@ -318,13 +322,15 @@ public class JFCadastroPessoa extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnLimpar;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel lblCelular;
+    private javax.swing.JLabel lblClose;
+    private javax.swing.JLabel lblEmail;
+    private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblSenha;
+    private javax.swing.JLabel lblTelefone;
+    private javax.swing.JLabel lblUsuario;
     private javax.swing.JLabel lblValidaUsuario;
+    private javax.swing.JPanel panCadastro;
     private javax.swing.JFormattedTextField txtCelular;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtNome;

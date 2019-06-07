@@ -104,4 +104,10 @@ public class Validacoes {
         }
         return retorno;
     }
+
+   public int dialogoConfirmacao(String texto) {
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        return JOptionPane.showConfirmDialog(null, texto, "Confirmação", dialogButton);
+    }
+
 }
